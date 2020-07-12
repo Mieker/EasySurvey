@@ -29,6 +29,11 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 !**/src/main/frontend/package-lock.json 
+src/main/frontend/dist/
+src/main/frontend/node/
+src/main/frontend/package-lock.json
+
+
 
 ### VS Code ###
 .vscode/
