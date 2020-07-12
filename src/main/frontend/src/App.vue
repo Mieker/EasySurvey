@@ -1,10 +1,11 @@
 <template>
   <div id="app">
 	<h1>
-        <img src="./assets/logo.png">
-      {{welcome}}
+        <img id="logo" src="./assets/logo.png">
     </h1>
+      <p> {{welcome}}</p>
   </div>
+
 </template>
 
 <script>
@@ -23,11 +24,11 @@
 <style lang="scss">
   #app {
     max-width: 1000px;
-    margin: 0 auto;
   }
 
   .logo {
-    vertical-align: middle;
+      float:left;
+      margin:0;
   }
 
   .alert {
