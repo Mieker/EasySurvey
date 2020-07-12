@@ -1,6 +1,7 @@
 <template>
   <div id="app">
 	<h1>
+        <img src="./assets/logo.png">
       {{welcome}}
     </h1>
   </div>
