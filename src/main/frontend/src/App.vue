@@ -22,7 +22,7 @@
                 selection: true,
                 isError: false,
                 message: ''
-            };
+            }
         },
         methods:{
           failure(message){
