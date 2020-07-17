@@ -1,23 +1,41 @@
 <template>
   <div id="app">
-	<h1>
-        <img id="logo" src="./assets/logo.png">
-    </h1>
-      <p> {{welcome}}</p>
+    <div class="row">
+      <img class="logo" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
+    </div>
+    <div class="row">
+      <div class="column column-80">
+        <div v-bind:class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
+      </div>
+    </div>
+    <survey-page v-if="selection" @error="failure($event)" @success="success($event)"></survey-page>
   </div>
-
 </template>
 
 <script>
     import "milligram";
     import Vue from "vue";
+    import SurveyPage from "./SurveyPage";
 
     export default {
+        components: {SurveyPage},
         data() {
             return {
-                welcome: "Easy Survey by #CODE",
-            };
+                selection: true,
+                isError: false,
+                message: ''
+            }
         },
+        methods:{
+          failure(message){
+            this.message = message;
+            this.isError = true;
+          },
+          success(message) {
+            this.message = message;
+            this.isError = false;
+          },
+        }
     };
 </script>
 
@@ -38,11 +56,13 @@
     &-success {
       background: lightgreen;
       border-color: darken(lightgreen, 10%);
+      text-align: center;
     }
     &-error {
       background: indianred;
       border-color: darken(indianred, 10%);
       color: white;
+      text-align: center;
     }
   }
 
