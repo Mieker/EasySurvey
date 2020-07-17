@@ -5,11 +5,11 @@
         <form>
             <fieldset>
               <label for="surveyID">Survey ID</label>
-              <input type="text" placeholder="0" id="surveyID">
+              <input v-model="surveyID" type="text" :placeholder="surveyID" id="surveyID">
             </fieldset>
         </form>
       </div>
-    </div>   
+    </div> 
     <div class="row">
       <div class="column"><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()">create a survey</button></div>
       <div class="column"><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()">fill a survey</button></div>
@@ -23,7 +23,7 @@
         data() {
             return {
                 surveys: [],
-                surveyID: 0,
+                surveyID: "0",
                 newSurveyButtonClass: "button-blue",
                 fillSurveyButtonClass: "button-blue",
                 statisticsButtonClass: "button-blue",
@@ -38,6 +38,11 @@
             this.mode = "new_survey";
           },
           fillSurvey(){
+            if (this.surveyID == 0) {
+              this.$emit("error", "no survey with such ID");
+            } else {
+              this.$emit("success", "");
+            }
             this.newSurveyButtonClass = "button-blue";
             this.fillSurveyButtonClass = "button-blue button-outline";
             this.statisticsButtonClass = "button-blue";

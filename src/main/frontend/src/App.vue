@@ -1,8 +1,12 @@
 <template>
   <div id="app">
-    <img class="logo" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
-    <div :class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
-    <survey-page v-if="selection"></survey-page>
+    <div class="row">
+      <img class="logo" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
+    </div>
+    <div class="row">
+      <div v-bind:class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
+    </div>
+    <survey-page v-if="selection" @error="failure($event)" @success="success($event)"></survey-page>
   </div>
 </template>
 
@@ -20,6 +24,16 @@
                 message: ''
             };
         },
+        methods:{
+          failure(message){
+            this.message = message;
+            this.isError = true;
+          },
+          success(message) {
+            this.message = message;
+            this.isError = false;
+          },
+        }
     };
 </script>
 
