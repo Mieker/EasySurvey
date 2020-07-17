@@ -1,21 +1,23 @@
 <template>
   <div id="app">
-	<h1>
-        <img id="logo" src="./assets/logo.png">
-    </h1>
-      <p> {{welcome}}</p>
+    <img class="logo" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
+    <div :class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
+    <survey-page v-if="selection"></survey-page>
   </div>
-
 </template>
 
 <script>
     import "milligram";
     import Vue from "vue";
+    import SurveyPage from "./SurveyPage";
 
     export default {
+        components: {SurveyPage},
         data() {
             return {
-                welcome: "Easy Survey by #CODE",
+                selection: true,
+                isError: false,
+                message: ''
             };
         },
     };
