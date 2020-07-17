@@ -4,7 +4,9 @@
       <img class="logo" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
     </div>
     <div class="row">
-      <div v-bind:class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
+      <div class="column column-80">
+        <div v-bind:class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
+      </div>
     </div>
     <survey-page v-if="selection" @error="failure($event)" @success="success($event)"></survey-page>
   </div>
@@ -54,11 +56,13 @@
     &-success {
       background: lightgreen;
       border-color: darken(lightgreen, 10%);
+      text-align: center;
     }
     &-error {
       background: indianred;
       border-color: darken(indianred, 10%);
       color: white;
+      text-align: center;
     }
   }
 
