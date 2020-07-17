@@ -25,6 +25,13 @@ public class Survey
         questions.remove(question);
     }
 
+    public void printQuestions(){
+        for (Question question: questions) {
+            System.out.println("Question number " + question.getQuestionId() + ": " + question.getQuestionText());
+            question.printOfferedAnswers();
+        }
+    }
+
     public long getSurveyId()
     {
         return surveyId;

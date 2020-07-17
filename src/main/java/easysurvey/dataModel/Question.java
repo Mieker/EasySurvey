@@ -37,4 +37,10 @@ public class Question
         offeredAnswers.remove(offeredAnswer);
     }
 
+    public void printOfferedAnswers(){
+        for (OfferedAnswer offeredAnswer:offeredAnswers) {
+            System.out.println("    possible answer for question " + questionId +" is: "+ offeredAnswer.getAnswerText());
+        }
+    }
+
 }
