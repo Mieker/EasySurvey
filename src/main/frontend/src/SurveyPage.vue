@@ -1,21 +1,33 @@
 <template>
   <div id="survey_page">
-    <div v-if="mode !=='new_survey'" class="row">
-      <div class="column column-80">
-        <form>
-            <fieldset>
-              <label for="surveyID">Survey ID</label>
-              <input v-model="surveyID" type="text" :placeholder="surveyID" id="surveyID">
-            </fieldset>
-        </form>
+
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+
+    <transition
+    name="custom-classes-transition"
+    enter-active-class="animated bounceInRight"
+    leave-active-class="animated bounceOutRight"
+    >
+      <div v-if="mode !=='new_survey'" class="row">
+        <div class="column column-80">
+          <form>
+              <fieldset>
+                <label for="surveyID">Survey ID</label>
+                <input v-model="surveyID" type="text" :placeholder="surveyID" id="surveyID">
+              </fieldset>
+          </form>
+        </div>
       </div>
-    </div> 
-    <div class="row">
-      <div class="column"><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()">create a survey</button></div>
-      <div class="column"><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()">fill a survey</button></div>
-      <div class="column"><button v-bind:class = "statisticsButtonClass" @click="statistics()">see statistics</button></div>
-    </div>
+    </transition>
+
+  
+      <div class="row">
+        <div class="column"><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()">create a survey</button></div>
+        <div class="column"><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()">fill a survey</button></div>
+        <div class="column"><button v-bind:class = "statisticsButtonClass" @click="statistics()">see statistics</button></div>
+      </div>
     
+
     <new-survey v-if="mode==='new_survey'"></new-survey>
     <fill-survey v-if="mode==='fill_survey'"></fill-survey>
     <statistics v-if="mode==='statistics'"></statistics>
@@ -86,5 +98,12 @@
 }
 .button-blue.button-clear {
   border-color: transparent;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
