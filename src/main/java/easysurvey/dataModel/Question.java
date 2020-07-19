@@ -1,13 +1,34 @@
 package easysurvey.dataModel;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name="Questions")
 public class Question
 {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private long questionId;
+
+    @Column
     private String questionText;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="question_id")
     private Set<OfferedAnswer> offeredAnswers = new HashSet<>();
+
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="question_id")
+    private Set<Answer> answers = new HashSet<>();
+
+
+    public void addAnswer(Answer answer){
+        answers.add(answer);
+    }
+
 
     public long getQuestionId()
     {
@@ -39,7 +60,7 @@ public class Question
 
     public void printOfferedAnswers(){
         for (OfferedAnswer offeredAnswer:offeredAnswers) {
-            System.out.println("    possible answer for question " + questionId +" is: "+ offeredAnswer.getAnswerText());
+            System.out.println("    possible answer for question id " + questionId +" is: "+ offeredAnswer.getAnswerText());
         }
     }
 

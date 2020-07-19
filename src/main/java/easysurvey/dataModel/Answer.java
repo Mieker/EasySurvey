@@ -1,21 +1,34 @@
 package easysurvey.dataModel;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Answers")
 public class Answer
 {
-    private long surveyId;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private long answerId;
+
+    @JoinColumn(name="intervieweeId")
     private long intervieweeId;
+
+    @JoinColumn(name="offeredAnswerId")
     private long offeredAnswerId;
+
+    @JoinColumn(name="questionId")
     private long questionId;
-    private String otherText;
+
 
     public long getSurveyId()
     {
-        return surveyId;
+        return answerId;
     }
 
     public void setSurveyId(long surveyId)
     {
-        this.surveyId = surveyId;
+        this.answerId = surveyId;
     }
 
     public long getIntervieweeId()
@@ -46,15 +59,5 @@ public class Answer
     public void setQuestionId(long questionId)
     {
         this.questionId = questionId;
-    }
-
-    public String getOtherText()
-    {
-        return otherText;
-    }
-
-    public void setOtherText(String otherText)
-    {
-        this.otherText = otherText;
     }
 }
