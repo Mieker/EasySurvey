@@ -56,8 +56,6 @@ public class Survey implements java.io.Serializable
     private Set<Interviewee> interviewees = new HashSet<>();
 
 
-
-
     public void addMetrics(Metric metric)
     {
         metrics.add(metric);
@@ -85,12 +83,12 @@ public class Survey implements java.io.Serializable
         questions.remove(question);
     }
 
-//    public void printQuestions(){
-//        for (Question question: questions) {
-//            System.out.println("Question id " + question.getQuestionId() + ": " + question.getQuestionText());
-//            question.printOfferedAnswers();
-//        }
-//    }
+    public void printQuestions(){
+        for (Question question: questions) {
+            System.out.println("Question id " + question.getQuestionId() + ": " + question.getQuestionText());
+            question.printOfferedAnswers();
+        }
+    }
 
     public long getSurveyId()
     {

@@ -82,15 +82,16 @@ public class EasySurveyApplication {
 
 		Metric metric1 = new Metric();
 		metric1.setFieldName("miejsce zamieszkania");
+		metric1.setFieldType("String");
 		survey1.addMetrics(metric1);
 		session.save(metric1);
 
 
 		Metric metric2 = new Metric();
 		metric2.setFieldName("wiek");
+		metric2.setFieldType("String");
 		survey1.addMetrics(metric2);
 		session.save(metric2);
-
 
 
 		//dane uzupelniane przez aknietowanego
@@ -102,33 +103,26 @@ public class EasySurveyApplication {
 
 		session.save(interviewee1);
 
-
-
-
-//		interviewee1.addMetrics(metric1);
 		metric1.setFieldValue("krakow");
 		session.update(metric1);
-//		interviewee1.addMetrics(metric2);
 		metric2.setFieldValue("34");
 		session.update(metric2);
 
-//		Answer a1 = new Answer(){};
-//		question1.addAnswer(a1);
-//		//interviewee1.addAnswer(a1);
-//        session.save(a1);
-//
-//
-//		Answer a2 = new Answer(){};
-//		question2.addAnswer(a2);
-//		//interviewee1.addAnswer(a2);
-//        session.save(a2);
+		Answer a1 = new Answer();
+		a1.setSurveyId(1);
+		a1.setQuestionId(1);
+		a1.setOfferedAnswerId(2);
+		session.save(a1);
+		interviewee1.addAnswer(a1);
 
-
+		Answer a2 = new Answer();
+		a1.setSurveyId(1);
+		a1.setQuestionId(1);
+		a1.setOfferedAnswerId(4);
+		session.save(a2);
+		interviewee1.addAnswer(a2);
+		
 		transaction.commit();
-
-
-
-
 	}
 
 

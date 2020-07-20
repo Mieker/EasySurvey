@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Table(name="Metrics")
 public class Metric
 {
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long metricsId;
@@ -20,7 +19,6 @@ public class Metric
 
     @Column
     private String fieldValue;
-
 
     public long getMetricsId()
     {

@@ -9,14 +9,11 @@ import java.util.Set;
 @Table(name="Interviewees")
 public class Interviewee
 {
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long intervieweeId;
 
     private String nickName;
-
-
 
     @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -26,9 +23,9 @@ public class Interviewee
     )
     private Set<Survey> surveys = new HashSet<>();
 
-
-    //private Set<Answer> answers = new HashSet<>();
-
+    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="interviewee_id")
+    private Set<Answer> answers = new HashSet<>();
 
     public String getNickName() {
         return nickName;
@@ -46,17 +43,15 @@ public class Interviewee
         surveys.remove(survey);
     }
 
+    public void addAnswer(Answer answer)
+    {
+        answers.add(answer);
+    }
 
-//
-//    public void addAnswer(Answer answer)
-//    {
-//        answers.add(answer);
-//    }
-//
-//    public void removeAnswer(Answer answer)
-//    {
-//       answers.remove(answer);
-//    }
+    public void removeAnswer(Answer answer)
+    {
+       answers.remove(answer);
+    }
 
     public long getIntervieweeId()
     {

@@ -11,34 +11,31 @@ public class Answer
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long answerId;
 
-    @JoinColumn(name="intervieweeId")
-    private long intervieweeId;
+    @Column
+    private long surveyId;
 
-    @JoinColumn(name="offeredAnswerId")
+    @Column
     private long offeredAnswerId;
 
-    @JoinColumn(name="questionId")
+    @Column
     private long questionId;
 
+    public long getSurveyId() {
+        return surveyId;
+    }
 
-    public long getSurveyId()
+    public void setSurveyId(long surveyId) {
+        this.surveyId = surveyId;
+    }
+
+    public long getAnswerId()
     {
         return answerId;
     }
 
-    public void setSurveyId(long surveyId)
+    public void setAnswerId(long answerId)
     {
-        this.answerId = surveyId;
-    }
-
-    public long getIntervieweeId()
-    {
-        return intervieweeId;
-    }
-
-    public void setIntervieweeId(long intervieweeId)
-    {
-        this.intervieweeId = intervieweeId;
+        this.answerId = answerId;
     }
 
     public long getOfferedAnswerId()
@@ -60,4 +57,5 @@ public class Answer
     {
         this.questionId = questionId;
     }
+
 }
