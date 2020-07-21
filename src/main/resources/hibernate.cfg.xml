@@ -8,11 +8,16 @@
         <property name="format_sql">true</property>
         <property name="dialect">easysurvey.persistence.SQLiteDialect</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
-        <property name="connection.url">jdbc:sqlite:enroller.db</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="connection.url">jdbc:sqlite:survey.db</property>
         <property name="connection.username"></property>
         <property name="connection.password"></property>
 
+        <mapping class="easysurvey.dataModel.Survey"/>
+        <mapping class="easysurvey.dataModel.Question"/>
+        <mapping class="easysurvey.dataModel.OfferedAnswer"/>
+        <mapping class="easysurvey.dataModel.Interviewee"/>
+        <mapping class="easysurvey.dataModel.Metric"/>
+        <mapping class="easysurvey.dataModel.Answer"/>
 
     </session-factory>
 </hibernate-configuration>

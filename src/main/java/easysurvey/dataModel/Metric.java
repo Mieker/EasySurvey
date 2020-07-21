@@ -1,20 +1,33 @@
 package easysurvey.dataModel;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="Metrics")
 public class Metric
 {
-    private long intervieweeId;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private long metricsId;
+
+    @Column
     private String fieldName;
+
+    @Column
     private String fieldType;
+
+    @Column
     private String fieldValue;
 
-    public long getIntervieweeId()
+    public long getMetricsId()
     {
-        return intervieweeId;
+        return metricsId;
     }
 
-    public void setIntervieweeId(long intervieweeId)
+    public void setMetricsId(long metricsId)
     {
-        this.intervieweeId = intervieweeId;
+        this.metricsId = metricsId;
     }
 
     public String getFieldName()
