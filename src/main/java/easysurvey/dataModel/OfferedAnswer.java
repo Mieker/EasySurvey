@@ -1,8 +1,17 @@
 package easysurvey.dataModel;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="OfferedAnswers")
 public class OfferedAnswer
 {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private long offeredAnswerId;
+
+    @Column
     private String answerText;
 
     public long getOfferedAnswerId()
