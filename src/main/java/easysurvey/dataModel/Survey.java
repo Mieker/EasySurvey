@@ -94,4 +94,21 @@ public class Survey
     {
         isOpen = open;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Survey survey = (Survey) o;
+
+        return surveyId == survey.surveyId;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return (int) (surveyId ^ (surveyId >>> 32));
+    }
 }
