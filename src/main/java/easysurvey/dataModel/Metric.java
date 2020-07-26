@@ -1,6 +1,9 @@
 package easysurvey.dataModel;
 
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -9,7 +12,10 @@ public class Metric
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long metricsId;
+    private long fieldId;
+
+    @Column(name = "survey_id")
+    private int surveyId;
 
     @Column
     private String fieldName;
@@ -17,17 +23,23 @@ public class Metric
     @Column
     private String fieldType;
 
-    @Column
-    private String fieldValue;
+    @OneToMany(cascade={CascadeType.ALL })
+    @JoinColumn(name="fieldId")
+    private Set<EnableMetricValues> enableMetricValues = new HashSet<>();
 
-    public long getMetricsId()
-    {
-        return metricsId;
+
+    public void addEnableValue(EnableMetricValues enableMetricValue){
+        enableMetricValues.add(enableMetricValue);
     }
 
-    public void setMetricsId(long metricsId)
+    public long getFieldId()
     {
-        this.metricsId = metricsId;
+        return fieldId;
+    }
+
+    public void setFieldId(long fieldId)
+    {
+        this.fieldId = fieldId;
     }
 
     public String getFieldName()
@@ -48,15 +60,5 @@ public class Metric
     public void setFieldType(String fieldType)
     {
         this.fieldType = fieldType;
-    }
-
-    public String getFieldValue()
-    {
-        return fieldValue;
-    }
-
-    public void setFieldValue(String fieldValue)
-    {
-        this.fieldValue = fieldValue;
     }
 }

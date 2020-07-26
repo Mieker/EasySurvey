@@ -52,7 +52,16 @@ public class Survey implements java.io.Serializable
 //            joinColumns=@JoinColumn(name="surveyId"),
 //            inverseJoinColumns=@JoinColumn(name="intervieweeId")
 //    )
-    @ManyToMany(mappedBy="surveys", cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    //@ManyToMany(mappedBy="surveys", cascade={CascadeType.PERSIST, CascadeType.MERGE})
+
+
+        @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name="Survey_Interviewee",
+            joinColumns=@JoinColumn(name="surveyId"),
+            inverseJoinColumns=@JoinColumn(name="intervieweeId")
+    )
+
     private Set<Interviewee> interviewees = new HashSet<>();
 
 

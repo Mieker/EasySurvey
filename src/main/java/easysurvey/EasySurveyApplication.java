@@ -4,7 +4,6 @@ import easysurvey.dataModel.*;
 import easysurvey.persistence.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
@@ -86,12 +85,29 @@ public class EasySurveyApplication {
 		survey1.addMetrics(metric1);
 		session.save(metric1);
 
+		//dodawanie mozliwej odpowiedzi do metryki
 
-		Metric metric2 = new Metric();
-		metric2.setFieldName("wiek");
-		metric2.setFieldType("String");
-		survey1.addMetrics(metric2);
-		session.save(metric2);
+		EnableMetricValues enableMetricValues1 = new EnableMetricValues();
+		enableMetricValues1.setEnableMetricValue("Duże miasto");
+
+		EnableMetricValues enableMetricValues2 = new EnableMetricValues();
+		enableMetricValues2.setEnableMetricValue("Małe miasto");
+
+		EnableMetricValues enableMetricValues3 = new EnableMetricValues();
+		enableMetricValues3.setEnableMetricValue("Wieś");
+
+		metric1.addEnableValue(enableMetricValues1);
+		metric1.addEnableValue(enableMetricValues2);
+		metric1.addEnableValue(enableMetricValues3);
+
+
+		///////////////////////////////////////////
+
+//		Metric metric2 = new Metric();
+//		metric2.setFieldName("wiek");
+//		metric2.setFieldType("String");
+//		survey1.addMetrics(metric2);
+//		session.save(metric2);
 
 
 		//dane uzupelniane przez aknietowanego
@@ -99,14 +115,26 @@ public class EasySurveyApplication {
 		Interviewee interviewee1 = new Interviewee();
 		interviewee1.setNickName("mike86");
 		survey1.addInterwiee(interviewee1);
-		interviewee1.addSurvey(survey1);
+	//	interviewee1.addSurvey(survey1);
+
+		MetricInterviewee metricInterviewee = new MetricInterviewee();
+		metricInterviewee.setEnableValueId(1);
+		metricInterviewee.setFieldId(1);
+		metricInterviewee.setIntervieweeId(1);
+		session.save(metricInterviewee);
+
+		//interviewee1.addMetricAnswer(metricInterviewee);
+		//session.update(metricInterviewee);
+
+		//session.save(metricInterviewee);
+
 
 		session.save(interviewee1);
 
-		metric1.setFieldValue("krakow");
+		//metric1.setFieldValue("krakow");
 		session.update(metric1);
-		metric2.setFieldValue("34");
-		session.update(metric2);
+		//metric2.setFieldValue("34");
+		//session.update(metric2);
 
 		Answer a1 = new Answer();
 		a1.setSurveyId(1);
@@ -121,7 +149,7 @@ public class EasySurveyApplication {
 		a1.setOfferedAnswerId(4);
 		session.save(a2);
 		interviewee1.addAnswer(a2);
-		
+
 		transaction.commit();
 	}
 

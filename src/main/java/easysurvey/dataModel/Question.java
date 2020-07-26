@@ -19,13 +19,13 @@ public class Question
     @JoinColumn(name="question_id")
     private Set<OfferedAnswer> offeredAnswers = new HashSet<>();
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="question_id")
-    private Set<Answer> answers = new HashSet<>();
-
-    public void addAnswer(Answer answer){
-        answers.add(answer);
-    }
+//    @OneToMany(cascade=CascadeType.ALL)
+//    @JoinColumn(name="question_id")
+//    private Set<Answer> answers = new HashSet<>();
+//
+//    public void addAnswer(Answer answer){
+//        answers.add(answer);
+//    }
 
     public long getQuestionId()
     {
