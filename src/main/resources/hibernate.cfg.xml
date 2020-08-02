@@ -12,9 +12,12 @@
         <property name="connection.username"></property>
         <property name="connection.password"></property>
 
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
         <mapping class="easysurvey.dataModel.Survey"/>
         <mapping class="easysurvey.dataModel.Question"/>
-        <mapping class="easysurvey.dataModel.OfferedAnswer"/>
+        <mapping class="easysurvey.dataModel.PotentialQuestionAnswer"/>
+        <mapping class="easysurvey.dataModel.PotentialMetricAnswer"/>
         <mapping class="easysurvey.dataModel.Interviewee"/>
         <mapping class="easysurvey.dataModel.Metric"/>
         <mapping class="easysurvey.dataModel.Answer"/>

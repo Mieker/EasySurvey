@@ -1,7 +1,8 @@
 package easysurvey.dataModel;
 
 import javax.persistence.*;
-
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="Metrics")
@@ -9,54 +10,26 @@ public class Metric
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long metricsId;
+    private long id;
 
     @Column
-    private String fieldName;
+    private String metricText;
 
-    @Column
-    private String fieldType;
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="metric_id")
+    private Set<PotentialMetricAnswer> potentialMetricAnswers = new HashSet<>();
 
-    @Column
-    private String fieldValue;
+    @OneToMany(mappedBy = "metric",cascade = CascadeType.PERSIST)
+    private Set<Answer> answers = new HashSet<>();
 
-    public long getMetricsId()
-    {
-        return metricsId;
+    public Metric() {
     }
 
-    public void setMetricsId(long metricsId)
-    {
-        this.metricsId = metricsId;
+    public Metric(String metricText) {
+        this.metricText = metricText;
     }
 
-    public String getFieldName()
-    {
-        return fieldName;
-    }
-
-    public void setFieldName(String fieldName)
-    {
-        this.fieldName = fieldName;
-    }
-
-    public String getFieldType()
-    {
-        return fieldType;
-    }
-
-    public void setFieldType(String fieldType)
-    {
-        this.fieldType = fieldType;
-    }
-
-    public String getFieldValue()
-    {
-        return fieldValue;
-    }
-
-    public void setFieldValue(String fieldValue)
-    {
-        this.fieldValue = fieldValue;
+    public Set<PotentialMetricAnswer> getPotentialMetricAnswers() {
+        return potentialMetricAnswers;
     }
 }

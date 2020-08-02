@@ -11,51 +11,46 @@ public class Answer
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long answerId;
 
-    @Column
-    private long surveyId;
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @JoinColumn(name="survey_id")
+    private Survey survey;
 
-    @Column
-    private long offeredAnswerId;
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @JoinColumn(name="question_id")
+    private Question question;
 
-    @Column
-    private long questionId;
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @JoinColumn(name="question_answer_id")
+    private PotentialQuestionAnswer questionAnswer;
 
-    public long getSurveyId() {
-        return surveyId;
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @JoinColumn(name="metric_id")
+    private Metric metric;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @JoinColumn(name="metric_answer_id")
+    private PotentialMetricAnswer metricAnswer;
+
+    public Answer() {
     }
 
-    public void setSurveyId(long surveyId) {
-        this.surveyId = surveyId;
+    public Answer(Survey survey, Question question, PotentialQuestionAnswer questionAnswer) {
+        this.survey = survey;
+        this.question = question;
+        this.questionAnswer = questionAnswer;
     }
 
-    public long getAnswerId()
-    {
-        return answerId;
+    public Answer(Survey survey, Metric metric, PotentialMetricAnswer metricAnswer) {
+        this.survey = survey;
+        this.metric = metric;
+        this.metricAnswer = metricAnswer;
     }
 
-    public void setAnswerId(long answerId)
-    {
-        this.answerId = answerId;
+    public void setQuestionAnswer(PotentialQuestionAnswer questionAnswer) {
+        this.questionAnswer = questionAnswer;
     }
 
-    public long getOfferedAnswerId()
-    {
-        return offeredAnswerId;
+    public void setMetricAnswer(PotentialMetricAnswer metricAnswer) {
+        this.metricAnswer = metricAnswer;
     }
-
-    public void setOfferedAnswerId(long offeredAnswerId)
-    {
-        this.offeredAnswerId = offeredAnswerId;
-    }
-
-    public long getQuestionId()
-    {
-        return questionId;
-    }
-
-    public void setQuestionId(long questionId)
-    {
-        this.questionId = questionId;
-    }
-
 }
