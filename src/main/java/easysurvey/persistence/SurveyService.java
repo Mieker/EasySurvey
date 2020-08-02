@@ -57,9 +57,17 @@ public class SurveyService {
     }
 
     public void fillUpSurvey(){
-        addNewInterviewee("Marco01");
-        giveQuestionAnswerByIntervieweeId(1L,1L,1L,1L);
+        addNewInterviewee("MichalJ");
+        giveMetricAnswerByIntervieweeId(1L,1L,1L,2L);
         giveMetricAnswerByIntervieweeId(1L,1L,2L,7L);
+        giveQuestionAnswerByIntervieweeId(1L,1L,1L,3L);
+        giveQuestionAnswerByIntervieweeId(1L,1L,2L,6L);
+
+        addNewInterviewee("Marco01");
+        giveMetricAnswerByIntervieweeId(2L,1L,1L,1L);
+        giveMetricAnswerByIntervieweeId(2L,1L,2L,5L);
+        giveQuestionAnswerByIntervieweeId(2L,1L,1L,1L);
+        giveQuestionAnswerByIntervieweeId(2L,1L,2L,6L);
     }
 
     public void addNewInterviewee(String nickName){
@@ -72,14 +80,14 @@ public class SurveyService {
         txn.commit();
     }
 
-    public void giveQuestionAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long questionId, Long potentialQuestionAnswerId ){
+    public void giveQuestionAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long questionId, Long questionAnswerId ){
         Transaction txn = session.getTransaction();
         txn.begin();
 
         Interviewee findIntervieweeById = (Interviewee) session.get(Interviewee.class,intervieweeId);
         Survey findSurveyById = (Survey) session.get(Survey.class,surveyId);
         Question findQuestionById = (Question) session.get(Question.class,questionId);
-        PotentialQuestionAnswer findPotentialQuestionAnswerById = (PotentialQuestionAnswer) session.get(PotentialQuestionAnswer.class,potentialQuestionAnswerId);
+        PotentialQuestionAnswer findPotentialQuestionAnswerById = (PotentialQuestionAnswer) session.get(PotentialQuestionAnswer.class,questionAnswerId);
 
         answer = new Answer(findSurveyById,findQuestionById,findPotentialQuestionAnswerById);
         findIntervieweeById.getAnswers().add(answer);
@@ -88,14 +96,14 @@ public class SurveyService {
         txn.commit();
     }
 
-    public void giveMetricAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long metricId, Long potentialMetricAnswerId ){
+    public void giveMetricAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long metricId, Long metricAnswerId ){
         Transaction txn = session.getTransaction();
         txn.begin();
 
         Interviewee findIntervieweeById = (Interviewee) session.get(Interviewee.class,intervieweeId);
         Survey findSurveyById = (Survey) session.get(Survey.class,surveyId);
         Metric findMetricById = (Metric) session.get(Metric.class,metricId);
-        PotentialMetricAnswer findPotentialMetricAnswerById = (PotentialMetricAnswer) session.get(PotentialMetricAnswer.class,potentialMetricAnswerId);
+        PotentialMetricAnswer findPotentialMetricAnswerById = (PotentialMetricAnswer) session.get(PotentialMetricAnswer.class,metricAnswerId);
 
         answer = new Answer(findSurveyById,findMetricById,findPotentialMetricAnswerById);
         findIntervieweeById.getAnswers().add(answer);
