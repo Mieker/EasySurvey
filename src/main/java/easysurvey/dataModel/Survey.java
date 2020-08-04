@@ -1,6 +1,7 @@
 package easysurvey.dataModel;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +17,21 @@ public class Survey implements java.io.Serializable
     @Column
     private String description;
 
+    @Column
+    private String surveyLink;
+
+    @Column
+    private String editLink;
+
+    @Column
+    private LocalDate startDate;
+
+    @Column
+    private LocalDate endDate;
+
+    @Column
+    private boolean isOpen;
+
     @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="survey_id")
     private Set<Question> questions = new HashSet<>();
@@ -25,14 +41,22 @@ public class Survey implements java.io.Serializable
     private Set<Metric> metrics = new HashSet<>();
 
     @OneToMany(mappedBy = "survey",cascade = CascadeType.PERSIST)
-    private Set<Answer> answers = new HashSet<>();
+    private Set<QuestionAnswer> questionAnswers = new HashSet<>();
+
+    @OneToMany(mappedBy = "survey",cascade = CascadeType.PERSIST)
+    private Set<MetricAnswer> metricAnswers = new HashSet<>();
 
 
     public Survey() {
     }
 
-    public Survey(String description) {
+    public Survey(String description, String surveyLink, String editLink, LocalDate startDate, LocalDate endDate, boolean isOpen) {
         this.description = description;
+        this.surveyLink = surveyLink;
+        this.editLink = editLink;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isOpen = isOpen;
     }
 
     public Set<Question> getQuestions() {
@@ -43,7 +67,11 @@ public class Survey implements java.io.Serializable
         return metrics;
     }
 
-    public Set<Answer> getAnswers() {
-        return answers;
+    public Set<QuestionAnswer> getQuestionAnswers() {
+        return questionAnswers;
+    }
+
+    public Set<MetricAnswer> getMetricAnswers() {
+        return metricAnswers;
     }
 }

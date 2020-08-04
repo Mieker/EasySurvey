@@ -3,7 +3,13 @@ package easysurvey.persistence;
 import easysurvey.dataModel.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.Date;
+
+
+@Component("surveyService")
 public class SurveyService {
 
     Session session;
@@ -13,7 +19,8 @@ public class SurveyService {
     Metric metric;
     PotentialMetricAnswer potentialMetricAnswer;
     Interviewee interviewee;
-    Answer answer;
+    QuestionAnswer questionAnswer;
+    MetricAnswer metricAnswer;
 
     public SurveyService() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -30,7 +37,7 @@ public class SurveyService {
     }
 
     public void createSurvey(){
-        addNewSurvey("badanie kolegow");
+        addNewSurvey("badanie kolegow","www.easysurvey.com","www.easysurvey.edit.com",LocalDate.of(2019,8,30),LocalDate.of(2025,8,30),true);
 
         createQuestion(1L,"jak lubisz kolor?");
         addPotentialQuestionAnswer(1L,"zielony");
@@ -68,6 +75,12 @@ public class SurveyService {
         giveMetricAnswerByIntervieweeId(2L,1L,2L,5L);
         giveQuestionAnswerByIntervieweeId(2L,1L,1L,1L);
         giveQuestionAnswerByIntervieweeId(2L,1L,2L,6L);
+
+        addNewInterviewee("Pawel01");
+        giveMetricAnswerByIntervieweeId(3L,1L,1L,2L);
+        giveMetricAnswerByIntervieweeId(3L,1L,2L,4L);
+        giveQuestionAnswerByIntervieweeId(3L,1L,1L,2L);
+        giveQuestionAnswerByIntervieweeId(3L,1L,2L,7L);
     }
 
     public void addNewInterviewee(String nickName){
@@ -89,10 +102,10 @@ public class SurveyService {
         Question findQuestionById = (Question) session.get(Question.class,questionId);
         PotentialQuestionAnswer findPotentialQuestionAnswerById = (PotentialQuestionAnswer) session.get(PotentialQuestionAnswer.class,questionAnswerId);
 
-        answer = new Answer(findSurveyById,findQuestionById,findPotentialQuestionAnswerById);
-        findIntervieweeById.getAnswers().add(answer);
+        questionAnswer = new QuestionAnswer(findSurveyById,findQuestionById,findPotentialQuestionAnswerById);
+        findIntervieweeById.getQuestionAnswers().add(questionAnswer);
 
-        session.persist(answer);
+        session.persist(questionAnswer);
         txn.commit();
     }
 
@@ -105,18 +118,18 @@ public class SurveyService {
         Metric findMetricById = (Metric) session.get(Metric.class,metricId);
         PotentialMetricAnswer findPotentialMetricAnswerById = (PotentialMetricAnswer) session.get(PotentialMetricAnswer.class,metricAnswerId);
 
-        answer = new Answer(findSurveyById,findMetricById,findPotentialMetricAnswerById);
-        findIntervieweeById.getAnswers().add(answer);
+        metricAnswer = new MetricAnswer(findSurveyById,findMetricById,findPotentialMetricAnswerById);
+        findIntervieweeById.getMetricAnswers().add(metricAnswer);
 
-        session.persist(answer);
+        session.persist(metricAnswer);
         txn.commit();
     }
 
-    public void addNewSurvey(String surveyName){
+    public void addNewSurvey(String description, String surveyLink, String editLink, LocalDate startDate, LocalDate endDate, boolean isOpen){
         Transaction txn = session.getTransaction();
         txn.begin();
 
-        survey = new Survey(surveyName);
+        survey = new Survey(description, surveyLink, editLink, startDate, endDate, isOpen);
 
         session.persist(survey);
         txn.commit();

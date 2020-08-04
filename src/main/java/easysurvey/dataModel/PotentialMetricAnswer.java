@@ -11,13 +11,13 @@ public class PotentialMetricAnswer
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long Id;
+    private long id;
 
     @Column
     private String text;
 
     @OneToMany(mappedBy = "metricAnswer",cascade = CascadeType.PERSIST)
-    private Set<Answer> answers = new HashSet<>();
+    private Set<MetricAnswer> metricAnswers = new HashSet<>();
 
     public PotentialMetricAnswer() {
     }

@@ -10,7 +10,7 @@ public class Question
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long questionId;
+    private long id;
 
     @Column
     private String questionText;
@@ -20,7 +20,10 @@ public class Question
     private Set<PotentialQuestionAnswer> potentialQuestionAnswers = new HashSet<>();
 
     @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
-    private Set<Answer> answers = new HashSet<>();
+    private Set<QuestionAnswer> questionAnswers = new HashSet<>();
+
+    @OneToMany(mappedBy = "metric",cascade = CascadeType.PERSIST)
+    private Set<MetricAnswer> metricAnswers = new HashSet<>();
 
 
     public Question() {

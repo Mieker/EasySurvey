@@ -17,7 +17,11 @@ public class Interviewee
 
     @OneToMany
     @JoinColumn(name="interwivee_id")
-    private Set<Answer> answers = new HashSet<>();
+    private Set<QuestionAnswer> questionAnswers = new HashSet<>();
+
+    @OneToMany
+    @JoinColumn(name="interwivee_id")
+    private Set<MetricAnswer> metricAnswers = new HashSet<>();
 
 
     public Interviewee() {
@@ -27,9 +31,12 @@ public class Interviewee
         this.nickName = nickName;
     }
 
-    public Set<Answer> getAnswers() {
-        return answers;
+    public Set<QuestionAnswer> getQuestionAnswers() {
+        return questionAnswers;
     }
 
+    public Set<MetricAnswer> getMetricAnswers() {
+        return metricAnswers;
+    }
 
 }
