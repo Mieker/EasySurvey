@@ -39,3 +39,5 @@ src/main/frontend/package-lock.json
 
 ### VS Code ###
 .vscode/
+
+*.db
