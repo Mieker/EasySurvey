@@ -1,12 +1,16 @@
 package easysurvey.persistence;
 
 import easysurvey.dataModel.*;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 
 @Component("surveyService")
@@ -181,6 +185,15 @@ public class SurveyService {
 
         session.persist(potentialMetricAnswer);
         txn.commit();
+    }
+    
+    public Collection<Survey> getAllSurveys(){
+    	Collection<Survey> surveys = session.createCriteria(Survey.class).list();
+        return surveys;
+    }
+    
+    public Survey getSurvey(Long surveyID) {
+    	return (Survey) session.get(Survey.class, surveyID);
     }
 }
 

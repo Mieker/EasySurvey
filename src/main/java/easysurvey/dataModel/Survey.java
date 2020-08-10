@@ -51,7 +51,7 @@ public class Survey implements java.io.Serializable
     }
 
     public Survey(String description, String surveyLink, String editLink, LocalDate startDate, LocalDate endDate, boolean isOpen) {
-        this.description = description;
+        this.setDescription(description);
         this.surveyLink = surveyLink;
         this.editLink = editLink;
         this.startDate = startDate;
@@ -74,4 +74,16 @@ public class Survey implements java.io.Serializable
     public Set<MetricAnswer> getMetricAnswers() {
         return metricAnswers;
     }
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public long getId() {
+		return id;
+	}
 }
