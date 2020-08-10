@@ -41,3 +41,5 @@ src/main/frontend/package-lock.json
 .vscode/
 
 *.db
+src/main/resources/public/dist/build.js
+src/main/resources/public/dist/build.js.map
