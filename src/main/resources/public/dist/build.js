@@ -12581,6 +12581,7 @@ Vue.compile = compileToFunctions;
 //
 
 /* harmony default export */ __webpack_exports__["a"] = ({
+    props: ["surveyID"],
     data() {
         return {
             message: "FillSurvey component "
@@ -13388,7 +13389,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__ = __webpack_require__(7);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1d0973c4_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b1791ab_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__ = __webpack_require__(26);
 var normalizeComponent = __webpack_require__(0)
 /* script */
 
@@ -13405,7 +13406,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1d0973c4_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b1791ab_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -13420,7 +13421,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"fill_survey"}},[_c('h3',[_vm._v(_vm._s(_vm.message))])])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"fill_survey"}},[_c('h3',[_vm._v("Ankieta numer "+_vm._s(_vm.surveyID))])])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

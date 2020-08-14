@@ -29,7 +29,7 @@
     
 
     <new-survey v-if="mode==='new_survey'"></new-survey>
-    <fill-survey v-if="mode==='fill_survey'"></fill-survey>
+    <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></fill-survey>
     <statistics v-if="mode==='statistics'"></statistics>
   
   </div>
@@ -55,34 +55,44 @@
     },
     methods: {
       newSurvey(){
-        this.$emit("success", "");
+        this.success("");
         this.newSurveyButtonClass = "button-blue button-outline";
         this.fillSurveyButtonClass = "button-blue";
         this.statisticsButtonClass = "button-blue";
         this.mode = "new_survey";
       },
+
       fillSurvey(){
-        if (this.surveyID == 0) {
-          this.$emit("error", "no survey with such ID");
+        if (this.surveyID < 1) {
+          this.failure("no survey with such ID");
         } else {
-          this.$emit("success", "");
+          this.success("");
         }
         this.newSurveyButtonClass = "button-blue";
         this.fillSurveyButtonClass = "button-blue button-outline";
         this.statisticsButtonClass = "button-blue";
         this.mode = "fill_survey";
       },
+
       statistics(){
-        if (this.surveyID == 0) {
-          this.$emit("error", "no survey with such ID");
+        if (this.surveyID < 1) {
+          this.failure("no survey with such ID");
         } else {
-          this.$emit("success", "");
+          this.success("");
         }
         this.newSurveyButtonClass = "button-blue";
         this.fillSurveyButtonClass = "button-blue";
         this.statisticsButtonClass = "button-blue button-outline";
         this.mode = "statistics";
-      }
+      },
+
+      success(message) {
+          this.$emit("success", message);
+      },
+
+      failure(message) {
+          this.$emit("error", message);
+      },
     }
   };
 </script>
