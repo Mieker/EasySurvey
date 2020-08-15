@@ -25,4 +25,12 @@ public class PotentialQuestionAnswer
     public PotentialQuestionAnswer(String text) {
         this.text = text;
     }
+
+	public long getId() {
+		return id;
+	}
+
+	public String getText() {
+		return text;
+	}
 }

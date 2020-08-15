@@ -12517,33 +12517,43 @@ Vue.compile = compileToFunctions;
   },
   methods: {
     newSurvey() {
-      this.$emit("success", "");
+      this.success("");
       this.newSurveyButtonClass = "button-blue button-outline";
       this.fillSurveyButtonClass = "button-blue";
       this.statisticsButtonClass = "button-blue";
       this.mode = "new_survey";
     },
+
     fillSurvey() {
-      if (this.surveyID == 0) {
-        this.$emit("error", "no survey with such ID");
+      if (this.surveyID < 1) {
+        this.failure("no survey with such ID");
       } else {
-        this.$emit("success", "");
+        this.success("");
       }
       this.newSurveyButtonClass = "button-blue";
       this.fillSurveyButtonClass = "button-blue button-outline";
       this.statisticsButtonClass = "button-blue";
       this.mode = "fill_survey";
     },
+
     statistics() {
-      if (this.surveyID == 0) {
-        this.$emit("error", "no survey with such ID");
+      if (this.surveyID < 1) {
+        this.failure("no survey with such ID");
       } else {
-        this.$emit("success", "");
+        this.success("");
       }
       this.newSurveyButtonClass = "button-blue";
       this.fillSurveyButtonClass = "button-blue";
       this.statisticsButtonClass = "button-blue button-outline";
       this.mode = "statistics";
+    },
+
+    success(message) {
+      this.$emit("success", message);
+    },
+
+    failure(message) {
+      this.$emit("error", message);
     }
   }
 });
@@ -12579,14 +12589,62 @@ Vue.compile = compileToFunctions;
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    props: ["surveyID"],
-    data() {
-        return {
-            message: "FillSurvey component "
-        };
+  props: ["surveyId"],
+
+  data() {
+    return {
+      survey: ""
+    };
+  },
+
+  watch: {
+    surveyId: function () {
+      this.loadSurvey();
     }
+  },
+
+  methods: {
+    loadSurvey() {
+      this.$http.get('survey/' + this.surveyId).then(response => {
+        this.survey = response.body;
+        this.success("Successfuly loaded survey ID" + this.survey.id + " with " + this.survey.questions.length + " questions");
+      }).catch(response => {
+        this.failure('Error ' + response.status + ' while loading the survey.');
+      });
+    },
+
+    // loadQuestions(){
+    //   this.$http.get('survey/' + this.surveyId + 'questions')
+    //   .then( response => {
+    //     this.survey.questions = response.body;
+    //     this.success("successfuly loaded survey ID" + this.survey.id + " with " + this.survey.questions.length + " questions");
+
+    //   })
+    //   .catch( response => {
+    //     this.failure('Error ' + response.status + ' while loading questions to the survey.');
+    //   })
+    // },
+
+    success(message) {
+      this.$emit("success", message);
+    },
+
+    failure(message) {
+      this.$emit("error", message);
+    }
+
+  },
+
+  mounted() {
+    this.loadSurvey();
+  }
+
 });
 
 /***/ }),
@@ -13289,7 +13347,7 @@ function toComment(sourceMap) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SurveyPage_vue__ = __webpack_require__(5);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_29913032_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SurveyPage_vue__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5276dea6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SurveyPage_vue__ = __webpack_require__(29);
 function injectStyle (ssrContext) {
   __webpack_require__(21)
 }
@@ -13309,7 +13367,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SurveyPage_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_29913032_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SurveyPage_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5276dea6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SurveyPage_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -13330,7 +13388,7 @@ var content = __webpack_require__(22);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("a0383228", content, true, {});
+var update = __webpack_require__(2)("873caa16", content, true, {});
 
 /***/ }),
 /* 22 */
@@ -13389,7 +13447,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__ = __webpack_require__(7);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b1791ab_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f9e753f6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__ = __webpack_require__(26);
 var normalizeComponent = __webpack_require__(0)
 /* script */
 
@@ -13406,7 +13464,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b1791ab_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f9e753f6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -13421,7 +13479,7 @@ var Component = normalizeComponent(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"fill_survey"}},[_c('h3',[_vm._v("Ankieta numer "+_vm._s(_vm.surveyID))])])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.survey)?_c('div',{attrs:{"id":"fill_survey"}},[_c('h4',[_vm._v(" "+_vm._s(_vm.survey.description))]),_vm._v(" "),_vm._l((_vm.survey.questions),function(question){return _c('div',{key:question.id},[_vm._v("\n    "+_vm._s(question.id)+"."+_vm._s(question.questionText)+"\n    "),_vm._l((question.potentialQuestionAnswers),function(potentialanswer){return _c('p',{key:potentialanswer.id},[_vm._v(_vm._s(potentialanswer.text))])})],2)})],2):_vm._e()}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -13475,7 +13533,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"survey_page"}},[_c('link',{attrs:{"href":"https://cdn.jsdelivr.net/npm/animate.css@3.5.1","rel":"stylesheet","type":"text/css"}}),_vm._v(" "),_c('transition',{attrs:{"name":"custom-classes-transition","enter-active-class":"animated bounceInRight","leave-active-class":"animated bounceOutRight"}},[(_vm.mode !=='new_survey')?_c('div',{staticClass:"row"},[_c('div',{staticClass:"column column-80"},[_c('form',[_c('fieldset',[_c('label',{attrs:{"for":"surveyID"}},[_vm._v("Survey ID")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.surveyID),expression:"surveyID"}],attrs:{"type":"text","placeholder":_vm.surveyID,"id":"surveyID"},domProps:{"value":(_vm.surveyID)},on:{"input":function($event){if($event.target.composing){ return; }_vm.surveyID=$event.target.value}}})])])])]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"row"},[_c('div',{staticClass:"column"},[_c('button',{class:_vm.newSurveyButtonClass,on:{"click":function($event){return _vm.newSurvey()}}},[_vm._v("create a survey")])]),_vm._v(" "),_c('div',{staticClass:"column"},[_c('button',{class:_vm.fillSurveyButtonClass,on:{"click":function($event){return _vm.fillSurvey()}}},[_vm._v("fill a survey")])]),_vm._v(" "),_c('div',{staticClass:"column"},[_c('button',{class:_vm.statisticsButtonClass,on:{"click":function($event){return _vm.statistics()}}},[_vm._v("see statistics")])])]),_vm._v(" "),(_vm.mode==='new_survey')?_c('new-survey'):_vm._e(),_vm._v(" "),(_vm.mode==='fill_survey')?_c('fill-survey'):_vm._e(),_vm._v(" "),(_vm.mode==='statistics')?_c('statistics'):_vm._e()],1)}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"survey_page"}},[_c('link',{attrs:{"href":"https://cdn.jsdelivr.net/npm/animate.css@3.5.1","rel":"stylesheet","type":"text/css"}}),_vm._v(" "),_c('transition',{attrs:{"name":"custom-classes-transition","enter-active-class":"animated bounceInRight","leave-active-class":"animated bounceOutRight"}},[(_vm.mode !=='new_survey')?_c('div',{staticClass:"row"},[_c('div',{staticClass:"column column-80"},[_c('form',[_c('fieldset',[_c('label',{attrs:{"for":"surveyID"}},[_vm._v("Survey ID")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.surveyID),expression:"surveyID"}],attrs:{"type":"text","placeholder":_vm.surveyID,"id":"surveyID"},domProps:{"value":(_vm.surveyID)},on:{"input":function($event){if($event.target.composing){ return; }_vm.surveyID=$event.target.value}}})])])])]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"row"},[_c('div',{staticClass:"column"},[_c('button',{class:_vm.newSurveyButtonClass,on:{"click":function($event){return _vm.newSurvey()}}},[_vm._v("create a survey")])]),_vm._v(" "),_c('div',{staticClass:"column"},[_c('button',{class:_vm.fillSurveyButtonClass,on:{"click":function($event){return _vm.fillSurvey()}}},[_vm._v("fill a survey")])]),_vm._v(" "),_c('div',{staticClass:"column"},[_c('button',{class:_vm.statisticsButtonClass,on:{"click":function($event){return _vm.statistics()}}},[_vm._v("see statistics")])])]),_vm._v(" "),(_vm.mode==='new_survey')?_c('new-survey'):_vm._e(),_vm._v(" "),(_vm.mode==='fill_survey')?_c('fill-survey',{attrs:{"survey-id":_vm.surveyID},on:{"error":function($event){return _vm.failure($event)},"success":function($event){return _vm.success($event)}}}):_vm._e(),_vm._v(" "),(_vm.mode==='statistics')?_c('statistics'):_vm._e()],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

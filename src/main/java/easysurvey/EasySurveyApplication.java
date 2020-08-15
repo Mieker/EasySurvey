@@ -12,10 +12,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EasySurveyApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EasySurveyApplication.class, args);
+		
 //		SurveyService surveyService = new SurveyService();
-//		surveyService.run();
+//		surveyService.createSurvey();
 //		surveyService.close();
+		SpringApplication.run(EasySurveyApplication.class, args);
 	}
 }
 

@@ -36,4 +36,8 @@ public class QuestionAnswer
         this.questionAnswer = questionAnswer;
     }
 
+	public long getId() {
+		return id;
+	}
+
 }

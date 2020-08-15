@@ -35,4 +35,8 @@ public class MetricAnswer
     public void setMetricAnswer(PotentialMetricAnswer metricAnswer) {
         this.metricAnswer = metricAnswer;
     }
+
+	public long getId() {
+		return id;
+	}
 }

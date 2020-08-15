@@ -35,4 +35,8 @@ public class Metric
     public Set<PotentialMetricAnswer> getPotentialMetricAnswers() {
         return potentialMetricAnswers;
     }
+
+	public long getId() {
+		return id;
+	}
 }

@@ -37,5 +37,13 @@ public class Question
         return potentialQuestionAnswers;
     }
 
+	public String getQuestionText() {
+		return questionText;
+	}
+
+	public long getId() {
+		return id;
+	}
+
 
 }

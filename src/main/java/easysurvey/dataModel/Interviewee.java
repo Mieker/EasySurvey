@@ -39,4 +39,8 @@ public class Interviewee
         return metricAnswers;
     }
 
+	public long getId() {
+		return id;
+	}
+
 }

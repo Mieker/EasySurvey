@@ -1,7 +1,9 @@
 package easysurvey.dataModel.controllers;
 
 
+import easysurvey.dataModel.Question;
 import easysurvey.dataModel.Survey;
+import easysurvey.persistence.QuestionService;
 import easysurvey.persistence.SurveyService;
 
 import java.util.Collection;
@@ -20,21 +22,28 @@ public class SurveyRestController {
 
     @Autowired
     SurveyService surveyService;
+    @Autowired
+    QuestionService questionService;
+    
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<?> getSurveys() {
-
         Collection<Survey> surveys = surveyService.getAllSurveys();
         return new ResponseEntity<Collection<Survey>>(surveys, HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getSurvey(@PathVariable("id") long surveyID) {
+    @RequestMapping(value = "/{surveyid}", method = RequestMethod.GET)
+	public ResponseEntity<?> getSurvey(@PathVariable("surveyid") long surveyID) {
 	    Survey survey = surveyService.getSurvey(surveyID);
 		if (survey == null) { 
 		return new ResponseEntity(HttpStatus.NOT_FOUND);
-		} 	
+		}
 		return new ResponseEntity<Survey>(survey, HttpStatus.OK); 
 	}
-
+    
+    @RequestMapping(value = "/{surveyid}/questions", method = RequestMethod.GET)
+    public ResponseEntity<?> getQuestions(@PathVariable("surveyid") long surveyID) {
+        Collection<Question> questions = questionService.getQuestions(surveyID);
+        return new ResponseEntity<Collection<Question>>(questions, HttpStatus.OK);
+    }
 }
