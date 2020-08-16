@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="Surveys")
-public class Survey implements java.io.Serializable
+public class Survey implements java.io.Serializable, Comparable<Survey>
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -85,5 +85,16 @@ public class Survey implements java.io.Serializable
 
 	public long getId() {
 		return id;
+	}
+	
+	@Override
+	public int compareTo(Survey arg0) {
+		if (this.getId() < arg0.getId()) {
+			return -1;
+		} else if (this.getId() > arg0.getId()) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }

@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="MetricAnswers")
-public class MetricAnswer
+public class MetricAnswer implements Comparable<MetricAnswer>
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -38,5 +38,16 @@ public class MetricAnswer
 
 	public long getId() {
 		return id;
+	}
+	
+	@Override
+	public int compareTo(MetricAnswer arg0) {
+		if (this.getId() < arg0.getId()) {
+			return -1;
+		} else if (this.getId() > arg0.getId()) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }

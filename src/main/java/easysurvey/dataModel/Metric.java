@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="Metrics")
-public class Metric
+public class Metric implements Comparable<Metric>
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -38,5 +38,16 @@ public class Metric
 
 	public long getId() {
 		return id;
+	}
+	
+	@Override
+	public int compareTo(Metric arg0) {
+		if (this.getId() < arg0.getId()) {
+			return -1;
+		} else if (this.getId() > arg0.getId()) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }
