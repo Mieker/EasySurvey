@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="QuestionAnswers")
-public class QuestionAnswer
+public class QuestionAnswer implements Comparable<QuestionAnswer>
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -36,4 +36,18 @@ public class QuestionAnswer
         this.questionAnswer = questionAnswer;
     }
 
+	public long getId() {
+		return id;
+	}
+
+	@Override
+	public int compareTo(QuestionAnswer arg0) {
+		if (this.getId() < arg0.getId()) {
+			return -1;
+		} else if (this.getId() > arg0.getId()) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 }

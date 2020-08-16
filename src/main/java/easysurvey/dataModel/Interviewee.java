@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="Interviewees")
-public class Interviewee
+public class Interviewee implements Comparable<Interviewee>
 {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -38,5 +38,20 @@ public class Interviewee
     public Set<MetricAnswer> getMetricAnswers() {
         return metricAnswers;
     }
+
+	public long getId() {
+		return id;
+	}
+	
+	@Override
+	public int compareTo(Interviewee arg0) {
+		if (this.getId() < arg0.getId()) {
+			return -1;
+		} else if (this.getId() > arg0.getId()) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
 }
