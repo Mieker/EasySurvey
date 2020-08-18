@@ -20,18 +20,16 @@
       </div>
     </transition>
 
-  
-      <div class="row">
-        <div class="column"><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()">create a survey</button></div>
-        <div class="column"><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()">fill a survey</button></div>
-        <div class="column"><button v-bind:class = "statisticsButtonClass" @click="statistics()">see statistics</button></div>
-      </div>
+    <div class="row">
+      <div class="column"><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()"  >create a survey</button></div>
+      <div class="column"><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()"> fill a survey </button></div>
+      <div class="column"><button v-bind:class = "statisticsButtonClass" @click="statistics()"> see statistics</button></div>
+    </div>
     
-
     <new-survey v-if="mode==='new_survey'"></new-survey>
     <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></fill-survey>
     <statistics v-if="mode==='statistics'"></statistics>
-  
+
   </div>
 
 </template>
@@ -96,6 +94,7 @@
     }
   };
 </script>
+
 <style lang="scss">
 .button-blue {
   background-color: blue;
@@ -114,6 +113,8 @@
   transition: opacity .5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+  transition: opacity .5s;
 }
+
+
 </style>

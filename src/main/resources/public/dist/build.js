@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -174,33 +174,6 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -219,7 +192,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(16)
+var listToStyles = __webpack_require__(18)
 
 /*
 type StyleObject = {
@@ -425,6 +398,33 @@ function applyToTag (styleElement, obj) {
     styleElement.appendChild(document.createTextNode(css))
   }
 }
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -12399,17 +12399,17 @@ Vue.compile = compileToFunctions;
 
 /* harmony default export */ __webpack_exports__["a"] = (Vue);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(10).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(12).setImmediate))
 
 /***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_milligram__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_milligram__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_milligram___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_milligram__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SurveyPage__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SurveyPage__ = __webpack_require__(21);
 //
 //
 //
@@ -12454,12 +12454,94 @@ Vue.compile = compileToFunctions;
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_NewSurvey__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_FillSurvey__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Statistics__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_NewSurvey__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_FillSurvey__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Statistics__ = __webpack_require__(32);
 //
 //
 //
@@ -12559,7 +12641,7 @@ Vue.compile = compileToFunctions;
 });
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12579,10 +12661,18 @@ Vue.compile = compileToFunctions;
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FillSurveyQuestion__ = __webpack_require__(29);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12594,7 +12684,9 @@ Vue.compile = compileToFunctions;
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["a"] = ({
+  components: { FillSurveyQuestion: __WEBPACK_IMPORTED_MODULE_0__FillSurveyQuestion__["a" /* default */] },
   props: ["surveyId"],
 
   data() {
@@ -12619,18 +12711,6 @@ Vue.compile = compileToFunctions;
       });
     },
 
-    // loadQuestions(){
-    //   this.$http.get('survey/' + this.surveyId + 'questions')
-    //   .then( response => {
-    //     this.survey.questions = response.body;
-    //     this.success("successfuly loaded survey ID" + this.survey.id + " with " + this.survey.questions.length + " questions");
-
-    //   })
-    //   .catch( response => {
-    //     this.failure('Error ' + response.status + ' while loading questions to the survey.');
-    //   })
-    // },
-
     success(message) {
       this.$emit("success", message);
     },
@@ -12648,7 +12728,50 @@ Vue.compile = compileToFunctions;
 });
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+	props: ["question"],
+
+	data() {
+		return {
+			message: "",
+			picked: []
+		};
+	},
+
+	methods: {
+		success(message) {
+			this.$emit("success", message);
+		},
+
+		failure(message) {
+			this.$emit("error", message);
+		}
+	},
+	mounted() {
+		alert(question.text);
+	}
+});
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12668,14 +12791,14 @@ Vue.compile = compileToFunctions;
 });
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_vue__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_resource__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_resource__ = __webpack_require__(37);
 
 
 
@@ -12690,7 +12813,7 @@ new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
 });
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -12746,7 +12869,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(11);
+__webpack_require__(13);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -12757,10 +12880,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -12950,10 +13073,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(14)))
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -13143,15 +13266,15 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_App_vue__ = __webpack_require__(4);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_127b06ce_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_127b06ce_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_App_vue__ = __webpack_require__(35);
 function injectStyle (ssrContext) {
-  __webpack_require__(14)
+  __webpack_require__(16)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -13180,26 +13303,26 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(15);
+var content = __webpack_require__(17);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("41c4d5aa", content, true, {});
+var update = __webpack_require__(1)("41c4d5aa", content, true, {});
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports) {
 
 throw new Error("Module build failed: Error: Missing binding /home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/node-sass/vendor/linux-x64-57/binding.node\nNode Sass could not find a binding for your current environment: Linux 64-bit with Node.js 8.x\n\nFound bindings for the following environments:\n  - Linux 64-bit with Node.js 10.x\n  - Windows 64-bit with Node.js 12.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (module.js:635:30)\n    at Object.Module._extensions..js (module.js:646:10)\n    at Module.load (module.js:554:32)\n    at tryModuleLoad (module.js:497:12)\n    at Function.Module._load (module.js:489:3)\n    at Module.require (module.js:579:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (module.js:635:30)\n    at Object.Module._extensions..js (module.js:646:10)\n    at Module.load (module.js:554:32)\n    at tryModuleLoad (module.js:497:12)\n    at Function.Module._load (module.js:489:3)\n    at Module.require (module.js:579:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/loadLoader.js:18:17)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:365:2)\n    at NormalModule.doBuild (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/webpack/lib/NormalModule.js:275:15)");
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports) {
 
 /**
@@ -13232,23 +13355,23 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(18);
+var content = __webpack_require__(20);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("ee623eac", content, true, {});
+var update = __webpack_require__(1)("ee623eac", content, true, {});
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(19)(false);
+exports = module.exports = __webpack_require__(5)(false);
 // imports
 
 
@@ -13259,97 +13382,15 @@ exports.push([module.i, "/*!\n  * Milligram v1.4.1\n  * https://milligram.io\n  
 
 
 /***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SurveyPage_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_SurveyPage_vue__ = __webpack_require__(6);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5276dea6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SurveyPage_vue__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5276dea6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_SurveyPage_vue__ = __webpack_require__(34);
 function injectStyle (ssrContext) {
-  __webpack_require__(21)
+  __webpack_require__(22)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -13378,32 +13419,32 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(22);
+var content = __webpack_require__(23);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("873caa16", content, true, {});
+var update = __webpack_require__(1)("873caa16", content, true, {});
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 throw new Error("Module build failed: Error: Missing binding /home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/node-sass/vendor/linux-x64-57/binding.node\nNode Sass could not find a binding for your current environment: Linux 64-bit with Node.js 8.x\n\nFound bindings for the following environments:\n  - Linux 64-bit with Node.js 10.x\n  - Windows 64-bit with Node.js 12.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/node-sass/lib/binding.js:15:13)\n    at Object.<anonymous> (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (module.js:635:30)\n    at Object.Module._extensions..js (module.js:646:10)\n    at Module.load (module.js:554:32)\n    at tryModuleLoad (module.js:497:12)\n    at Function.Module._load (module.js:489:3)\n    at Module.require (module.js:579:17)\n    at require (internal/module.js:11:18)\n    at Object.<anonymous> (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (module.js:635:30)\n    at Object.Module._extensions..js (module.js:646:10)\n    at Module.load (module.js:554:32)\n    at tryModuleLoad (module.js:497:12)\n    at Function.Module._load (module.js:489:3)\n    at Module.require (module.js:579:17)\n    at require (internal/module.js:11:18)\n    at loadLoader (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/loadLoader.js:18:17)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/loader-runner/lib/LoaderRunner.js:365:2)\n    at NormalModule.doBuild (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/home/lukasz/eclipse-workspace/EasySurvey/src/main/frontend/node_modules/webpack/lib/NormalModule.js:275:15)");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_NewSurvey_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_NewSurvey_vue__ = __webpack_require__(7);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_75a3f3de_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_NewSurvey_vue__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_75a3f3de_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_NewSurvey_vue__ = __webpack_require__(25);
 var normalizeComponent = __webpack_require__(0)
 /* script */
 
@@ -13431,7 +13472,7 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13441,13 +13482,77 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__ = __webpack_require__(8);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f9e753f6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_946074b6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__ = __webpack_require__(31);
+function injectStyle (ssrContext) {
+  __webpack_require__(27)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_946074b6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(28);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(1)("4602b974", content, true, {});
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".fade-enter-active,.fade-leave-active{transition:opacity .5s}.fade-enter,.fade-leave-to{opacity:0}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurveyQuestion_vue__ = __webpack_require__(9);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_cec70680_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurveyQuestion_vue__ = __webpack_require__(30);
 var normalizeComponent = __webpack_require__(0)
 /* script */
 
@@ -13463,8 +13568,8 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f9e753f6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurveyQuestion_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_cec70680_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurveyQuestion_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -13475,23 +13580,33 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 26 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.survey)?_c('div',{attrs:{"id":"fill_survey"}},[_c('h4',[_vm._v(" "+_vm._s(_vm.survey.description))]),_vm._v(" "),_vm._l((_vm.survey.questions),function(question){return _c('div',{key:question.id},[_vm._v("\n    "+_vm._s(question.id)+"."+_vm._s(question.questionText)+"\n    "),_vm._l((question.potentialQuestionAnswers),function(potentialanswer){return _c('p',{key:potentialanswer.id},[_vm._v(_vm._s(potentialanswer.text))])})],2)})],2):_vm._e()}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('br'),_vm._v(" "),_c('h5',[_vm._v(_vm._s(_vm.question.questionText))]),_vm._v(" "),_vm._l((_vm.question.potentialQuestionAnswers),function(potentialQuestionAnswer){return _c('div',{key:potentialQuestionAnswer.id,attrs:{"id":"potential_answers"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.picked),expression:"picked"}],attrs:{"type":"radio","id":potentialQuestionAnswer.id,"name":_vm.question.id},domProps:{"value":potentialQuestionAnswer.id,"checked":_vm._q(_vm.picked,potentialQuestionAnswer.id)},on:{"change":function($event){_vm.picked=potentialQuestionAnswer.id}}}),_vm._v("\n\t\t"+_vm._s(potentialQuestionAnswer.text)+"\n\t")])})],2)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Statistics_vue__ = __webpack_require__(8);
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"custom-classes-transition","enter-active-class":"animated bounceInRight","leave-active-class":"animated bounceOutRight"}},[(_vm.survey)?_c('div',{attrs:{"id":"fill_survey"}},[_c('br'),_vm._v(" "),_c('h3',[_vm._v(" "+_vm._s(_vm.survey.description))]),_vm._v(" "),_vm._l((_vm.survey.questions),function(question){return _c('div',{key:question.id},[_c('fill-survey-question',{attrs:{"question":question},on:{"error":function($event){return _vm.failure($event)},"success":function($event){return _vm.success($event)}}})],1)})],2):_vm._e()])}
+var staticRenderFns = []
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Statistics_vue__ = __webpack_require__(10);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_425e3b1f_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Statistics_vue__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_425e3b1f_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Statistics_vue__ = __webpack_require__(33);
 var normalizeComponent = __webpack_require__(0)
 /* script */
 
@@ -13519,7 +13634,7 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 28 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13529,7 +13644,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
 
 /***/ }),
-/* 29 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13539,23 +13654,23 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
 
 /***/ }),
-/* 30 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"row"},[_c('div',{staticClass:"column column-80"},[_c('transition',{attrs:{"name":"bounce"}},[(_vm.message)?_c('div',{class:'alert alert-' + (this.isError ? 'error' : 'success')},[_vm._v(_vm._s(_vm.message))]):_vm._e()])],1)]),_vm._v(" "),(_vm.selection)?_c('survey-page',{on:{"error":function($event){return _vm.failure($event)},"success":function($event){return _vm.success($event)}}}):_vm._e()],1)}
-var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row"},[_c('img',{staticClass:"logo",attrs:{"src":__webpack_require__(31),"alt":"Easy Survey by HashCodeTeam"}})])}]
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row"},[_c('img',{staticClass:"logo",attrs:{"src":__webpack_require__(36),"alt":"Easy Survey by HashCodeTeam"}})])}]
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
 
 /***/ }),
-/* 31 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "logo.png?ac4aed19e4c6199efb00b49abc77df8b";
 
 /***/ }),
-/* 32 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14653,7 +14768,7 @@ function xhrClient (request) {
 
 function nodeClient (request) {
 
-    var client = __webpack_require__(33);
+    var client = __webpack_require__(38);
 
     return new PromiseObj(function (resolve) {
 
@@ -15121,7 +15236,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 33 */
+/* 38 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
