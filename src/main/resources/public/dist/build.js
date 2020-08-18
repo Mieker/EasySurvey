@@ -12665,7 +12665,15 @@ function toComment(sourceMap) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FillSurveyQuestion__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FillSurveyQuestion__ = __webpack_require__(29);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12703,18 +12711,6 @@ function toComment(sourceMap) {
       });
     },
 
-    // loadQuestions(){
-    //   this.$http.get('survey/' + this.surveyId + 'questions')
-    //   .then( response => {
-    //     this.survey.questions = response.body;
-    //     this.success("successfuly loaded survey ID" + this.survey.id + " with " + this.survey.questions.length + " questions");
-
-    //   })
-    //   .catch( response => {
-    //     this.failure('Error ' + response.status + ' while loading questions to the survey.');
-    //   })
-    // },
-
     success(message) {
       this.$emit("success", message);
     },
@@ -12740,29 +12736,38 @@ function toComment(sourceMap) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  props: ["question"],
+	props: ["question"],
 
-  data() {
-    return {
-      message: ""
-    };
-  },
+	data() {
+		return {
+			message: "",
+			picked: []
+		};
+	},
 
-  methods: {
-    success(message) {
-      this.$emit("success", message);
-    },
+	methods: {
+		success(message) {
+			this.$emit("success", message);
+		},
 
-    failure(message) {
-      this.$emit("error", message);
-    }
-  },
-  mounted() {
-    alert(question.text);
-  }
+		failure(message) {
+			this.$emit("error", message);
+		}
+	},
+	mounted() {
+		alert(question.text);
+	}
 });
 
 /***/ }),
@@ -13483,43 +13488,9 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__ = __webpack_require__(8);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f41d9f1e_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__ = __webpack_require__(31);
-var normalizeComponent = __webpack_require__(0)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_f41d9f1e_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__["a" /* default */],
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurveyQuestion_vue__ = __webpack_require__(9);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4fbc7cac_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurveyQuestion_vue__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_946074b6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__ = __webpack_require__(31);
 function injectStyle (ssrContext) {
-  __webpack_require__(28)
+  __webpack_require__(27)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -13536,8 +13507,8 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurveyQuestion_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_4fbc7cac_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurveyQuestion_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurvey_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_946074b6_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurvey_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -13548,20 +13519,20 @@ var Component = normalizeComponent(
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(29);
+var content = __webpack_require__(28);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(1)("53f4ab3e", content, true, {});
+var update = __webpack_require__(1)("4602b974", content, true, {});
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)(false);
@@ -13575,11 +13546,45 @@ exports.push([module.i, ".fade-enter-active,.fade-leave-active{transition:opacit
 
 
 /***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurveyQuestion_vue__ = __webpack_require__(9);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_cec70680_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurveyQuestion_vue__ = __webpack_require__(30);
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_FillSurveyQuestion_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_cec70680_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_FillSurveyQuestion_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
 /* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._v(_vm._s(_vm.question.text))])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('br'),_vm._v(" "),_c('h5',[_vm._v(_vm._s(_vm.question.questionText))]),_vm._v(" "),_vm._l((_vm.question.potentialQuestionAnswers),function(potentialQuestionAnswer){return _c('div',{key:potentialQuestionAnswer.id,attrs:{"id":"potential_answers"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.picked),expression:"picked"}],attrs:{"type":"radio","id":potentialQuestionAnswer.id,"name":_vm.question.id},domProps:{"value":potentialQuestionAnswer.id,"checked":_vm._q(_vm.picked,potentialQuestionAnswer.id)},on:{"change":function($event){_vm.picked=potentialQuestionAnswer.id}}}),_vm._v("\n\t\t"+_vm._s(potentialQuestionAnswer.text)+"\n\t")])})],2)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
@@ -13589,7 +13594,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.survey)?_c('div',{attrs:{"id":"fill_survey"}},[_c('h4',[_vm._v(" "+_vm._s(_vm.survey.description))]),_vm._v(" "),_vm._l((_vm.survey.questions),function(question){return _c('div',{key:question.id},[_c('fill-survey-question',{attrs:{"question":question},on:{"error":function($event){return _vm.failure($event)},"success":function($event){return _vm.success($event)}}})],1)})],2):_vm._e()}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"custom-classes-transition","enter-active-class":"animated bounceInRight","leave-active-class":"animated bounceOutRight"}},[(_vm.survey)?_c('div',{attrs:{"id":"fill_survey"}},[_c('br'),_vm._v(" "),_c('h3',[_vm._v(" "+_vm._s(_vm.survey.description))]),_vm._v(" "),_vm._l((_vm.survey.questions),function(question){return _c('div',{key:question.id},[_c('fill-survey-question',{attrs:{"question":question},on:{"error":function($event){return _vm.failure($event)},"success":function($event){return _vm.success($event)}}})],1)})],2):_vm._e()])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);

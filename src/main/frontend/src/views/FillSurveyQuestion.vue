@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<br>
 		<h5>{{question.questionText}}</h5>
 		<div id="potential_answers" v-for="potentialQuestionAnswer in question.potentialQuestionAnswers" :key="potentialQuestionAnswer.id">
 			<input type="radio" :id="potentialQuestionAnswer.id" :value="potentialQuestionAnswer.id" :name="question.id" v-model="picked">
-			{{potentialQuestionAnswer.text}}
+			<span>{{potentialQuestionAnswer.text}}</span>
 		</div>
+		<br>
 	</div>
 	
 </template>
@@ -17,12 +17,28 @@
       
       data() {
           return {
+			  picked: 0,
 			  message: "",
-			  picked: [],
+			  answer: {questionId: 0, answerId: 0},
           }
 	  },
 
+	  watch: { 
+        picked: function() {
+		  this.selectionChanged();
+        }
+      },
+
 	  methods: {
+
+		selectionChanged(){
+			this.answer.questionId = this.question.id;
+			this.answer.answerId = this.picked;
+			this.$emit("selected", this.answer);
+		},
+
+		
+
 		success(message) {
           this.$emit("success", message);
         },
@@ -31,9 +47,10 @@
           this.$emit("error", message);
         },  
 	  },
-	  mounted(){
-		  alert(question.text)
-	  }
 	}
 
 </script>
+
+<style lang="scss">
+
+</style>

@@ -55,6 +55,7 @@
     padding: 10px;
     margin-bottom: 10px;
     border: 2px solid black;
+    border-radius: 5px;
     &-success {
       background: lightgreen;
       border-color: darken(lightgreen, 10%);
