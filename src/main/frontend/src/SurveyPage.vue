@@ -9,21 +9,17 @@
     leave-active-class="animated bounceOutRight"
     >
       <div v-if="mode !=='new_survey'" class="row">
-        <div class="column column-80">
-          <form>
-              <fieldset>
-                <label for="surveyID">Survey ID</label>
-                <input v-model="surveyID" type="text" :placeholder="surveyID" id="surveyID">
-              </fieldset>
-          </form>
+        <div class="column">
+          <label for="surveyID">Survey ID:</label>
+          <input v-model="surveyID" type="text" :placeholder="surveyID" id="surveyID">
         </div>
       </div>
     </transition>
 
-    <div class="row">
-      <div class="column"><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()"  >create a survey</button></div>
-      <div class="column"><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()"> fill a survey </button></div>
-      <div class="column"><button v-bind:class = "statisticsButtonClass" @click="statistics()"> see statistics</button></div>
+    <div class="row center">
+      <div class="column column-50"><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()"  >create a survey</button></div>
+      <div class="column column-50"><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()"> fill a survey </button></div>
+      <div class="column column-50"><button v-bind:class = "statisticsButtonClass" @click="statistics()"> see statistics</button></div>
     </div>
     
     <new-survey v-if="mode==='new_survey'"></new-survey>
@@ -95,26 +91,3 @@
   };
 </script>
 
-<style lang="scss">
-.button-blue {
-  background-color: blue;
-  border-color: blue;
-}
-.button-blue.button-clear,
-.button-blue.button-outline {
-  background-color: transparent;
-  color: blue;
-}
-.button-blue.button-clear {
-  border-color: transparent;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transition: opacity .5s;
-}
-
-
-</style>

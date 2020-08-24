@@ -133,8 +133,8 @@ public class SurveyService {
     
     public MetricAnswer giveMetricAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long metricId, Long metricAnswerId ){
        
-        Interviewee intervewee = (Interviewee) session.get(Interviewee.class,intervieweeId);
-        Survey survey = (Survey) session.get(Survey.class,surveyId);
+        Interviewee intervewee = this.getInterviewee(intervieweeId);
+        Survey survey =this.getSurvey(surveyId);
         Metric metric = (Metric) session.get(Metric.class,metricId);
         PotentialMetricAnswer potentialMetricAnswer = (PotentialMetricAnswer) session.get(PotentialMetricAnswer.class,metricAnswerId);
         
@@ -216,5 +216,9 @@ public class SurveyService {
     public Survey getSurvey(Long surveyID) {
     	return (Survey) session.get(Survey.class, surveyID);
     }
+
+	public Interviewee getInterviewee(long intervieweeId) {
+		return (Interviewee) session.get(Interviewee.class,intervieweeId);
+	}
 }
 

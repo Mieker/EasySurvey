@@ -1,6 +1,7 @@
 package easysurvey.dataModel.controllers;
 
 
+import easysurvey.dataModel.Interviewee;
 import easysurvey.dataModel.Question;
 import easysurvey.dataModel.Survey;
 import easysurvey.persistence.QuestionService;
@@ -45,5 +46,23 @@ public class SurveyRestController {
     public ResponseEntity<?> getQuestions(@PathVariable("surveyid") long surveyID) {
         Collection<Question> questions = questionService.getQuestions(surveyID);
         return new ResponseEntity<Collection<Question>>(questions, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/{intervieweeId}/{surveyId}/{questionId}/{answerId}", method = RequestMethod.POST)
+	public ResponseEntity<?> giveAnswer(@PathVariable("intervieweeId") long intervieweeId, @PathVariable("surveyId") long surveyId,
+			@PathVariable("questionId") long questionId, @PathVariable("answerId") long answerId) {
+
+    	Interviewee interviewee = surveyService.getInterviewee(intervieweeId); 	
+       	if (interviewee == null) {
+    		return new ResponseEntity("Interviewee" + intervieweeId + " not found", HttpStatus.NOT_FOUND);
+    	}
+    	
+    	Survey survey = surveyService.getSurvey(surveyId);
+    	if (survey == null) {
+    		return new ResponseEntity("Survey" + surveyId + " not found", HttpStatus.NOT_FOUND);
+    	}
+    	
+    	surveyService.giveQuestionAnswerByIntervieweeId(intervieweeId, surveyId, questionId, answerId);
+    	return new ResponseEntity(HttpStatus.OK);
     }
 }

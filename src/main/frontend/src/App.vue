@@ -1,15 +1,13 @@
 <template>
   <div id="app">
     <div class="row">
-      <img class="logo" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
+      <img class="logo center" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
     </div>
-    <div class="row">
-      <div class="column column-80">
-        <transition name="bounce">
-        <div v-bind:class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
-        </transition>
-      </div>
-    </div>
+   
+    <transition name="bounce">
+      <div v-bind:class="'alert alert-' + (this.isError ? 'error' : 'success') + ' center'" v-if="message">{{ message }}</div>
+    </transition>
+      
     <survey-page v-if="selection" @error="failure($event)" @success="success($event)"></survey-page>
   </div>
 </template>
@@ -85,5 +83,33 @@
       transform: scale(1);
     }
 }
+
+.button-blue {
+  background-color: blue;
+  border-color: blue;
+}
+.button-blue.button-clear,
+.button-blue.button-outline {
+  background-color: transparent;
+  color: blue;
+}
+.button-blue.button-clear {
+  border-color: transparent;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transition: opacity .5s;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 </style>
+
 

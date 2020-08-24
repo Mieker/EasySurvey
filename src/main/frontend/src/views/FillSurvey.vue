@@ -1,6 +1,6 @@
 <template>
   <div id="fill_survey">
-    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css"> -->
     <transition
       name="custom-classes-transition"
       enter-active-class="animated bounceInRight"
@@ -8,11 +8,22 @@
     >
       <div>
         <br>
-        <h3>{{survey.description}}</h3>
+        <h5>
+          <b>description: </b>
+          <span>{{survey.description}}</span>
+        </h5>
+        
+        <div>
+          <label for="intervieweeId">Interviewee ID:</label>
+          <input v-model="intervieweeId" type="text" :placeholder="intervieweeId" id="intervieweeId"> 
+        </div>
+        
         <div v-for="question in survey.questions" :key="question.id">
           <fill-survey-question v-bind:question="question" @error="failure($event)" @success="success($event)" @selected="answerSelected($event)"></fill-survey-question>
         </div>
+        
         <button v-if="!submitted" class = "button-blue" @click="submitAnswer()"  >submit your survey</button>  
+      
       </div>
     </transition>
   </div>
@@ -29,6 +40,8 @@
               survey: "",
               answers: [],
               submitted: false,
+              answeredSurvey: {},
+              intervieweeId: 0,
           }
       },
 
@@ -81,9 +94,21 @@
           }
           if (!complete){
             this.failure("please answer all questions");
-          } else {
-            this.success("your answers were succesfully submitted");
-            this.submitted = true;
+          } 
+          else if (this.intervieweeId == 0){
+            this.failure("please provide your nickname");
+          }
+          else {
+            this.answers.forEach( (answer) => {
+                var query = 'survey/' + this.intervieweeId + '/' + this.surveyId + '/' + answer.questionId + '/' + answer.answerId;
+                this.$http.post(query)
+                .then( response => 
+                {
+                  this.success("your answers were succesfully submitted");
+                  this.submitted = true;      
+                })
+                .catch(response => this.failure('Error ' + response.status + ' while storing answers'));
+            })
           }
         },
 
