@@ -8,10 +8,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component("surveyService")
 public class SurveyService {
@@ -35,6 +32,7 @@ public class SurveyService {
         HibernateUtil.shutdown();
     }
 
+
     public void createSurvey(){
         survey = addNewSurvey("badanie kolegow","www.easysurvey.com","www.easysurvey.edit.com",LocalDate.of(2019,8,30),LocalDate.of(2025,8,30),true);
 
@@ -48,7 +46,7 @@ public class SurveyService {
         PotentialQuestionAnswer pqa5 = addPotentialQuestionAnswer(question.getId(),"Indonezja");
         PotentialQuestionAnswer pqa6 = addPotentialQuestionAnswer(question.getId(),"Australia");
         PotentialQuestionAnswer pqa7 = addPotentialQuestionAnswer(question.getId(),"Chile");
-        
+
         Metric metric1 = createMetric(survey.getId(),"podaj przedial wiekowy?");
         PotentialMetricAnswer pma1 = addPotentialMetricAnswer(metric.getId(),"20-30");
         PotentialMetricAnswer pma2 = addPotentialMetricAnswer(metric.getId(),"31-40");
@@ -60,19 +58,19 @@ public class SurveyService {
         PotentialMetricAnswer pma6 = addPotentialMetricAnswer(metric.getId(),"11-20");
         PotentialMetricAnswer pma7 = addPotentialMetricAnswer(metric.getId(),"21-50");
         PotentialMetricAnswer pma8 = addPotentialMetricAnswer(metric.getId(),"50-299");
-        
+
         Interviewee interviewee1 = addNewInterviewee("MichalJ");
         giveMetricAnswerByIntervieweeId(interviewee1, survey, metric1, pma2);
         giveMetricAnswerByIntervieweeId(interviewee1, survey, metric2, pma8);
         giveQuestionAnswerByIntervieweeId(interviewee1, survey, question1, pqa2);
         giveQuestionAnswerByIntervieweeId(interviewee1, survey, question2, pqa7);
-        
+
         Interviewee interviewee2 = addNewInterviewee("Marco01");
         giveMetricAnswerByIntervieweeId(interviewee2, survey, metric1, pma1);
         giveMetricAnswerByIntervieweeId(interviewee2, survey, metric2, pma7);
-        giveQuestionAnswerByIntervieweeId(interviewee2, survey, question1, pqa1);
+        giveQuestionAnswerByIntervieweeId(interviewee2, survey, question1, pqa2);
         giveQuestionAnswerByIntervieweeId(interviewee2, survey, question2, pqa6);
-        
+
         Interviewee interviewee3 = addNewInterviewee("Pawel01");
         giveMetricAnswerByIntervieweeId(interviewee3, survey, metric1, pma3);
         giveMetricAnswerByIntervieweeId(interviewee3, survey, metric2, pma6);
@@ -216,5 +214,42 @@ public class SurveyService {
     public Survey getSurvey(Long surveyID) {
     	return (Survey) session.get(Survey.class, surveyID);
     }
+
+    public Collection<Interviewee> getAllInterviewees(){
+//        String hql = "SELECT Interviewee.nickName FROM Interviewee";
+//        Query query = session.createQuery(hql);
+//        List results = query.list();
+//        return results;
+        Collection<Interviewee> interviewees = session.createCriteria(Interviewee.class).list();
+        return interviewees;
+    }
+
+    public  List<Interviewee> statCalculation(){
+
+        String hql = "FROM Interviewee ";
+        Query query = session.createQuery(hql);
+        List<Interviewee> results = query.list();
+        return results;
+    }
+
+    public long statAnswers(long questionId, long questionAnswerId){
+
+        Query query2 = session.createQuery("select count(q) from QuestionAnswer q where q.question='" + questionId + "' and q.questionAnswer='" + questionAnswerId +"'");
+
+        Long interCount2 = (Long) query2.uniqueResult();
+        //List<Interviewee> results = query.list();
+        //System.out.println("ilosc interwiwes to " + interCount2);
+        return interCount2;
+
+    }
+
+    public long countInterviewee() {
+        String hql = "select count(s) from Interviewee s";
+        Query query = session.createQuery(hql);
+        Long interCount = (Long) query.uniqueResult();
+        return interCount;
+    }
+
+
 }
 

@@ -40,7 +40,15 @@ public class QuestionAnswer implements Comparable<QuestionAnswer>
 		return id;
 	}
 
-	@Override
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    @Override
 	public int compareTo(QuestionAnswer arg0) {
 		if (this.getId() < arg0.getId()) {
 			return -1;

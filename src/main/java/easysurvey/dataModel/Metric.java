@@ -32,6 +32,10 @@ public class Metric implements Comparable<Metric>
         this.metricText = metricText;
     }
 
+    public void setMetricText(String metricText) {
+        this.metricText = metricText;
+    }
+
     public Set<PotentialMetricAnswer> getPotentialMetricAnswers() {
         return potentialMetricAnswers;
     }
@@ -39,8 +43,12 @@ public class Metric implements Comparable<Metric>
 	public long getId() {
 		return id;
 	}
-	
-	@Override
+
+    public String getMetricText() {
+        return metricText;
+    }
+
+    @Override
 	public int compareTo(Metric arg0) {
 		if (this.getId() < arg0.getId()) {
 			return -1;

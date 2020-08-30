@@ -40,10 +40,10 @@ public class Survey implements java.io.Serializable, Comparable<Survey>
     @JoinColumn(name="survey_id")
     private Set<Metric> metrics = new HashSet<>();
 
-    @OneToMany(mappedBy = "survey",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "survey",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<QuestionAnswer> questionAnswers = new HashSet<>();
 
-    @OneToMany(mappedBy = "survey",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "survey",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<MetricAnswer> metricAnswers = new HashSet<>();
 
 

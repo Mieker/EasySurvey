@@ -28,7 +28,7 @@
     
     <new-survey v-if="mode==='new_survey'"></new-survey>
     <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></fill-survey>
-    <statistics v-if="mode==='statistics'"></statistics>
+    <statistics v-if="mode==='statistics'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></statistics>
 
   </div>
 
@@ -44,11 +44,12 @@
     data() {
         return {
             surveys: [],
-            surveyID: "0",
+            surveyID: "",
             newSurveyButtonClass: "button-blue",
             fillSurveyButtonClass: "button-blue",
             statisticsButtonClass: "button-blue",
             mode: "",
+
         };
     },
     methods: {
@@ -96,15 +97,22 @@
 </script>
 
 <style lang="scss">
+
 .button-blue {
   background-color: blue;
   border-color: blue;
+
+  &.button-clear, &.button-outline {
+      background-color: transparent;
+      color: blue;
+  }
+
 }
-.button-blue.button-clear,
-.button-blue.button-outline {
-  background-color: transparent;
-  color: blue;
-}
+/*.button-blue.button-clear,*/
+/*.button-blue.button-outline {*/
+/*  background-color: transparent;*/
+/*  color: blue;*/
+/*}*/
 .button-blue.button-clear {
   border-color: transparent;
 }

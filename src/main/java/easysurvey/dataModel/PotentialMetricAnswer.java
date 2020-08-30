@@ -40,4 +40,8 @@ public class PotentialMetricAnswer implements Comparable<PotentialMetricAnswer>
 	public long getId() {
 		return id;
 	}
+
+    public String getText() {
+        return text;
+    }
 }
