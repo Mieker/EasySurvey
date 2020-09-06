@@ -16,6 +16,7 @@
 	<artifactId>EasySurvey</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>EasySurvey</name>
+    <packaging>jar</packaging>
 	<description>An easy application for surveys</description>
 
 	<properties>
