@@ -57,7 +57,7 @@ export default {
 .mainNames {
     font-weight: bold;
     color: white;
-    background-color: blue;
+    background-color: cornflowerblue;
 }
 
 </style>
