@@ -1,5 +1,5 @@
 <template>
-<div id="metricList" v-if="this.questions.length > 0">
+<div id="questionsList" v-if="this.questions.length > 0">
     <ul v-for="question in this.questions" v-bind:key="question">
         <button class="button-small" style="margin: 0 10px">X</button> {{ questions.indexOf(question)+1 }}. {{ question.questionText }} 
         <li v-for="answer in question.answers" v-bind:key="answer">
@@ -17,8 +17,8 @@ export default {
 }
 </script>
 
-<style scoped>
-#metricList {
+<style>
+#questionsList {
     text-align: left;
 }
 
