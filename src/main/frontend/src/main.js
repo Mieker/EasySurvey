@@ -2,6 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import VueResource from "vue-resource";
 
+export const dataBus = new Vue();
+
 Vue.use(VueResource);
 
 Vue.http.options.root = '/api';
