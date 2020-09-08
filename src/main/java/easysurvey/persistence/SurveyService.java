@@ -250,6 +250,12 @@ public class SurveyService {
         return interCount;
     }
 
-
+    public Survey createNewSurvey(Survey survey){
+        Transaction txn = session.getTransaction();
+        txn.begin();
+        session.persist(survey);
+        txn.commit();
+        return survey;
+    }
 }
 
