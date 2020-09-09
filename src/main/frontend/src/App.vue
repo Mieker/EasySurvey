@@ -3,7 +3,7 @@
     <div class="row">
       <img class="logo" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
     </div>
-    <div class="row">
+    <div class="row messageColumn">
       <div class="column column-80">
         <transition name="bounce">
         <div v-bind:class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
@@ -43,12 +43,20 @@
 
 <style lang="scss">
   #app {
+    display: flex;
+    flex-direction: column;
     max-width: 1000px;
+    margin: auto;
+  }
+
+  .messageColumn {
+    display: flex;
+    justify-content: center;
   }
 
   .logo {
       float:left;
-      margin:0;
+      margin: auto;
   }
 
   .alert {

@@ -8,7 +8,7 @@
     enter-active-class="animated bounceInRight"
     leave-active-class="animated bounceOutRight"
     >
-      <div v-if="mode !=='new_survey'" class="row">
+      <div v-if="mode !=='new_survey'" class="row inputSurveyIdPanel">
         <div class="column column-80">
           <form>
               <fieldset>
@@ -20,10 +20,10 @@
       </div>
     </transition>
 
-    <div class="row">
-      <div class="column"><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()"  >create a survey</button></div>
-      <div class="column"><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()"> fill a survey </button></div>
-      <div class="column"><button v-bind:class = "statisticsButtonClass" @click="statistics()"> see statistics</button></div>
+    <div class="row mainButtonsPanel">
+      <div><button v-bind:class = "newSurveyButtonClass" @click="newSurvey()"  >create a survey</button></div>
+      <div><button v-bind:class = "fillSurveyButtonClass" @click="fillSurvey()"> fill a survey </button></div>
+      <div><button v-bind:class = "statisticsButtonClass" @click="statistics()"> see statistics</button></div>
     </div>
     
     <new-survey v-if="mode==='new_survey'"></new-survey>
@@ -97,6 +97,16 @@
 </script>
 
 <style lang="scss">
+
+.inputSurveyIdPanel {
+  display: flex;
+  justify-content: center;
+}
+
+.mainButtonsPanel {
+  display: flex;
+  justify-content: space-around;
+}
 
 .button-blue {
   background-color: blue;
