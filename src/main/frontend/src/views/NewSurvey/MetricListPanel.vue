@@ -44,4 +44,8 @@ li {
   background-color: coral;
 }
 
+.button-small:hover {
+    background-color: gray;
+}
+
 </style>

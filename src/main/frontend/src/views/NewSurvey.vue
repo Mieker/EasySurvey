@@ -1,6 +1,5 @@
 <template>
 <div id="new_survey">
-    <h3 style="text-align: center">{{message}}</h3>
     <DescriptionPanel />
     <p></p>
     <CreateMetric />
@@ -23,7 +22,6 @@ export default {
     },
     data() {
         return {
-            message: "Create your survey:",
             survey: {
 
             }
@@ -47,7 +45,13 @@ export default {
 
 #createSurveyButton {
     float: right;
+    margin-right: 5px;
+    margin-top: 5px;
     background-color: coral;
+}
+
+#createSurveyButton:hover {
+    background-color: gray;
 }
 
 
