@@ -32,7 +32,7 @@ export default {
         addQuestion(inputedQuestion, answers) {
             this.questions.push({
                 questionText: inputedQuestion,
-                answers: answers
+                potentialQuestionAnswers: answers
             });
 
             // this.$http.post('metrics', this.testObjMetric)
@@ -48,7 +48,13 @@ export default {
             //         alert('nie ok');
             //         // nie udało sie     
             //     });
+        },
+        pushQuestionsToParentComponent() {
+            this.$emit('getSurveyQuestions', this.questions);
         }
+    },
+    created() {
+        dataBus.$on('callForSurveyElements', this.pushQuestionsToParentComponent);
     }
 }
 </script>

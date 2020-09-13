@@ -1,12 +1,12 @@
 <template>
 <div class="surveyCreatorComponent">
     <p>METRIC QUESTION:</p>
-    <input class="inputQuestionBar" type="text" v-model="inputedQuestion">
+    <input class="inputQuestionBar" type="text" v-model="metricText">
     <p>OFFERED ANSWERS:</p>
     <ul>
-        <li v-for="answer in this.answers" v-bind:key="answer">- {{ answer }}</li>
+        <li v-for="answer in this.potentialMetricAnswers" v-bind:key="answer">- {{ answer.text }}</li>
     </ul>
-    <input class="inputAnswerBar" type="text" v-model="inputedAnswer">
+    <input class="inputAnswerBar" type="text" v-model="text">
     <button class="button-blue" @click="addAnswer">ADD METRIC ANSWER</button>
 </div>
 </template>
@@ -17,20 +17,22 @@ import { dataBus } from '../../main';
 export default {
     data() {
         return {
-            answers: [],
-            inputedAnswer: '',
-            inputedQuestion: ''
+            potentialMetricAnswers: [],
+            text: '',
+            metricText: ''
         }
     },
     methods: {
         addAnswer() {
-            this.answers.push(this.inputedAnswer);
-            this.inputedAnswer = '';
+            this.potentialMetricAnswers.push({
+                text: this.text
+            });
+            this.text = '';
         },
         pushQuestionToParentComponent() {
-            this.$emit('question', this.inputedQuestion, this.answers);
-            this.answers = [];
-            this.inputedQuestion = '';
+            this.$emit('question', this.metricText, this.potentialMetricAnswers);
+            this.potentialMetricAnswers = [];
+            this.metricText = '';
         }
     },
     created() {

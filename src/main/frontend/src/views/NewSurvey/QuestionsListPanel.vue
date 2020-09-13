@@ -2,8 +2,8 @@
 <div id="questionsList" v-if="this.questions.length > 0">
     <ul v-for="question in this.questions" v-bind:key="question">
         <button class="button-small" style="margin: 0 10px" @click="questions.splice(questions.indexOf(question), 1)">X</button> {{ questions.indexOf(question)+1 }}. {{ question.questionText }} 
-        <li v-for="answer in question.answers" v-bind:key="answer">
-            - {{ answer }}
+        <li v-for="answer in question.potentialQuestionAnswers" v-bind:key="answer">
+            - {{ answer.text }}
         </li>
     </ul>
 </div>
