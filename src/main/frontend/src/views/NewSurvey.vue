@@ -1,35 +1,66 @@
 <template>
 <div id="new_survey">
-    <h3 style="text-align: center">{{message}}</h3>
-    <CreateMetric />
+    <DescriptionPanel @getSurveyDescription="getSurveyDescriptionFromChild($event)"/>
     <p></p>
-    <CreateSurvey />
-    <button class="button-blue" id="createSurveyButton">CREATE EASY SURVEY</button>
+    <CreateMetric @getMetricQuestions="getMetricQuestionsFromChild($event)" />
+    <p></p>
+    <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)"/>
+    <button class="button-blue" id="createSurveyButton" @click="callForSurveyElements">CREATE EASY SURVEY</button>
 </div>
 </template>
 
 <script>
 import CreateMetric from './NewSurvey/CreateMetric';
 import CreateSurvey from './NewSurvey/CreateSurvey';
+import DescriptionPanel from './NewSurvey/DescriptionPanel';
+import {
+    dataBus
+} from '../main';
 
 export default {
     components: {
         CreateMetric,
-        CreateSurvey
+        CreateSurvey,
+        DescriptionPanel
     },
     data() {
         return {
-            message: "Create your survey:",
             survey: {
-
+                description: '',
+                questions: [],
+                metrics: []
             }
         }
     },
+    methods: {
+        getSurveyDescriptionFromChild(description) {
+            this.survey.description = description;
+},
+        getMetricQuestionsFromChild(questions) {
+            this.survey.metrics = questions;
+        },
+        getSurveyQuestionsFromChild(questions) {
+            this.survey.questions = questions;
+        },
+        callForSurveyElements() {
+            dataBus.$emit('callForSurveyElements');
+            this.createSurvey();
+        },
+        createSurvey() {
+            this.$http.post('survey', this.survey)
+                .then(response => {
+                    alert('survey created');
+
+                })
+                .catch(response => {
+                    alert('something goes wrong');
+                });
+        }
+    }
 };
 </script>
 
 <style>
-
 .surveyCreatorComponent {
     border: 1px solid cornflowerblue;
     box-shadow: 2px 2px 5px cornflowerblue;
@@ -37,14 +68,19 @@ export default {
     padding: 2px;
     text-align: center;
 }
+
 .componentFulfillment {
     background-color: deepskyblue;
 }
 
 #createSurveyButton {
     float: right;
+    margin-right: 5px;
+    margin-top: 5px;
     background-color: coral;
 }
 
-
+#createSurveyButton:hover {
+    background-color: gray;
+}
 </style>
