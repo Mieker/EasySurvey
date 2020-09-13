@@ -31,7 +31,7 @@ export default {
         },
         addQuestion(inputedQuestion, answers) {
             this.questions.push({
-                questionText: inputedQuestion,
+                metricText: inputedQuestion,
                 answers: answers
             });
 
