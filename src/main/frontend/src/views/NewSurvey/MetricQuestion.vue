@@ -2,7 +2,7 @@
 <div class="surveyCreatorComponent">
     <p>METRIC QUESTION:</p>
     <input class="inputQuestionBar" type="text" v-model="metricText">
-    <p>OFFERED ANSWERS</p>
+    <p>OFFERED ANSWERS:</p>
     <ul>
         <li v-for="answer in this.potentialMetricAnswers" v-bind:key="answer">- {{ answer.text }}</li>
     </ul>

@@ -32,7 +32,7 @@ export default {
         addQuestion(inputedQuestion, answers) {
             this.questions.push({
                 metricText: inputedQuestion,
-                answers: answers
+                potentialMetricAnswers: answers
             });
 
             // this.$http.post('metrics', this.testObjMetric)
