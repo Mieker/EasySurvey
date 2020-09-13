@@ -48,7 +48,13 @@ export default {
             //         alert('nie ok');
             //         // nie udało sie     
             //     });
+        },
+        pushQuestionsToParentComponent() {
+            this.$emit('getSurveyQuestions', this.questions);
         }
+    },
+    created() {
+        dataBus.$on('callForSurveyElements', this.pushQuestionsToParentComponent);
     }
 }
 </script>

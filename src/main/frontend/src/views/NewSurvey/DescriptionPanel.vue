@@ -6,11 +6,23 @@
 </template>
 
 <script>
+import {
+    dataBus
+} from '../../main';
+
 export default {
     data() {
         return {
             description: ''
         }
+    },
+    methods: {
+        pushDescriptionToParentComponent() {
+            this.$emit('getSurveyDescription', this.description);
+        }
+    },
+    created() {
+        dataBus.$on('callForSurveyElements', this.pushDescriptionToParentComponent);
     }
 
 }
