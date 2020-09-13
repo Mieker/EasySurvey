@@ -44,16 +44,16 @@ export default {
         },
         callForSurveyElements() {
             dataBus.$emit('callForSurveyElements');
+            this.createSurvey();
         },
         createSurvey() {
-            alert('stworzono ankiete');
             this.$http.post('survey', this.survey)
                 .then(response => {
-                    alert('ok');
+                    alert('survey created');
 
                 })
                 .catch(response => {
-                    alert('nie ok');
+                    alert('something goes wrong');
                 });
         }
     }
