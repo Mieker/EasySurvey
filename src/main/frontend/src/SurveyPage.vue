@@ -100,7 +100,7 @@ export default {
     min-width: 180px;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 650px) {
     .mainButtonsPanel div {
         display: flex;
         margin: auto;
@@ -108,7 +108,7 @@ export default {
     }
 }
 
-@media (min-width: 851px) {
+@media (min-width: 651px) {
     .mainButtonsPanel {
         display: flex;
         justify-content: space-around;
