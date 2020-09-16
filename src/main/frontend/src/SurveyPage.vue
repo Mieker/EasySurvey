@@ -96,7 +96,11 @@ export default {
 </script>
 
 <style lang="scss">
-@media (max-width: 650px) {
+.mainButtonsPanel button {
+    min-width: 180px;
+}
+
+@media (max-width: 850px) {
     .mainButtonsPanel div {
         display: flex;
         margin: auto;
@@ -104,14 +108,16 @@ export default {
     }
 }
 
+@media (min-width: 851px) {
+    .mainButtonsPanel {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
 .inputSurveyIdPanel {
     display: flex;
     justify-content: center;
-}
-
-.mainButtonsPanel {
-  display: flex;
-  justify-content: space-around;
 }
 
 .button-blue {
