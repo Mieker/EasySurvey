@@ -22,7 +22,7 @@
         <div><button v-bind:class="statisticsButtonClass" @click="statistics()"> see statistics</button></div>
     </div>
 
-    <new-survey v-if="mode==='new_survey'"></new-survey>
+    <new-survey v-if="mode==='new_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></new-survey>
     <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></fill-survey>
     <statistics v-if="mode==='statistics'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></statistics>
 
@@ -96,6 +96,10 @@ export default {
 </script>
 
 <style lang="scss">
+.mainButtonsPanel button {
+    min-width: 180px;
+}
+
 @media (max-width: 650px) {
     .mainButtonsPanel div {
         display: flex;
@@ -104,14 +108,16 @@ export default {
     }
 }
 
+@media (min-width: 651px) {
+    .mainButtonsPanel {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
 .inputSurveyIdPanel {
     display: flex;
     justify-content: center;
-}
-
-.mainButtonsPanel {
-  display: flex;
-  justify-content: space-around;
 }
 
 .button-blue {
