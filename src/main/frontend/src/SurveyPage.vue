@@ -22,7 +22,7 @@
         <div><button v-bind:class="statisticsButtonClass" @click="statistics()"> see statistics</button></div>
     </div>
 
-    <new-survey v-if="mode==='new_survey'"></new-survey>
+    <new-survey v-if="mode==='new_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></new-survey>
     <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></fill-survey>
     <statistics v-if="mode==='statistics'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></statistics>
 

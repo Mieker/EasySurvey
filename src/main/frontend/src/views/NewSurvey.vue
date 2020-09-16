@@ -1,10 +1,10 @@
 <template>
 <div id="new_survey">
-    <DescriptionPanel @getSurveyDescription="getSurveyDescriptionFromChild($event)"/>
+    <DescriptionPanel @getSurveyDescription="getSurveyDescriptionFromChild($event)" />
     <p></p>
     <CreateMetric @getMetricQuestions="getMetricQuestionsFromChild($event)" />
     <p></p>
-    <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)"/>
+    <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" />
     <button class="button-blue" id="createSurveyButton" @click="callForSurveyElements">CREATE EASY SURVEY</button>
 </div>
 </template>
@@ -23,6 +23,7 @@ export default {
         CreateSurvey,
         DescriptionPanel
     },
+    props: ['surveyID'],
     data() {
         return {
             survey: {
@@ -35,7 +36,7 @@ export default {
     methods: {
         getSurveyDescriptionFromChild(description) {
             this.survey.description = description;
-},
+        },
         getMetricQuestionsFromChild(questions) {
             this.survey.metrics = questions;
         },
@@ -49,13 +50,22 @@ export default {
         createSurvey() {
             this.$http.post('survey', this.survey)
                 .then(response => {
-                    alert('survey created');
-
+                    this.surveyID = response.body.id;
+                    this.success("Congratulations! New survey created. You can try it with ID: " + this.surveyID);
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
                 })
                 .catch(response => {
-                    alert('something goes wrong');
+                    this.failure("Something went wrong. The survey couldn't be created.");
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
                 });
-        }
+        },
+        success(message) {
+            this.$emit("success", message);
+        },
+
+        failure(message) {
+            this.$emit("error", message);
+        },
     }
 };
 </script>
