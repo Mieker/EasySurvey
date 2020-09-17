@@ -10,7 +10,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://ec2-52-31-94-195.eu-west-1.compute.amazonaws.com:5432/d30aknjtcubthn</property>
         <property name="hibernate.connection.username">gfrakwenpllmio</property>
-        <property name="hibernate.connection.password">d8f177e6831a068fbd084d553e326251294746e8439d64eb5f91431135bdb370</property>
+        <property name="hibernate.connection.password">insertYourPasswordHere</property>
   
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
