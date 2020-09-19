@@ -5,6 +5,7 @@ import easysurvey.dataModel.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -22,6 +23,8 @@ public class SurveyService {
     Interviewee interviewee;
     QuestionAnswer questionAnswer;
     MetricAnswer metricAnswer;
+    @Autowired
+    QuestionService questionService;
 
     public SurveyService() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -60,22 +63,22 @@ public class SurveyService {
         PotentialMetricAnswer pma8 = addPotentialMetricAnswer(metric.getId(),"50-299");
 
         Interviewee interviewee1 = addNewInterviewee("MichalJ");
-        giveMetricAnswerByIntervieweeId(interviewee1, survey, metric1, pma2);
-        giveMetricAnswerByIntervieweeId(interviewee1, survey, metric2, pma8);
-        giveQuestionAnswerByIntervieweeId(interviewee1, survey, question1, pqa2);
-        giveQuestionAnswerByIntervieweeId(interviewee1, survey, question2, pqa7);
+        questionService.giveMetricAnswerByIntervieweeId(interviewee1, survey, metric1, pma2);
+        questionService.giveMetricAnswerByIntervieweeId(interviewee1, survey, metric2, pma8);
+        questionService.giveQuestionAnswerByIntervieweeId(interviewee1, survey, question1, pqa2);
+        questionService.giveQuestionAnswerByIntervieweeId(interviewee1, survey, question2, pqa7);
 
         Interviewee interviewee2 = addNewInterviewee("Marco01");
-        giveMetricAnswerByIntervieweeId(interviewee2, survey, metric1, pma1);
-        giveMetricAnswerByIntervieweeId(interviewee2, survey, metric2, pma7);
-        giveQuestionAnswerByIntervieweeId(interviewee2, survey, question1, pqa2);
-        giveQuestionAnswerByIntervieweeId(interviewee2, survey, question2, pqa6);
+        questionService.giveMetricAnswerByIntervieweeId(interviewee2, survey, metric1, pma1);
+        questionService.giveMetricAnswerByIntervieweeId(interviewee2, survey, metric2, pma7);
+        questionService.giveQuestionAnswerByIntervieweeId(interviewee2, survey, question1, pqa2);
+        questionService.giveQuestionAnswerByIntervieweeId(interviewee2, survey, question2, pqa6);
 
         Interviewee interviewee3 = addNewInterviewee("Pawel01");
-        giveMetricAnswerByIntervieweeId(interviewee3, survey, metric1, pma3);
-        giveMetricAnswerByIntervieweeId(interviewee3, survey, metric2, pma6);
-        giveQuestionAnswerByIntervieweeId(interviewee3, survey, question1, pqa3);
-        giveQuestionAnswerByIntervieweeId(interviewee3, survey, question2, pqa5);
+        questionService.giveMetricAnswerByIntervieweeId(interviewee3, survey, metric1, pma3);
+        questionService.giveMetricAnswerByIntervieweeId(interviewee3, survey, metric2, pma6);
+        questionService.giveQuestionAnswerByIntervieweeId(interviewee3, survey, question1, pqa3);
+        questionService.giveQuestionAnswerByIntervieweeId(interviewee3, survey, question2, pqa5);
         
     }
 
@@ -90,54 +93,7 @@ public class SurveyService {
         return interviewee;
     }
 
-    public QuestionAnswer giveQuestionAnswerByIntervieweeId(Interviewee interviewee ,Survey survey, Question question, PotentialQuestionAnswer potentialQuestionAnswer )
-    {
-    	Transaction txn = session.getTransaction();
-        txn.begin();
-        
-    	questionAnswer = new QuestionAnswer(survey, question, potentialQuestionAnswer);
-        interviewee.getQuestionAnswers().add(questionAnswer);
-
-        session.persist(questionAnswer);
-        txn.commit();
-        
-        return questionAnswer;
-    }
     
-    public QuestionAnswer giveQuestionAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long questionId, Long questionAnswerId ){
-        
-
-        Interviewee interviewee = (Interviewee) session.get(Interviewee.class,intervieweeId);
-        Survey survey = (Survey) session.get(Survey.class,surveyId);
-        Question question = (Question) session.get(Question.class,questionId);
-        PotentialQuestionAnswer potentialAnswer = (PotentialQuestionAnswer) session.get(PotentialQuestionAnswer.class,questionAnswerId);
-        
-        return this.giveQuestionAnswerByIntervieweeId(interviewee, survey, question, potentialAnswer);
-        
-    }
-
-    public MetricAnswer giveMetricAnswerByIntervieweeId(Interviewee interviewee ,Survey survey, Metric metric, PotentialMetricAnswer potentialMetricAnswer ) {
-    	Transaction txn = session.getTransaction();
-        txn.begin();
-        
-        metricAnswer = new MetricAnswer(survey, metric, potentialMetricAnswer);
-        interviewee.getMetricAnswers().add(metricAnswer);
-
-        session.persist(metricAnswer);
-        txn.commit();
-
-    	return metricAnswer;
-    }
-    
-    public MetricAnswer giveMetricAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long metricId, Long metricAnswerId ){
-       
-        Interviewee intervewee = (Interviewee) session.get(Interviewee.class,intervieweeId);
-        Survey survey = (Survey) session.get(Survey.class,surveyId);
-        Metric metric = (Metric) session.get(Metric.class,metricId);
-        PotentialMetricAnswer potentialMetricAnswer = (PotentialMetricAnswer) session.get(PotentialMetricAnswer.class,metricAnswerId);
-        
-        return this.giveMetricAnswerByIntervieweeId(intervewee, survey, metric, potentialMetricAnswer);
-    }
 
     public Survey addNewSurvey(String description, String surveyLink, String editLink, LocalDate startDate, LocalDate endDate, boolean isOpen){
         Transaction txn = session.getTransaction();

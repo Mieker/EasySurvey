@@ -8,6 +8,15 @@
     >
       <div>
         <br>
+        <div class="column column-80">
+            <form>
+                <fieldset>
+                    <label for="intervieweeId">Your ID</label>
+                    <input v-model="intervieweeId" type="text" :placeholder="intervieweeId" id="intervieweeId">
+                </fieldset>
+            </form>
+        </div>
+        <br>
         <h3>{{survey.description}}</h3>
         <div v-for="question in survey.questions" :key="question.id">
           <fill-survey-question v-bind:question="question" @error="failure($event)" @success="success($event)" @selected="answerSelected($event)"></fill-survey-question>
@@ -26,9 +35,15 @@
       
       data() {
           return {
+              intervieweeId: 0,
               survey: "",
               answers: [],
               submitted: false,
+              postText: "",
+              answeredSurvey: {
+                questionIds: [],
+                answerIds: []
+              }
           }
       },
 
@@ -44,6 +59,8 @@
           .then( response => {
             this.survey = response.body;
             this.answers = [];
+            this.answeredSurvey.questionIds = [];
+            this.answeredSurvey.answerIds = [];
             this.submitted = false;
             this.success("Successfuly loaded survey ID" + this.survey.id + " with " + this.survey.questions.length + " questions");
 
@@ -81,9 +98,27 @@
           }
           if (!complete){
             this.failure("please answer all questions");
-          } else {
-            this.success("your answers were succesfully submitted");
-            this.submitted = true;
+          } 
+          else {
+
+            for (var answer of this.answers) {
+              this.answeredSurvey.questionIds.push(answer.questionId); 
+              this.answeredSurvey.answerIds.push(answer.answerId);
+            };
+            
+            var postText = "question/" + this.survey.id + '/' + this.intervieweeId;
+            
+            this.$http.post(postText, this.answeredSurvey)
+                .then(response => {
+                    this.surveyID = response.body.id;
+                    this.success("your answers were succesfully submitted");
+                    this.submitted = true;
+                })
+                .catch(response => {
+                    this.failure("Something went wrong. Your answers couldn't be submitted. Error " + response.status);
+                });
+            
+            
           }
         },
 
