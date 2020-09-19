@@ -170,6 +170,10 @@ public class SurveyService {
     public Survey getSurvey(Long surveyID) {
     	return (Survey) session.get(Survey.class, surveyID);
     }
+    
+    public Interviewee getInterviewee(long intervieweeId) {
+    	return (Interviewee) session.get(Interviewee.class, intervieweeId);
+    }
 
     public Collection<Interviewee> getAllInterviewees(){
 //        String hql = "SELECT Interviewee.nickName FROM Interviewee";

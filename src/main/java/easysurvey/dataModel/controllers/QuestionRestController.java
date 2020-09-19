@@ -1,6 +1,7 @@
 package easysurvey.dataModel.controllers;
 
 import easysurvey.dataModel.AnsweredSurvey;
+import easysurvey.dataModel.Interviewee;
 import easysurvey.dataModel.PotentialQuestionAnswer;
 import easysurvey.dataModel.Question;
 import easysurvey.dataModel.Survey;
@@ -26,6 +27,10 @@ public class QuestionRestController {
 
 	@Autowired
     QuestionService questionService;
+	
+	@Autowired
+	SurveyService surveyService;
+	
 	Survey survey;
 	@RequestMapping(value = "/{questionid}", method = RequestMethod.GET)
 	public ResponseEntity<?> getQuestion(@PathVariable("questionid") long questionID) {
@@ -44,13 +49,20 @@ public class QuestionRestController {
 	
 	@RequestMapping(value = "/{surveyid}/{intervieweeid}", method = RequestMethod.POST)
 	public ResponseEntity<?> submitAnswers(@PathVariable("surveyid") long surveyId, @PathVariable("intervieweeid") long intervieweeId, @RequestBody AnsweredSurvey answeredSurvey) {
-	
+		
+		Interviewee interviewee = surveyService.getInterviewee(intervieweeId);
+		if (interviewee == null) {
+			interviewee = surveyService.addNewInterviewee(Long.toString(intervieweeId));
+			intervieweeId = interviewee.getId();
+		}
+				
 		try {
 			for(int index = 0; index < answeredSurvey.getQuestionIds().size(); index++) {
 				questionService.giveQuestionAnswerByIntervieweeId(intervieweeId, surveyId, answeredSurvey.getQuestionIds().get(index), answeredSurvey.getAnswerIds().get(index));
 			}
 		}
 		catch (Exception e) {
+			System.out.print(e.toString());
 			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
