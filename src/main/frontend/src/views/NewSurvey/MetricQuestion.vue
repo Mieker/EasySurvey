@@ -1,5 +1,5 @@
 <template>
-<div class="surveyCreatorComponent">
+<div>
     <p>METRIC QUESTION:</p>
     <input class="inputQuestionBar" type="text" v-model="metricText">
     <p>OFFERED ANSWERS:</p>

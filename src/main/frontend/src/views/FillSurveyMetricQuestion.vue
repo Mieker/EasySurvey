@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h5>{{metricQuestion.metricText}}</h5>
+		<h5><b>{{metricQuestion.metricText}}</b></h5>
 		<div id="potential_answers" v-for="potentialMetricAnswer in metricQuestion.potentialMetricAnswers" :key="potentialMetricAnswer.id">
 			<input type="radio" :id="potentialMetricAnswer.id" :value="potentialMetricAnswer.id" :name="metricQuestion.id" v-model="picked">
 			<span text-align="left">{{potentialMetricAnswer.text}}</span>

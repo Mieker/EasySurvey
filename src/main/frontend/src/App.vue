@@ -95,9 +95,10 @@
 }
 .surveyCreatorComponent {
     border: 1px solid cornflowerblue;
-    box-shadow: 2px 2px 5px cornflowerblue;
+    // box-shadow: 2px 2px 5px cornflowerblue;
     margin: 5px;
     padding: 2px;
+    border-radius: 5px;
     text-align: left;
 }
 
@@ -109,7 +110,8 @@
     font-weight: bold;
     color: white;
     background-color: blue;
-    text-align: center
+    text-align: center;
+    border-radius: 5px;
 }
 
 #createSurveyButton {
