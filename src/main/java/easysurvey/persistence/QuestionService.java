@@ -67,7 +67,7 @@ public class QuestionService {
     }
     
     public QuestionAnswer giveQuestionAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long questionId, Long questionAnswerId ){
-        System.out.println(intervieweeId + " " + surveyId + " " + questionId + " " + questionAnswerId);
+        
         Interviewee interviewee = (Interviewee) session.get(Interviewee.class,intervieweeId);
         Survey survey = (Survey) session.get(Survey.class,surveyId);
         Question question = (Question) session.get(Question.class,questionId);
@@ -91,7 +91,7 @@ public class QuestionService {
     }
     
     public MetricAnswer giveMetricAnswerByIntervieweeId(Long intervieweeId ,Long surveyId, Long metricId, Long metricAnswerId ){
-       
+    	System.out.println(intervieweeId + " " + surveyId + " " + metricId + " " + metricAnswerId);
         Interviewee intervewee = (Interviewee) session.get(Interviewee.class,intervieweeId);
         Survey survey = (Survey) session.get(Survey.class,surveyId);
         Metric metric = (Metric) session.get(Metric.class,metricId);

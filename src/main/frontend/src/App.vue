@@ -93,5 +93,34 @@
       transform: scale(1);
     }
 }
+.surveyCreatorComponent {
+    border: 1px solid cornflowerblue;
+    box-shadow: 2px 2px 5px cornflowerblue;
+    margin: 5px;
+    padding: 2px;
+    text-align: left;
+}
+
+.componentFulfillment {
+    background-color: deepskyblue;
+}
+
+.mainNames {
+    font-weight: bold;
+    color: white;
+    background-color: blue;
+    text-align: center
+}
+
+#createSurveyButton {
+    float: right;
+    margin-right: 5px;
+    margin-top: 5px;
+    background-color: coral;
+}
+
+#createSurveyButton:hover {
+    background-color: gray;
+}
 </style>
 
