@@ -8,7 +8,7 @@
     >
       <div>
         <br>
-        <h3>The survey description: <b>{{survey.description}}</b></h3>
+        <h4>The survey description: <b>{{survey.description}}</b></h4>
         
         <div id="metrics" class="surveyCreatorComponent">
           <p class="mainNames">Metrics</p>
@@ -16,6 +16,8 @@
             <fill-survey-metric-question v-bind:metricQuestion="metricQuestion" @error="failure($event)" @success="success($event)" @selected="metricAnswerSelected($event)"></fill-survey-metric-question>
           </div>
         </div>
+
+        <br>
         
         <div id="questions" class="surveyCreatorComponent">
           <p class="mainNames">Questions</p>
@@ -24,6 +26,7 @@
           </div>
         </div>
 
+        <br>
         <button v-if="!submitted" class = "button-blue" @click="submitAnswer()"  >submit your survey</button>  
       
       </div>
