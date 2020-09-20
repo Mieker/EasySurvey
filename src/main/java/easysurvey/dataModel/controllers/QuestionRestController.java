@@ -60,6 +60,11 @@ public class QuestionRestController {
 			for(int index = 0; index < answeredSurvey.getQuestionIds().size(); index++) {
 				questionService.giveQuestionAnswerByIntervieweeId(intervieweeId, surveyId, answeredSurvey.getQuestionIds().get(index), answeredSurvey.getAnswerIds().get(index));
 			}
+			
+			for(int index = 0; index < answeredSurvey.getMetricIds().size(); index++) {
+				questionService.giveMetricAnswerByIntervieweeId(intervieweeId, surveyId, answeredSurvey.getMetricIds().get(index), answeredSurvey.getMetricAnswersIds().get(index));
+			}
+			
 		}
 		catch (Exception e) {
 			System.out.print(e.toString());

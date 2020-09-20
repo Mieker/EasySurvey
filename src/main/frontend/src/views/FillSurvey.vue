@@ -16,12 +16,26 @@
                 </fieldset>
             </form>
         </div>
+        
         <br>
-        <h3>{{survey.description}}</h3>
-        <div v-for="question in survey.questions" :key="question.id">
-          <fill-survey-question v-bind:question="question" @error="failure($event)" @success="success($event)" @selected="answerSelected($event)"></fill-survey-question>
+        <h3>The survey description: <b>{{survey.description}}</b></h3>
+        
+        <div id="metrics" class="surveyCreatorComponent">
+          <p class="mainNames">Metrics</p>
+          <div v-for="metricQuestion in survey.metrics" :key="metricQuestion.id">
+            <fill-survey-metric-question v-bind:metricQuestion="metricQuestion" @error="failure($event)" @success="success($event)" @selected="metricAnswerSelected($event)"></fill-survey-metric-question>
+          </div>
         </div>
+        
+        <div id="questions" class="surveyCreatorComponent">
+          <p class="mainNames">Questions</p>
+          <div v-for="question in survey.questions" :key="question.id">
+            <fill-survey-question v-bind:question="question" @error="failure($event)" @success="success($event)" @selected="answerSelected($event)"></fill-survey-question>
+          </div>
+        </div>
+
         <button v-if="!submitted" class = "button-blue" @click="submitAnswer()"  >submit your survey</button>  
+      
       </div>
     </transition>
   </div>
@@ -29,8 +43,10 @@
 
 <script>
     import FillSurveyQuestion from "./FillSurveyQuestion";
+    import FillSurveyMetricQuestion from "./FillSurveyMetricQuestion";
+    
     export default {
-      components: {FillSurveyQuestion},
+      components: {FillSurveyQuestion, FillSurveyMetricQuestion},
       props: ["surveyId"],
       
       data() {
@@ -38,11 +54,14 @@
               intervieweeId: 0,
               survey: "",
               answers: [],
+              metricAnswers: [],
               submitted: false,
               postText: "",
               answeredSurvey: {
                 questionIds: [],
-                answerIds: []
+                answerIds: [],
+                metricIds: [],
+                metricAnswersIds: []
               }
           }
       },
@@ -59,8 +78,11 @@
           .then( response => {
             this.survey = response.body;
             this.answers = [];
+            this.metricAnswers = [];
             this.answeredSurvey.questionIds = [];
             this.answeredSurvey.answerIds = [];
+            this.answeredSurvey.metricIds = [];
+            this.answeredSurvey.metricAnswersIds = [];
             this.submitted = false;
             this.success("Successfuly loaded survey ID" + this.survey.id + " with " + this.survey.questions.length + " questions");
 
@@ -83,8 +105,22 @@
           }
         },
 
+        metricAnswerSelected(metricAnswer) {
+          var found = false;
+          for (var recordedMetricAnswer of this.metricAnswers) {
+            if (recordedMetricAnswer.metricQuestionId == metricAnswer.metricQuestionId) {
+              found = true;
+              recordedMetricAnswer.metricAnswerId = metricAnswer.metricAnswerId;
+            }
+          }
+          if (!found) {
+            this.metricAnswers.push(metricAnswer);
+          }
+        },
+
         submitAnswer(){
           var complete = true;
+          
           for (var question of this.survey.questions){
             var found = false;
             for (var answer of this.answers) {
@@ -96,6 +132,21 @@
               complete = false;
             }
           }
+
+          if (complete) {
+            for (var metricQuestion of this.survey.metrics){
+              var found = false;
+              for (var metricAnswer of this.metricAnswers) {
+                if (metricAnswer.metricQuestionId == metricQuestion.id){
+                  found = true;
+                }
+              }
+              if (!found){
+                complete = false;
+              }
+            }
+          }
+
           if (!complete){
             this.failure("please answer all questions");
           } 
@@ -104,6 +155,11 @@
             for (var answer of this.answers) {
               this.answeredSurvey.questionIds.push(answer.questionId); 
               this.answeredSurvey.answerIds.push(answer.answerId);
+            };
+
+            for (var metricAnswer of this.metricAnswers) {
+              this.answeredSurvey.metricIds.push(metricAnswer.metricQuestionId); 
+              this.answeredSurvey.metricAnswersIds.push(metricAnswer.metricAnswerId);
             };
             
             var postText = "question/" + this.survey.id + '/' + this.intervieweeId;
@@ -117,8 +173,6 @@
                 .catch(response => {
                     this.failure("Something went wrong. Your answers couldn't be submitted. Error " + response.status);
                 });
-            
-            
           }
         },
 

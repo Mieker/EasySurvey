@@ -60,10 +60,5 @@ export default {
 </script>
 
 <style>
-.mainNames {
-    font-weight: bold;
-    color: white;
-    background-color: cornflowerblue;
-}
 
 </style>
