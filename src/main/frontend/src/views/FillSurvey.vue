@@ -8,16 +8,6 @@
     >
       <div>
         <br>
-        <div class="column column-80">
-            <form>
-                <fieldset>
-                    <label for="intervieweeId">Your ID</label>
-                    <input v-model="intervieweeId" type="text" :placeholder="intervieweeId" id="intervieweeId">
-                </fieldset>
-            </form>
-        </div>
-        
-        <br>
         <h3>The survey description: <b>{{survey.description}}</b></h3>
         
         <div id="metrics" class="surveyCreatorComponent">
@@ -51,7 +41,6 @@
       
       data() {
           return {
-              intervieweeId: 0,
               survey: "",
               answers: [],
               metricAnswers: [],
@@ -162,7 +151,7 @@
               this.answeredSurvey.metricAnswersIds.push(metricAnswer.metricAnswerId);
             };
             
-            var postText = "question/" + this.survey.id + '/' + this.intervieweeId;
+            var postText = "question/" + this.survey.id;
             
             this.$http.post(postText, this.answeredSurvey)
                 .then(response => {

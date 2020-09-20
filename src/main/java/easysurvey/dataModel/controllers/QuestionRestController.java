@@ -47,14 +47,11 @@ public class QuestionRestController {
 		return new ResponseEntity<Collection<PotentialQuestionAnswer>>(potentialQuestionAnswers, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/{surveyid}/{intervieweeid}", method = RequestMethod.POST)
-	public ResponseEntity<?> submitAnswers(@PathVariable("surveyid") long surveyId, @PathVariable("intervieweeid") long intervieweeId, @RequestBody AnsweredSurvey answeredSurvey) {
+	@RequestMapping(value = "/{surveyid}", method = RequestMethod.POST)
+	public ResponseEntity<?> submitAnswers(@PathVariable("surveyid") long surveyId, @RequestBody AnsweredSurvey answeredSurvey) {
 		
-		Interviewee interviewee = surveyService.getInterviewee(intervieweeId);
-		if (interviewee == null) {
-			interviewee = surveyService.addNewInterviewee(Long.toString(intervieweeId));
-			intervieweeId = interviewee.getId();
-		}
+		Interviewee interviewee = surveyService.addNewInterviewee("Interviewee for survey " + Long.toString(surveyId));
+		Long intervieweeId = interviewee.getId();
 				
 		try {
 			for(int index = 0; index < answeredSurvey.getQuestionIds().size(); index++) {
