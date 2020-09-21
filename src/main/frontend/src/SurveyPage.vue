@@ -22,6 +22,7 @@
         <div><button v-bind:class="statisticsButtonClass" @click="statistics()"> see statistics</button></div>
     </div>
 
+    <main-page v-if="mode==='main_page'"></main-page>
     <new-survey v-if="mode==='new_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></new-survey>
     <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></fill-survey>
     <statistics v-if="mode==='statistics'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></statistics>
@@ -33,12 +34,14 @@
 import NewSurvey from "./views/NewSurvey";
 import FillSurvey from "./views/FillSurvey";
 import Statistics from "./views/Statistics";
+import MainPage from "./views/MainPage/MainPage"
 
 export default {
     components: {
         NewSurvey,
         FillSurvey,
-        Statistics
+        Statistics,
+        MainPage
     },
     data() {
         return {
@@ -47,7 +50,7 @@ export default {
             newSurveyButtonClass: "button-blue",
             fillSurveyButtonClass: "button-blue",
             statisticsButtonClass: "button-blue",
-            mode: "",
+            mode: "main_page",
 
         };
     },
