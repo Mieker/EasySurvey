@@ -217,5 +217,12 @@ public class SurveyService {
         txn.commit();
         return survey;
     }
+    
+    public List<Survey> getLatestSurveys( ) {
+        String sqlQuery = "SELECT description, id FROM surveys ORDER BY id DESC LIMIT 3";
+        Query query = session.createSQLQuery(sqlQuery);
+        List<Survey> latestSurveys = query.list();
+        return latestSurveys;
+    }
 }
 
