@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="row">
+    <div class="row" @click="reloadPage()">
       <img class="logo" src="./assets/logo.png" alt="Easy Survey by HashCodeTeam">
     </div>
     <div class="row messageColumn">
@@ -37,6 +37,9 @@
             this.message = message;
             this.isError = false;
           },
+          reloadPage() {
+            location.reload();
+          }
         }
     };
 </script>
@@ -57,6 +60,9 @@
   .logo {
       float:left;
       margin: auto;
+  }
+  .logo:hover {
+    cursor: pointer;
   }
 
   .alert {
@@ -123,6 +129,16 @@
 
 #createSurveyButton:hover {
     background-color: gray;
+}
+
+.listContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.listContainer span {
+  width: 50%;
+  padding: 0 20px;
 }
 </style>
 
