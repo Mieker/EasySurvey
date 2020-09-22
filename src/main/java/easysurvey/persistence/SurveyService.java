@@ -217,5 +217,21 @@ public class SurveyService {
         txn.commit();
         return survey;
     }
+    
+    public List<Survey> getLatestSurveys( ) {
+        String sqlQuery = "SELECT description, id FROM surveys ORDER BY id DESC LIMIT 5";
+        Query query = session.createSQLQuery(sqlQuery);
+        List<Survey> latestSurveys = query.list();
+        return latestSurveys;
+    }
+    
+    public List<Survey> getMostPopularSurveys() {
+        String sqlQuery = "SELECT description, survey_id FROM surveys INNER JOIN (SELECT survey_id, count(*)"
+                + " as c FROM questionanswers GROUP BY survey_id ORDER BY c DESC) AS counted ON"
+                + " surveys.id = counted.survey_id ORDER BY c DESC LIMIT 5";
+        Query query = session.createSQLQuery(sqlQuery);
+        List<Survey> mostPopularSurveys = query.list();
+        return mostPopularSurveys;
+    }
 }
 

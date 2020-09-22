@@ -53,4 +53,16 @@ public class SurveyRestController {
         
         return new ResponseEntity<Survey>(survey, HttpStatus.CREATED);
     }
+    
+    @RequestMapping(value = "/latest", method = RequestMethod.GET)
+    public ResponseEntity<?> getLatestSurveys() {
+        Collection<Survey> latestSurveys = surveyService.getLatestSurveys();
+        return new ResponseEntity<Collection<Survey>>(latestSurveys, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/most_popular", method = RequestMethod.GET)
+    public ResponseEntity<?> getMostPopularSurveys() {
+        Collection<Survey> mostPopularSurveys = surveyService.getMostPopularSurveys();
+        return new ResponseEntity<Collection<Survey>>(mostPopularSurveys, HttpStatus.OK);
+    }
 }
