@@ -2,7 +2,7 @@
 <div>
     <p class="mainNames">LATEST SURVEYS</p>
     <ul>
-        <li class="listContainer" v-for="survey in latestSurveys" v-bind:key="survey">
+        <li class="listContainer" v-for="survey in latestSurveys" v-bind:key="survey" @click="sendSurveyIdToSurveyPage(survey[1])">
           <span>{{ survey[0] }}</span><span>ID: {{ survey[1] }}</span>
         </li>
     </ul>
@@ -26,6 +26,9 @@ export default {
             }, response => {
                 // error callback
             });
+        },
+        sendSurveyIdToSurveyPage(IdOfSurvey) {
+            this.$emit('sendSurveyIdToSurveyPage', IdOfSurvey);
         }
     }
 

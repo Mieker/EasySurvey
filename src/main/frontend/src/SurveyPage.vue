@@ -22,7 +22,7 @@
         <div><button v-bind:class="statisticsButtonClass" @click="statistics()"> see statistics</button></div>
     </div>
 
-    <main-page v-if="mode==='main_page'"></main-page>
+    <main-page v-if="mode==='main_page'" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></main-page>
     <new-survey v-if="mode==='new_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></new-survey>
     <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></fill-survey>
     <statistics v-if="mode==='statistics'" :survey-id="surveyID" @error="failure($event)" @success="success($event)"></statistics>
@@ -94,6 +94,10 @@ export default {
         failure(message) {
             this.$emit("error", message);
         },
+        sendSurveyIdToSurveyPage(IdOfSurvey) {
+            this.surveyID = IdOfSurvey;
+            this.fillSurvey();
+        }
     }
 };
 </script>
