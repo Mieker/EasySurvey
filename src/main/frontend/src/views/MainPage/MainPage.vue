@@ -1,7 +1,7 @@
 <template>
 <div>
-    <most-popular-surveys class="surveyCreatorComponent"></most-popular-surveys>
-    <latest-surveys class="surveyCreatorComponent"></latest-surveys>
+    <most-popular-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></most-popular-surveys>
+    <latest-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></latest-surveys>
 </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
         return {
             mostPopularSurveys: [],
             latestSurveys: []
+        }
+    },
+    methods: {
+        sendSurveyIdToSurveyPage(IdOfSurvey) {
+            this.$emit('sendSurveyIdToSurveyPage', IdOfSurvey);
         }
     }
 
