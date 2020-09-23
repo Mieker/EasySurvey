@@ -33,5 +33,9 @@ export default {
 </script>
 
 <style>
+.listContainer:hover {
+    background-color: dodgerblue;
+    color: white;
+}
 
 </style>
