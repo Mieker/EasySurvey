@@ -1,34 +1,47 @@
 <template>
     <div id="statistics">
+        <h4>The survey description: <b>{{statistic.numberOfAnswers}}</b></h4>
+    <div class="surveyCreatorComponent" >
+        <p class="mainNames">QUESTION STATISTICS</p>
 
-        <table>
-            <thead>
-            <p1>wynik dla wybranej odpowiedzi:</p1>
-            <p2 class="alert">{{prcResult}} %</p2>
+
+        <table style="width:100%;table-layout:fixed;">
             <tr>
-                <td>treść pytania:</td>
-                <td>sprawdz wynik:</td>
+                <td style="font-weight: bold" align="center">Question:</td>
+                <td style="font-weight: bold" align="center">Answers:</td>
             </tr>
-            </thead>
             <tbody>
-            <tr v-for="question in survey.questions" :key="question.id">
-                <td>{{question.questionText}}
-                </td>
+
+            <tr v-for="question in statistic.questionStats" :key="question.id">
+                <td>{{question.questionText}}</td>
                 <td>
-                    <li v-for="potentialQuestionAnswer in question.potentialQuestionAnswers"
-                        :key="potentialQuestionAnswer.id">
-                        <button v-on:click="getStat2(question.id, potentialQuestionAnswer.id )">
-                            {{potentialQuestionAnswer.text}}
-                        </button>
-                        <!--                        <p v-bind:click="onePrc(question.id, potentialQuestionAnswer.id )"></p>-->
-                        <!--                        id:{{potentialQuestionAnswer.id}} {{prcResult}}-->
-                    </li>
+                    <table style="width:100%;table-layout:fixed;">
+                        <thead>
+                        <td>Possible answer:</td>
+                        <td align="center">Percentage:</td>
+                        <td align="center">No. of quotes:</td>
+                        </thead>
+                        <tbody>
+                        <tr v-for="potentialQuestionAnswer in question.answerStats" :key="potentialQuestionAnswer.id">
+
+                            <td>{{potentialQuestionAnswer.potentialQuestionAnswer.text}}</td>
+                            <td align="center">{{potentialQuestionAnswer.answerPercentage}} %</td>
+                            <td align="center">{{potentialQuestionAnswer.numberOfAnswers}}</td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+
                 </td>
+
             </tr>
+
+
             </tbody>
         </table>
     </div>
-
+    </div>
 </template>
 
 <script>
@@ -37,13 +50,13 @@
 
         data() {
             return {
-                survey: {
-                    questionAnswers: [], metricAnswers: [], questions: [], metrics: [], description: ""
-                },
-                testee: "",
-                questionId: "1",
-                questionAnswerId: "2",
-                prcResult: ""
+                // statistic: {
+                //     questionAnswers: [], metricAnswers: [], questions: [], metrics: [], description: ""
+                // },
+                statistic: "",
+                // questionId: "1",
+                // questionAnswerId: "2",
+                // prcResult: ""
             }
         },
 
@@ -57,19 +70,19 @@
         methods: {
 
             // test() {
-            //     this.$http.get('statistics/2')
+            //     this.$http.get('statistics/' + this.surveyId)
             //         .then(response => {
-            //             this.testOne = response.body;
-            //             console.log('testOne ', response.status),
-            //                 this.testee = response.bodyText
+            //             this.testee = response.body;
+            //             console.log('testOne ', response.status);
+            //                 // this.testee = response.bodyText
             //         });
             // },
 
             loadStat() {
-                this.$http.get('survey/' + this.surveyId)
+                this.$http.get('statistics/' + this.surveyId)
                     .then(response => {
-                        this.survey = response.body;
-                        this.success("Successfuly loaded survey no. " + this.surveyId + ": " + this.survey.description);
+                        this.statistic = response.body;
+                        this.success("Successfuly loaded survey no. " + this.statistic.surveyId + ": " + this.statistic.surveyDescription);
                     })
                     .catch(response => {
                         this.failure('Error ' + response.status + ' while loading the survey statistics. No such survey ID.');
@@ -77,12 +90,12 @@
             },
 
 
-            getStat2(Qid, QAid) {
-                this.$http.get('statistics/' + Qid + '/' + QAid)
-                    .then(response => {
-                        this.prcResult = response.body;
-                    });
-            },
+            // getStat2(Qid, QAid) {
+            //     this.$http.get('statistics/' + Qid + '/' + QAid)
+            //         .then(response => {
+            //             this.prcResult = response.body;
+            //         });
+            // },
 
             // onePrc: function (Qid, QAid) {
             //     this.$http.get('statistics/' + Qid + '/' + QAid)

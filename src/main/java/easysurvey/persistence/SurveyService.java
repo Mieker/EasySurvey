@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -35,6 +36,9 @@ public class SurveyService {
         HibernateUtil.shutdown();
     }
 
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
 
     public void createSurvey(){
         survey = addNewSurvey("badanie kolegow","www.easysurvey.com","www.easysurvey.edit.com",LocalDate.of(2019,8,30),LocalDate.of(2025,8,30),true);
@@ -203,10 +207,10 @@ public class SurveyService {
 
     }
 
-    public long countInterviewee() {
-        String hql = "select count(s) from Interviewee s";
-        Query query = session.createQuery(hql);
-        Long interCount = (Long) query.uniqueResult();
+    public BigInteger countInterviewee(long surveyId) {
+        String sql = "SELECT COUNT(DISTINCT interwivee_id) FROM questionanswers WHERE questionanswers.survey_id='"+ surveyId +"'";
+        Query query = session.createSQLQuery(sql);
+        BigInteger interCount = (BigInteger) query.uniqueResult();
         return interCount;
     }
 
