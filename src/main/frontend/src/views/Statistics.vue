@@ -1,6 +1,6 @@
 <template>
     <div id="statistics">
-        <h4>The survey description: <b>{{statistic.numberOfAnswers}}</b></h4>
+        <h4>Number of voters: <b>{{statistic.numberOfAnswers}}</b></h4>
     <div class="surveyCreatorComponent" >
         <p class="mainNames">QUESTION STATISTICS</p>
 
