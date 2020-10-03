@@ -19,9 +19,6 @@ public class Metric implements Comparable<Metric>
     @JoinColumn(name="metric_id")
     private Set<PotentialMetricAnswer> potentialMetricAnswers = new HashSet<>();
 
-    @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
-    private Set<QuestionAnswer> questionAnswers = new HashSet<>();
-
     @OneToMany(mappedBy = "metric",cascade = CascadeType.PERSIST)
     private Set<MetricAnswer> metricAnswers = new HashSet<>();
 
