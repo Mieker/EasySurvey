@@ -2,7 +2,7 @@
     <div id="statistics">
         <h4>Number of voters: <b>{{statistic.numberOfAnswers}}</b></h4>
     <div class="surveyCreatorComponent" >
-        <p class="mainNames">QUESTION STATISTICS</p>
+        <p class="mainNames">Survey statistics</p>
 
 
         <table style="width:100%;table-layout:fixed;">

@@ -27,7 +27,7 @@
         </div>
 
         <br>
-        <button v-if="!submitted" class = "button-blue" @click="submitAnswer()"  >submit your survey</button>  
+        <button v-if="!submitted" class = "button-yellow" @click="submitAnswer()"  >submit your survey</button>  
       
       </div>
     </transition>

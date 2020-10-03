@@ -1,6 +1,6 @@
 <template>
 <div>
-    <p class="mainNames">MOST POPULAR SURVEYS</p>
+    <p class="mainNames">Most popular surveys</p>
     <ul>
         <li class="listContainer" v-for="survey in mostPopularSurveys" v-bind:key="survey" @click="sendSurveyIdToSurveyPage(survey[1])">
             <span>{{ survey[0] }}</span><span>ID: {{ survey[1] }}</span>
@@ -36,9 +36,5 @@ export default {
 </script>
 
 <style>
-.listContainer:hover {
-    background-color: blue;
-    color: white;
-}
 
 </style>

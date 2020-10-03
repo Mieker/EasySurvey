@@ -1,6 +1,8 @@
 <template>
 <div>
+    <br>
     <most-popular-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></most-popular-surveys>
+    <br>
     <latest-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></latest-surveys>
 </div>
 </template>

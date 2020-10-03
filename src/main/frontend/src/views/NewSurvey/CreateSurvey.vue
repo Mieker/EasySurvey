@@ -1,6 +1,6 @@
 <template>
 <div class="surveyCreatorComponent">
-    <p class="mainNames">QUESTIONS CREATOR PANEL</p>
+    <p class="mainNames">Questions creator panel</p>
     <app-Questions-List-Panel :questions="questions"></app-Questions-List-Panel>
     <SurveyQuestion v-on:question="addQuestion"></SurveyQuestion>
     <button class="button-blue" @click="pullQuestion">ADD QUESTION</button>
