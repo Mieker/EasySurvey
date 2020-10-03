@@ -66,6 +66,7 @@
 
       methods: {
         loadSurvey() {
+          this.warning("loading a survey...");
           this.$http.get('survey/' + this.surveyId)
           .then( response => {
             this.survey = response.body;
@@ -175,6 +176,9 @@
         failure(message) {
           this.$emit("error", message);
         },
+        warning(message) {
+          this.$emit("warning", message);
+        }
 
       },
       

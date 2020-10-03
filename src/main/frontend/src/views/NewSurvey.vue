@@ -48,6 +48,7 @@ export default {
             this.createSurvey();
         },
         createSurvey() {
+            this.warning("creating the survey...")
             this.$http.post('survey', this.survey)
                 .then(response => {
                     this.surveyID = response.body.id;
@@ -65,6 +66,10 @@ export default {
 
         failure(message) {
             this.$emit("error", message);
+        },
+        
+        warning(message) {
+            this.$emit("warning", message);
         },
     }
 };
