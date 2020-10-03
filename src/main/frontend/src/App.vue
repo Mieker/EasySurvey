@@ -6,11 +6,11 @@
     <div class="row messageColumn">
       <div class="column column-80">
         <transition name="bounce">
-        <div v-bind:class="'alert alert-' + (this.isError ? 'error' : 'success')" v-if="message">{{ message }}</div>
+        <div v-bind:class="'alert alert-' + this.status" v-if="message">{{ message }}</div>
         </transition>
       </div>
     </div>
-    <survey-page v-if="selection" @error="failure($event)" @success="success($event)"></survey-page>
+    <survey-page v-if="selection" @warning="warning($event)" @error="failure($event)" @success="success($event)"></survey-page>
   </div>
 </template>
 
@@ -24,18 +24,22 @@
         data() {
             return {
                 selection: true,
-                isError: false,
+                status: "success",
                 message: ''
             }
         },
         methods:{
           failure(message){
             this.message = message;
-            this.isError = true;
+            this.status = "error";
           },
           success(message) {
             this.message = message;
-            this.isError = false;
+            this.status = "success";
+          },
+          warning(message) {
+            this.message = message;
+            this.status = "warning";
           },
           reloadPage() {
             location.reload();
@@ -53,6 +57,9 @@
   }
 
   .messageColumn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
     display: flex;
     justify-content: center;
   }
@@ -79,6 +86,12 @@
       background: indianred;
       border-color: darken(indianred, 10%);
       color: white;
+      text-align: center;
+    }
+    &-warning {
+      background: yellow;
+      border-color: darken(yellow, 10%);
+      color: blue;
       text-align: center;
     }
   }

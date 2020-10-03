@@ -17,6 +17,7 @@
     </transition>
 
     <div class="row mainButtonsPanel">
+        <div><button class="button-blue" v-if="mode!='main_page'" @click="mainPage()">home</button></div>
         <div><button v-bind:class="newSurveyButtonClass" @click="newSurvey()">create a survey</button></div>
         <div><button v-bind:class="fillSurveyButtonClass" @click="fillSurvey()"> fill a survey </button></div>
         <div><button v-bind:class="statisticsButtonClass" @click="statistics()"> see statistics</button></div>
@@ -55,6 +56,14 @@ export default {
         };
     },
     methods: {
+        mainPage() {
+            this.success("");
+            this.newSurveyButtonClass = "button-blue";
+            this.fillSurveyButtonClass = "button-blue";
+            this.statisticsButtonClass = "button-blue";
+            this.mode = "main_page";
+        },
+        
         newSurvey() {
             this.success("");
             this.newSurveyButtonClass = "button-blue button-outline";
@@ -94,6 +103,10 @@ export default {
         failure(message) {
             this.$emit("error", message);
         },
+        warning(message){
+            this.$emit("warning", message);
+        },
+        
         sendSurveyIdToSurveyPage(IdOfSurvey) {
             this.surveyID = IdOfSurvey;
             this.fillSurvey();

@@ -79,6 +79,7 @@
             // },
 
             loadStat() {
+                this.warning("loading...")
                 this.$http.get('statistics/' + this.surveyId)
                     .then(response => {
                         this.statistic = response.body;
@@ -113,6 +114,9 @@
                 this.$emit("error", message);
             },
 
+            warning(message) {
+                this.$emit("warning", message);
+            },
 
         },
 
