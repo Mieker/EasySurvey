@@ -9,7 +9,7 @@
                 <form>
                     <fieldset>
                         <label for="surveyID">Survey ID</label>
-                        <input v-model="surveyID" type="text" :placeholder="surveyID" id="surveyID">
+                        <input v-model="surveyID" type="text" class="inputText" :placeholder="surveyID" id="surveyID">
                     </fieldset>
                 </form>
             </div>
@@ -17,7 +17,9 @@
     </transition>
 
     <div class="row mainButtonsPanel">
-        <div><button class="button-blue" v-if="mode!='main_page'" @click="mainPage()">home</button></div>
+        <transition name="custom-classes-transition" enter-active-class="animated bounceInRight" leave-active-class="animated bounceOutRight">
+        <div><button class="button-yellow" v-if="mode!='main_page'" @click="mainPage()">home</button></div>
+        </transition>
         <div><button v-bind:class="newSurveyButtonClass" @click="newSurvey()">create a survey</button></div>
         <div><button v-bind:class="fillSurveyButtonClass" @click="fillSurvey()"> fill a survey </button></div>
         <div><button v-bind:class="statisticsButtonClass" @click="statistics()"> see statistics</button></div>
@@ -115,62 +117,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.mainButtonsPanel button {
-    min-width: 180px;
-}
+<style>
 
-@media (max-width: 650px) {
-    .mainButtonsPanel div {
-        display: flex;
-        margin: auto;
-        align-content: center;
-    }
-}
-
-@media (min-width: 651px) {
-    .mainButtonsPanel {
-        display: flex;
-        justify-content: space-around;
-    }
-}
-
-.inputSurveyIdPanel {
-    display: flex;
-    justify-content: center;
-}
-
-.button-blue {
-    background-color: blue;
-    border-color: blue;
-
-    &.button-clear,
-    &.button-outline {
-        background-color: transparent;
-        color: blue;
-    }
-
-}
-
-/*.button-blue.button-clear,*/
-/*.button-blue.button-outline {*/
-/*  background-color: transparent;*/
-/*  color: blue;*/
-/*}*/
-.button-blue.button-clear {
-    border-color: transparent;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .5s;
-}
-
-.fade-enter,
-.fade-leave-to
-
-/* .fade-leave-active below version 2.1.8 */
-    {
-    transition: opacity .5s;
-}
 </style>

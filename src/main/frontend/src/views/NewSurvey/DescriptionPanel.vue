@@ -1,6 +1,6 @@
 <template>
 <div class="surveyCreatorComponent">
-    <p class="mainNames">DESCRIPTION PANEL</p>
+    <p class="mainNames">Description panel</p>
     <textarea name="" id="" cols="30" rows="10" v-model="description"></textarea>
 </div>
 </template>

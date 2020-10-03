@@ -1,6 +1,6 @@
 <template>
   <div>
-      <p>OFFERED ANSWERS:</p>
+      <p>Offered answers:</p>
   </div>
 </template>
 

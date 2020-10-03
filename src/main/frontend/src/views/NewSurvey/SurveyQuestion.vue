@@ -1,8 +1,8 @@
 <template>
   <div>
-      <p>QUESTION:</p>
+      <p>Question:</p>
       <input class="inputQuestionBar" type="text" v-model="questionText">
-    <p>OFFERED ANSWERS:</p>
+    <p>Offered answer:</p>
     <ul>
         <li v-for="answer in this.potentialQuestionAnswers" v-bind:key="answer">- {{ answer.text }}</li>
     </ul>

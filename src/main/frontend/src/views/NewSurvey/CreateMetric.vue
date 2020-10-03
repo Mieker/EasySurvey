@@ -1,6 +1,6 @@
 <template>
 <div class="surveyCreatorComponent">
-    <p class="mainNames">METRIC CREATOR PANEL</p>
+    <p class="mainNames">Metric creator panel</p>
     <app-Metric-List-Panel :questions="questions"></app-Metric-List-Panel>
     <MetricQuestion v-on:question="addQuestion"></MetricQuestion>
     <button class="button-blue" @click="pullQuestion">ADD METRIC QUESTION</button>

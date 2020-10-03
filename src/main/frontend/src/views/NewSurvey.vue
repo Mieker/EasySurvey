@@ -1,11 +1,13 @@
 <template>
 <div id="new_survey">
+    <br>
     <DescriptionPanel @getSurveyDescription="getSurveyDescriptionFromChild($event)" />
-    <p></p>
+    <br>
     <CreateMetric @getMetricQuestions="getMetricQuestionsFromChild($event)" />
-    <p></p>
+    <br>
     <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" />
-    <button class="button-blue" id="createSurveyButton" @click="callForSurveyElements">CREATE EASY SURVEY</button>
+    <br>
+    <button class="button-yellow" id="createSurveyButton" @click="callForSurveyElements">Create the survey</button>
 </div>
 </template>
 
