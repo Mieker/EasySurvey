@@ -30,13 +30,18 @@
             }
         },
         methods:{
+          messageDelay(sec){
+            setTimeout(()=>{this.message=""}, sec*1000);
+          },
           failure(message){
             this.message = message;
             this.status = "error";
+            this.messageDelay(3);
           },
           success(message) {
             this.message = message;
             this.status = "success";
+            this.messageDelay(3);
           },
           warning(message) {
             this.message = message;
