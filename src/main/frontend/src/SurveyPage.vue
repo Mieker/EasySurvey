@@ -17,18 +17,35 @@
     </transition>
 
     <div class="row mainButtonsPanel">
-        <transition name="custom-classes-transition" enter-active-class="animated bounceInRight" leave-active-class="animated bounceOutRight">
         <div><button class="button-yellow" v-if="mode!='main_page'" @click="mainPage()">home</button></div>
-        </transition>
         <div><button v-bind:class="newSurveyButtonClass" @click="newSurvey()">create a survey</button></div>
         <div><button v-bind:class="fillSurveyButtonClass" @click="fillSurvey()"> fill a survey </button></div>
         <div><button v-bind:class="statisticsButtonClass" @click="statistics()"> see statistics</button></div>
     </div>
 
-    <main-page v-if="mode==='main_page'" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)" @warning="warning($event)"></main-page>
-    <new-survey v-if="mode==='new_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)" @warning="warning($event)"></new-survey>
-    <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" @error="failure($event)" @success="success($event)" @warning="warning($event)"></fill-survey>
-    <statistics v-if="mode==='statistics'" :survey-id="surveyID" @error="failure($event)" @success="success($event)" @warning="warning($event)"></statistics>
+    <main-page v-if="mode==='main_page'" 
+        @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)" 
+        @warning="warning($event)">
+    </main-page>
+    
+    <new-survey v-if="mode==='new_survey'" :survey-id="surveyID" 
+        @error="failure($event)" 
+        @success="success($event)" 
+        @warning="warning($event)">
+    </new-survey>
+    
+    <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" 
+        @error="failure($event)" 
+        @success="success($event)" 
+        @warning="warning($event)"
+        @setView="setView($event)">
+    </fill-survey>
+    
+    <statistics v-if="mode==='statistics'" :survey-id="surveyID" 
+        @error="failure($event)" 
+        @success="success($event)" 
+        @warning="warning($event)">
+    </statistics>
 
 </div>
 </template>
@@ -58,6 +75,21 @@ export default {
         };
     },
     methods: {
+        setView(view){
+            if (view=="mainPage"){
+                this.mainPage();
+            } else 
+            if (view=="newSurvey"){
+                this.newSurvey();
+            } else
+            if (view=="fillSurvey"){
+                this.fillSurvey();
+            } else
+            if (view=="statistics"){
+                this.statistics();
+            }
+        },
+
         mainPage() {
             this.success("");
             this.newSurveyButtonClass = "button-blue";
