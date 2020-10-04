@@ -6,9 +6,9 @@
         <button class="button-blue" @click="searchForSurvey">SEARCH</button>
     </div>
     <ul>
-        <!-- <li class="listContainer" v-for="survey in mostPopularSurveys" v-bind:key="survey" @click="sendSurveyIdToSurveyPage(survey[1])">
+        <li class="listContainer" v-for="survey in searchingResults" v-bind:key="survey" @click="sendSurveyIdToSurveyPage(survey[1])">
             <span>{{ survey[0] }}</span><span>ID: {{ survey[1] }}</span>
-        </li> -->
+        </li>
     </ul>
 </div>
 </template>
@@ -23,7 +23,16 @@ export default {
     },
     methods: {
         searchForSurvey() {
+            var urlValue = 'survey/find/' + this.searchWord;
 
+            this.$http.get(urlValue).then(response => {
+                this.searchingResults = response.body;
+            }, response => {
+                // error callback
+            });
+        },
+        sendSurveyIdToSurveyPage(IdOfSurvey) {
+            this.$emit('sendSurveyIdToSurveyPage', IdOfSurvey);
         }
     }
 
