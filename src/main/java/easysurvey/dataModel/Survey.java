@@ -15,6 +15,9 @@ public class Survey implements java.io.Serializable, Comparable<Survey>
     private long id;
 
     @Column
+    private String title;
+    
+    @Column
     private String description;
 
     @Column
@@ -75,7 +78,15 @@ public class Survey implements java.io.Serializable, Comparable<Survey>
         return metricAnswers;
     }
 
-	public String getDescription() {
+	public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
 		return description;
 	}
 
