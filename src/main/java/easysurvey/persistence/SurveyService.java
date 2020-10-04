@@ -237,5 +237,12 @@ public class SurveyService {
         List<Survey> mostPopularSurveys = query.list();
         return mostPopularSurveys;
     }
+
+    public Collection<Survey> findSurveyByKeyWord(String keyWord) {
+        String sqlQuery = "SELECT description, id FROM surveys WHERE description LIKE '%" + keyWord + "%'";
+        Query query = session.createSQLQuery(sqlQuery);
+        List<Survey> foundedSurveys = query.list();
+        return foundedSurveys;
+    }
 }
 

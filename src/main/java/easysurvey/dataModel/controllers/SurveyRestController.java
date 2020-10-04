@@ -65,4 +65,10 @@ public class SurveyRestController {
         Collection<Survey> mostPopularSurveys = surveyService.getMostPopularSurveys();
         return new ResponseEntity<Collection<Survey>>(mostPopularSurveys, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/find/{keyWord}", method = RequestMethod.GET)
+    public ResponseEntity<?> searchingForSurvey(@PathVariable("keyWord") String keyWord) {
+        Collection<Survey> searchingForSurveyResults = surveyService.findSurveyByKeyWord(keyWord);
+        return new ResponseEntity<Collection<Survey>>(searchingForSurveyResults, HttpStatus.OK);
+    }
 }
