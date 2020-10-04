@@ -156,17 +156,27 @@
             };
             
             var postText = "question/" + this.survey.id;
-            
+            this.$emit("warning","storing your answers...")
             this.$http.post(postText, this.answeredSurvey)
                 .then(response => {
                     this.surveyID = response.body.id;
-                    this.success("your answers were succesfully submitted");
+                    this.$emit("success","Your answers were succesfully submitted.");
                     this.submitted = true;
+                    //this.sleep(3000);
+                    this.$emit("setView", "statistics");
                 })
                 .catch(response => {
                     this.failure("Something went wrong. Your answers couldn't be submitted. Error " + response.status);
                 });
           }
+        },
+
+        sleep(milliseconds) {
+          const date = Date.now();
+          let currentDate = null;
+          do {
+            currentDate = Date.now();
+          } while (currentDate - date < milliseconds);
         },
 
         success(message) {
