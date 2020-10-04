@@ -1,5 +1,6 @@
 <template>
 <div>
+    <find-survey class="surveyCreatorComponent"></find-survey>
     <br>
     <most-popular-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></most-popular-surveys>
     <br>
@@ -9,12 +10,14 @@
 
 <script>
 import MostPopularSurveys from './MostPopularSurveys';
-import LatestSurveys from "./LatestSurveys"
+import LatestSurveys from "./LatestSurveys";
+import FindSurvey from "./FindSurvey";
 
 export default {
     components: {
         MostPopularSurveys,
-        LatestSurveys
+        LatestSurveys,
+        FindSurvey
     },
     data() {
         return {
