@@ -223,23 +223,24 @@ public class SurveyService {
     }
     
     public List<Survey> getLatestSurveys( ) {
-        String sqlQuery = "SELECT description, id FROM surveys ORDER BY id DESC LIMIT 6";
+        String sqlQuery = "SELECT title, id FROM surveys ORDER BY id DESC LIMIT 6";
         Query query = session.createSQLQuery(sqlQuery);
         List<Survey> latestSurveys = query.list();
         return latestSurveys;
     }
     
     public List<Survey> getMostPopularSurveys() {
-        String sqlQuery = "SELECT description, survey_id, COUNT(*) AS numOfInterviewees FROM (SELECT description, survey_id, interwivee_id"
+        String sqlQuery = "SELECT title, survey_id, COUNT(*) AS numOfInterviewees FROM (SELECT title, survey_id, interwivee_id"
                 + " FROM surveys INNER JOIN questionanswers ON surveys.id = questionanswers.survey_id GROUP BY"
-                + " description, survey_id, interwivee_id) AS list GROUP BY description, survey_id ORDER BY numOfInterviewees DESC LIMIT 6";
+                + " title, survey_id, interwivee_id) AS list GROUP BY title, survey_id ORDER BY numOfInterviewees DESC LIMIT 6";
         Query query = session.createSQLQuery(sqlQuery);
         List<Survey> mostPopularSurveys = query.list();
         return mostPopularSurveys;
     }
 
     public Collection<Survey> findSurveyByKeyWord(String keyWord) {
-        String sqlQuery = "SELECT description, id FROM surveys WHERE description LIKE '%" + keyWord + "%'";
+        String sqlQuery = "SELECT title, id FROM surveys WHERE UPPER (title) LIKE UPPER ('%" + keyWord + "%')";
+//        String sqlQuery = "SELECT title, id FROM surveys WHERE title LIKE '%" + keyWord + "%'";
         Query query = session.createSQLQuery(sqlQuery);
         List<Survey> foundedSurveys = query.list();
         return foundedSurveys;
