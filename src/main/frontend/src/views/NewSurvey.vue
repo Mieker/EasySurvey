@@ -29,6 +29,7 @@ export default {
     data() {
         return {
             survey: {
+                title: '',
                 description: '',
                 questions: [],
                 metrics: []
@@ -37,7 +38,8 @@ export default {
     },
     methods: {
         getSurveyDescriptionFromChild(description) {
-            this.survey.description = description;
+            this.survey.title = description.title;
+            this.survey.description = description.description;
         },
         getMetricQuestionsFromChild(questions) {
             this.survey.metrics = questions;
@@ -69,7 +71,7 @@ export default {
         failure(message) {
             this.$emit("error", message);
         },
-        
+
         warning(message) {
             this.$emit("warning", message);
         },
