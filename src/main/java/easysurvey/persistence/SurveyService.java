@@ -239,8 +239,8 @@ public class SurveyService {
     }
 
     public Collection<Survey> findSurveyByKeyWord(String keyWord) {
-        String sqlQuery = "SELECT title, id FROM surveys WHERE UPPER (title) LIKE UPPER ('%" + keyWord + "%')";
-//        String sqlQuery = "SELECT title, id FROM surveys WHERE title LIKE '%" + keyWord + "%'";
+        String sqlQuery = "SELECT title, id FROM surveys WHERE UPPER (title) LIKE UPPER ('%" + keyWord + "%') "
+                + "OR UPPER (description) LIKE UPPER ('%" + keyWord + "%')";
         Query query = session.createSQLQuery(sqlQuery);
         List<Survey> foundedSurveys = query.list();
         return foundedSurveys;
