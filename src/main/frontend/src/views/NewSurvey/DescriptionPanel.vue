@@ -1,7 +1,10 @@
 <template>
 <div class="surveyCreatorComponent">
     <p class="mainNames">Description panel</p>
-    <textarea name="" id="" cols="30" rows="10" v-model="description"></textarea>
+    <p>Survey title:</p>
+    <input class="inputQuestionBar" type="text" v-model="descriptionPanel.title">
+    <p>Surve description:</p>
+    <textarea name="" id="" cols="30" rows="10" v-model="descriptionPanel.description"></textarea>
 </div>
 </template>
 
@@ -13,12 +16,15 @@ import {
 export default {
     data() {
         return {
-            description: ''
+            descriptionPanel: {
+                title: '',
+                description: ''
+            }
         }
     },
     methods: {
         pushDescriptionToParentComponent() {
-            this.$emit('getSurveyDescription', this.description);
+            this.$emit('getSurveyDescription', this.descriptionPanel);
         }
     },
     created() {
@@ -28,8 +34,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 textarea {
     width: 95%;
+}
+
+.inputQuestionBar {
+    width: 95%;
+}
+
+p {
+    margin: 0;
 }
 </style>

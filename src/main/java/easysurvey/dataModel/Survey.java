@@ -14,8 +14,8 @@ public class Survey implements java.io.Serializable, Comparable<Survey>
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-//    @Column
-//    private String title;
+    @Column
+    private String title;
     
     @Column
     private String description;
@@ -78,13 +78,13 @@ public class Survey implements java.io.Serializable, Comparable<Survey>
         return metricAnswers;
     }
 
-//	public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
+	public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getDescription() {
 		return description;
