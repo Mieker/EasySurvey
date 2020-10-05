@@ -8,16 +8,16 @@
         <property name="format_sql">true</property>
         
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://ec2-52-213-173-172.eu-west-1.compute.amazonaws.com:5432/d9m76a08qv8gae</property>
-        <property name="hibernate.connection.username">lezqwpvumgcguy</property>
-        <property name="hibernate.connection.password">d6aee20ad32238b943f7c0e5749b46a88220457a0095c92fb85cb55c91c47b79</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-247-169-129.eu-west-1.compute.amazonaws.com:5432/d2ei0dlthkookt</property>
+        <property name="hibernate.connection.username">ptkdnyisiiddau</property>
+        <property name="hibernate.connection.password">55778b312af0511f1088640ad9af8696c4b513b1483db08392ec6567eec0866e</property>
   
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         
         
-<!--          <property name="hibernate.hbm2ddl.auto">update</property>
- --><!--         <property name="hibernate.hbm2ddl.auto">create</property>
+          <property name="hibernate.hbm2ddl.auto">update</property>
+<!--         <property name="hibernate.hbm2ddl.auto">create</property>
  -->
         <mapping class="easysurvey.dataModel.Survey"/>
         <mapping class="easysurvey.dataModel.Question"/>
