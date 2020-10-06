@@ -1,10 +1,13 @@
 <template>
-  <div>
-      <p>Question:</p>
-      <input class="inputQuestionBar" type="text" v-model="questionText">
+<div>
+    <p>Question:</p>
+    <input class="inputQuestionBar" type="text" v-model="questionText">
     <p>Offered answer:</p>
     <ul>
-        <li v-for="answer in this.potentialQuestionAnswers" v-bind:key="answer">- {{ answer.text }}</li>
+        <li v-for="answer in this.potentialQuestionAnswers" v-bind:key="answer">
+            <button class="button-small" style="margin: 0 10px" @click="potentialQuestionAnswers.splice(potentialQuestionAnswers.indexOf(answer), 1)">X</button>
+            - {{ answer.text }}
+        </li>
     </ul>
     <input class="inputAnswerBar" type="text" v-model="text">
     <button class="button-blue" @click="addAnswer">ADD ANSWER</button>
@@ -12,7 +15,9 @@
 </template>
 
 <script>
-import { dataBus } from '../../main';
+import {
+    dataBus
+} from '../../main';
 
 export default {
     data() {
@@ -24,15 +29,26 @@ export default {
     },
     methods: {
         addAnswer() {
-            this.potentialQuestionAnswers.push({
-                text: this.text
-            });
-            this.text = '';
+            if (this.text.trim() === '') {
+                this.failure('You cannot input an empty answer!');
+            } else {
+                this.potentialQuestionAnswers.push({
+                    text: this.text
+                });
+                this.text = '';
+            }
         },
         pushQuestionToParentComponent() {
-            this.$emit('question', this.questionText, this.potentialQuestionAnswers);
-            this.potentialQuestionAnswers = [];
-            this.questionText = '';
+            if (this.questionText.trim() === '' || this.potentialQuestionAnswers.length <= 0) {
+                this.failure("This question doesn't have all the required elements!");
+            } else {
+                this.$emit('question', this.questionText, this.potentialQuestionAnswers);
+                this.potentialQuestionAnswers = [];
+                this.questionText = '';
+            }
+        },
+        failure(message) {
+            this.$emit('failure', message);
         }
     },
     created() {
@@ -63,5 +79,4 @@ p {
 .inputQuestionBar {
     width: 95%;
 }
-
 </style>

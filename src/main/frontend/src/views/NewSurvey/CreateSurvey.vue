@@ -2,7 +2,7 @@
 <div class="surveyCreatorComponent">
     <p class="mainNames">Questions creator panel</p>
     <app-Questions-List-Panel :questions="questions"></app-Questions-List-Panel>
-    <SurveyQuestion v-on:question="addQuestion"></SurveyQuestion>
+    <SurveyQuestion v-on:question="addQuestion" @failure="failure($event)"></SurveyQuestion>
     <button class="button-blue" @click="pullQuestion">ADD QUESTION</button>
 </div>
 </template>
@@ -37,6 +37,9 @@ export default {
         },
         pushQuestionsToParentComponent() {
             this.$emit('getSurveyQuestions', this.questions);
+        },
+        failure(message) {
+            this.$emit('failure', message);
         }
     },
     created() {
