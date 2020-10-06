@@ -30,7 +30,7 @@ export default {
     methods: {
         addAnswer() {
             if (this.text === '') {
-                this.failure();
+                this.failure('You cannot input an empty answer!');
             } else {
                 this.potentialMetricAnswers.push({
                     text: this.text
@@ -39,12 +39,16 @@ export default {
             }
         },
         pushQuestionToParentComponent() {
-            this.$emit('question', this.metricText, this.potentialMetricAnswers);
-            this.potentialMetricAnswers = [];
-            this.metricText = '';
+            if (this.metricText === '' || this.potentialMetricAnswers.length <= 0) {
+                this.failure("This question doesn't have all the required elements!");
+            } else {
+                this.$emit('question', this.metricText, this.potentialMetricAnswers);
+                this.potentialMetricAnswers = [];
+                this.metricText = '';
+            }
         },
-        failure() {
-            this.$emit('failure', 'Cannot input an empty element!');
+        failure(message) {
+            this.$emit('failure', message);
         }
     },
     created() {
