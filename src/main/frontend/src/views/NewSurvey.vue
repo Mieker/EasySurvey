@@ -3,9 +3,9 @@
     <br>
     <DescriptionPanel @getSurveyDescription="getSurveyDescriptionFromChild($event)" />
     <br>
-    <CreateMetric @getMetricQuestions="getMetricQuestionsFromChild($event)" @failure="failure($event)"/>
+    <CreateMetric @getMetricQuestions="getMetricQuestionsFromChild($event)" @failure="failure($event)" />
     <br>
-    <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" @failure="failure($event)"/>
+    <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" @failure="failure($event)" />
     <br>
     <button class="button-yellow" id="createSurveyButton" @click="callForSurveyElements">Create the survey</button>
 </div>
@@ -49,7 +49,21 @@ export default {
         },
         callForSurveyElements() {
             dataBus.$emit('callForSurveyElements');
-            this.createSurvey();
+
+            var isSurveyComplet = true;
+            if (this.survey.title === '' || this.survey.description === '') {
+             isSurveyComplet = false;
+            } if (this.survey.questions.length <= 0) {
+             isSurveyComplet = false;
+            } if (this.survey.metrics.length <= 0) {
+             isSurveyComplet = false;
+            }
+
+            if (isSurveyComplet) {
+                this.createSurvey();
+            } else {
+                this.failure('To create new survey you need to fulfill all the inputs!')
+            }
         },
         createSurvey() {
             this.warning("creating the survey...")
@@ -74,7 +88,7 @@ export default {
 
         warning(message) {
             this.$emit("warning", message);
-        },
+        }
     }
 };
 </script>
