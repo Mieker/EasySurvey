@@ -2,7 +2,7 @@
 <div class="surveyCreatorComponent">
     <p class="mainNames">Metric creator panel</p>
     <app-Metric-List-Panel :questions="questions"></app-Metric-List-Panel>
-    <MetricQuestion v-on:question="addQuestion"></MetricQuestion>
+    <MetricQuestion v-on:question="addQuestion" @failure="failure($event)"></MetricQuestion>
     <button class="button-blue" @click="pullQuestion">ADD METRIC QUESTION</button>
 </div>
 </template>
@@ -37,6 +37,9 @@ export default {
         },
         pushQuestionsToParentComponent() {
             this.$emit('getMetricQuestions', this.questions);
+        },
+        failure(message) {
+            this.$emit('failure', message);
         }
     },
     created() {

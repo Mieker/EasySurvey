@@ -29,15 +29,22 @@ export default {
     },
     methods: {
         addAnswer() {
-            this.potentialMetricAnswers.push({
-                text: this.text
-            });
-            this.text = '';
+            if (this.text === '') {
+                this.failure();
+            } else {
+                this.potentialMetricAnswers.push({
+                    text: this.text
+                });
+                this.text = '';
+            }
         },
         pushQuestionToParentComponent() {
             this.$emit('question', this.metricText, this.potentialMetricAnswers);
             this.potentialMetricAnswers = [];
             this.metricText = '';
+        },
+        failure() {
+            this.$emit('failure', 'Cannot input an empty element!');
         }
     },
     created() {

@@ -3,9 +3,9 @@
     <br>
     <DescriptionPanel @getSurveyDescription="getSurveyDescriptionFromChild($event)" />
     <br>
-    <CreateMetric @getMetricQuestions="getMetricQuestionsFromChild($event)" />
+    <CreateMetric @getMetricQuestions="getMetricQuestionsFromChild($event)" @failure="failure($event)"/>
     <br>
-    <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" />
+    <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" @failure="failure($event)"/>
     <br>
     <button class="button-yellow" id="createSurveyButton" @click="callForSurveyElements">Create the survey</button>
 </div>

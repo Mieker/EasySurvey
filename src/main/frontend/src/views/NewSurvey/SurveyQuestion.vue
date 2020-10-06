@@ -29,15 +29,22 @@ export default {
     },
     methods: {
         addAnswer() {
-            this.potentialQuestionAnswers.push({
-                text: this.text
-            });
-            this.text = '';
+            if (this.text === '') {
+                this.failure();
+            } else {
+                this.potentialQuestionAnswers.push({
+                    text: this.text
+                });
+                this.text = '';
+            }
         },
         pushQuestionToParentComponent() {
             this.$emit('question', this.questionText, this.potentialQuestionAnswers);
             this.potentialQuestionAnswers = [];
             this.questionText = '';
+        },
+        failure() {
+            this.$emit('failure', 'Cannot input an empty element!');
         }
     },
     created() {
