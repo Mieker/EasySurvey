@@ -51,7 +51,7 @@ export default {
             dataBus.$emit('callForSurveyElements');
 
             var isSurveyComplet = true;
-            if (this.survey.title === '' || this.survey.description === '') {
+            if (this.survey.title.trim() === '' || this.survey.description.trim() === '') {
              isSurveyComplet = false;
             } if (this.survey.questions.length <= 0) {
              isSurveyComplet = false;

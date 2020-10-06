@@ -29,7 +29,7 @@ export default {
     },
     methods: {
         addAnswer() {
-            if (this.text === '') {
+            if (this.text.trim() === '') {
                 this.failure('You cannot input an empty answer!');
             } else {
                 this.potentialMetricAnswers.push({
@@ -39,7 +39,7 @@ export default {
             }
         },
         pushQuestionToParentComponent() {
-            if (this.metricText === '' || this.potentialMetricAnswers.length <= 0) {
+            if (this.metricText.trim() === '' || this.potentialMetricAnswers.length <= 0) {
                 this.failure("This question doesn't have all the required elements!");
             } else {
                 this.$emit('question', this.metricText, this.potentialMetricAnswers);
