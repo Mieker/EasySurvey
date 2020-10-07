@@ -4,6 +4,7 @@
     <ul>
         <li class="listContainer" v-for="survey in mostPopularSurveys" v-bind:key="survey" @click="sendSurveyIdToSurveyPage(survey[1])">
             <span>{{ survey[0] }}</span><span>ID: {{ survey[1] }}</span>
+            <font-awesome-icon icon="chart-bar" class="fa-lg" style="color: #135A7A; margin-right: 10px; z-index: 10" @click="alert('trututuuu')" />
         </li>
     </ul>
 </div>
