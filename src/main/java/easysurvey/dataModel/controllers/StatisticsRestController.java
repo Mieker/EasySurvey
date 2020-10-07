@@ -13,10 +13,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -81,12 +78,22 @@ public class StatisticsRestController {
         if (survey == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-
-
-
         return new ResponseEntity<Statistics>(statistics, HttpStatus.OK);
     }
 
+    ArrayList<Long> chosenMetrics = new ArrayList<Long>();
+    @RequestMapping(value = "/{surveyId}/metrics", method = RequestMethod.POST)
+    public ResponseEntity<?> getSurveyWithMetrics(@PathVariable("surveyId") long surveyID, @RequestBody ArrayList<Long> chosenMetrics) {
+        Survey survey = surveyService.getSurvey(surveyID);
+        Statistics statisticsWithFilter = new Statistics(survey, chosenMetrics);
+        statisticsWithFilter.getStatsWithFilter();
+        if (survey == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<Statistics>(statisticsWithFilter,HttpStatus.OK);
+
+    }
 
 
 

@@ -206,6 +206,16 @@ public class SurveyService {
         return interCount2;
 
     }
+//to do
+    public BigInteger statAnswersWithFilter(long questionId, long questionAnswerId, long metricId, long surveyId){
+
+        String sql = "SELECT COUNT(*) AS c1 FROM (SELECT questionanswers.question_id, questionanswers.question_answer_id, questionanswers.survey_id, metricanswers.metric_answer_id, questionanswers.interwivee_id FROM questionanswers INNER JOIN metricanswers ON questionanswers.interwivee_id=metricanswers.interwivee_id WHERE metricanswers.metric_answer_id='"+ metricId +"' AND questionanswers.question_id='"+ questionId +"' AND questionanswers.question_answer_id='"+ questionAnswerId +"' AND questionanswers.survey_id='"+ surveyId +"') AS deliveredTable";
+        //String sql = "SELECT COUNT(*) AS c1 FROM metricanswers WHERE metricanswers.metric_answer_id='"+ metricId +"'";
+        Query query = session.createSQLQuery(sql);
+        BigInteger interCount = (BigInteger) query.uniqueResult();
+        return interCount;
+
+    }
 
     public BigInteger countInterviewee(long surveyId) {
         String sql = "SELECT COUNT(DISTINCT interwivee_id) FROM questionanswers WHERE questionanswers.survey_id='"+ surveyId +"'";

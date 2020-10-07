@@ -10,6 +10,7 @@ public class AnswerStat {
     private double answerPercentage;
     private long numberOfAnswers;
 
+
     public double getAnswerPercentage() {
         return answerPercentage;
     }
@@ -33,4 +34,6 @@ public class AnswerStat {
     public void setPotentialQuestionAnswer(PotentialQuestionAnswer potentialQuestionAnswer) {
         this.potentialQuestionAnswer = potentialQuestionAnswer;
     }
+
+
 }
