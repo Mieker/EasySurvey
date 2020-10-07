@@ -86,21 +86,22 @@ public class Statistics {
                 AnswerStat answerStat = new AnswerStat();
                 answerStat.setPotentialQuestionAnswer(potentialQuestionAnswer);
 
-
                 long howManyAnswers = 0;
                 for (Long metricId : metricsIds) {
                     howManyAnswers = surveyService.statAnswersWithFilter(question.getId(), potentialQuestionAnswer.getId(), metricId, surveyId).longValue() + howManyAnswers;
-
-                    double prc = (double) howManyAnswers / questionStat.getNumberOfMetricAnswers()*100;
-                    answerStat.setAnswerPercentage(round(prc, 1));
-
                 }
+                howManyMetricsAnswers = howManyMetricsAnswers + howManyAnswers;
+
+
+                double prc = (double) howManyAnswers / howManyMetricsAnswers;
+                answerStat.setAnswerPercentage(round(prc, 1));
 
                 answerStat.setNumberOfAnswers(howManyAnswers);
                 questionStat.setAnswerStats(answerStat);
 
             }
-            questionStat.contNumberOfMetricAnswers();
+            questionStat.setNumberOfMetricAnswers(howManyMetricsAnswers);
+            System.out.println(questionStat.getNumberOfMetricAnswers());
 
         }
 

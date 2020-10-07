@@ -19,7 +19,8 @@
                 <td>{{ metric.metricText }}</td>
                 <td v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">
                     {{potentialMetricAnswer.text}}
-                    <input type="checkbox" v-model="chosenMetrics" :value="potentialMetricAnswer.id">
+                    <div ></div>
+                    <input type="checkbox" v-model="chosenMetrics" :value="potentialMetricAnswer.id"  >
 
                 </td>
             </tr>
@@ -48,7 +49,7 @@
                         <tr v-for="potentialQuestionAnswer in question.answerStats" :key="potentialQuestionAnswer.id">
 
                             <td>{{potentialQuestionAnswer.potentialQuestionAnswer.text}}</td>
-                            <td align="center">{{potentialQuestionAnswer.answerPercentage}} %</td>
+                            <td align="center">{{Math.round(((potentialQuestionAnswer.numberOfAnswers / question.numberOfMetricAnswers) + Number.EPSILON) *10000)/100}} %</td>
                             <td align="center">{{potentialQuestionAnswer.numberOfAnswers}}</td>
 
                         </tr>
@@ -85,6 +86,9 @@
             }
         },
 
+        created: function(){
+            this.chosenMetrics.push()
+        },
 
         watch: {
             surveyId: function () {
@@ -103,6 +107,10 @@
             //                 // this.testee = response.bodyText
             //         });
             // },
+
+            test(){
+                this.chosenMetrics.push(3);
+            },
 
             loadStat() {
                 this.warning("loading...")
