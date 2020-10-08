@@ -158,12 +158,6 @@
     display: flex;
 }
 
-// .listContainer span {
-//   width: 50%;
-//   display: flex;
-//   padding: 0 20px;
-// }
-
 .listContainer:hover {
     background-color: #F5A528;
     color: #203C4A;
@@ -192,7 +186,6 @@
     display: flex;
     justify-content: center;
 }
-
 
 .button-blue {
     background-color: #203C4A;
