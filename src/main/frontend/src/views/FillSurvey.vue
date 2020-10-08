@@ -8,8 +8,13 @@
     >
       <div>
         <br>
-        <h4>The survey description: <b>{{survey.description}}</b></h4>
-        
+        <h4>The survey title: <b>{{survey.title}}</b></h4>
+        <div class="surveyCreatorComponent" style="padding: 10px">
+            <p>{{ survey.description }}</p>
+        </div>
+
+        <br>
+
         <div id="metrics" class="surveyCreatorComponent">
           <p class="mainNames">Metrics</p>
           <div v-for="metricQuestion in survey.metrics" :key="metricQuestion.id">
