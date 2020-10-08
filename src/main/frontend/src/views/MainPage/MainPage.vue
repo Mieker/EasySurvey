@@ -1,10 +1,10 @@
 <template>
 <div>
-    <find-survey class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></find-survey>
+    <find-survey class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)" @goToStatistics="goToStatistics($event)"></find-survey>
     <br>
-    <most-popular-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></most-popular-surveys>
+    <most-popular-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)" @goToStatistics="goToStatistics($event)"></most-popular-surveys>
     <br>
-    <latest-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)"></latest-surveys>
+    <latest-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)" @goToStatistics="goToStatistics($event)"></latest-surveys>
 </div>
 </template>
 
@@ -28,6 +28,9 @@ export default {
     methods: {
         sendSurveyIdToSurveyPage(IdOfSurvey) {
             this.$emit('sendSurveyIdToSurveyPage', IdOfSurvey);
+        },
+        goToStatistics(IdOfSurvey) {
+            this.$emit('goToStatistics', IdOfSurvey);
         }
     }
 

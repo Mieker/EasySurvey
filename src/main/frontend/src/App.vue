@@ -285,13 +285,11 @@ input[type="radio"]:checked {
   background-color: #F5A528;
 }
 
-
 /* optional styles, I'm using this for centering radiobuttons */
 .flex {
   display: flex;
   align-items:top;
 }
-
 
 textarea{
   -webkit-appearance: none;
@@ -306,6 +304,32 @@ textarea{
 }
 textarea:focus{
   border: 0.1rem solid #F5A528;
+}
+
+font-awesome-icon {
+    color: #135A7A;
+}
+
+.fasDiv {
+    margin-right: 10px;
+}
+
+.fasDiv:hover {
+    color: white;
+}
+
+.innerListContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.idSpan {
+    width: 100px;
+    margin-right: 100px;
+    text-align: left;
 }
 
 </style>

@@ -8,7 +8,7 @@
                 <span class="idSpan">ID: {{ survey[1] }}</span>
             </div>
             <div class="fasDiv">
-                <font-awesome-icon icon="chart-bar" class="fa-lg" @click="goToStatistics" />
+                <font-awesome-icon icon="chart-bar" class="fa-lg" @click="goToStatistics(survey[1])" />
             </div>
         </li>
     </ul>
@@ -36,8 +36,8 @@ export default {
         sendSurveyIdToSurveyPage(IdOfSurvey) {
             this.$emit('sendSurveyIdToSurveyPage', IdOfSurvey);
         },
-        goToStatistics() {
-            alert('uruchomiono alarm');
+        goToStatistics(IdOfSurvey) {
+            this.$emit('goToStatistics', IdOfSurvey);
         }
     }
 
@@ -45,29 +45,5 @@ export default {
 </script>
 
 <style>
-font-awesome-icon {
-    color: #135A7A;
-}
 
-.fasDiv {
-    margin-right: 10px;
-}
-
-.fasDiv:hover {
-    color: white;
-}
-
-.innerListContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.idSpan {
-    width: 100px;
-    margin-right: 50px;
-    text-align: left;
-}
 </style>

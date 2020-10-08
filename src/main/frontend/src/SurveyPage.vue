@@ -25,7 +25,8 @@
 
     <main-page v-if="mode==='main_page'" 
         @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)" 
-        @warning="warning($event)">
+        @warning="warning($event)"
+        @goToStatistics="goToStatistics($event)">
     </main-page>
     
     <new-survey v-if="mode==='new_survey'" :survey-id="surveyID" 
@@ -144,6 +145,10 @@ export default {
         sendSurveyIdToSurveyPage(IdOfSurvey) {
             this.surveyID = IdOfSurvey;
             this.fillSurvey();
+        },
+        goToStatistics(IdOfSurvey) {
+            this.surveyID = IdOfSurvey;
+            this.statistics();
         }
     }
 };

@@ -6,8 +6,14 @@
         <button class="button-blue" @click="searchForSurvey">SEARCH</button>
     </div>
     <ul>
-        <li class="listContainer" v-for="survey in searchingResults" v-bind:key="survey" @click="sendSurveyIdToSurveyPage(survey[1])">
-            <span>{{ survey[0] }}</span><span>ID: {{ survey[1] }}</span>
+        <li class="listContainer" v-for="survey in searchingResults" v-bind:key="survey">
+            <div class="innerListContainer" @click="sendSurveyIdToSurveyPage(survey[1])">
+                <span>{{ survey[0] }}</span>
+                <span class="idSpan">ID: {{ survey[1] }}</span>
+            </div>
+            <div class="fasDiv">
+                <font-awesome-icon icon="chart-bar" class="fa-lg" @click="goToStatistics(survey[1])" />
+            </div>
         </li>
     </ul>
 </div>
@@ -33,6 +39,9 @@ export default {
         },
         sendSurveyIdToSurveyPage(IdOfSurvey) {
             this.$emit('sendSurveyIdToSurveyPage', IdOfSurvey);
+        },
+        goToStatistics(IdOfSurvey) {
+            this.$emit('goToStatistics', IdOfSurvey);
         }
     }
 
