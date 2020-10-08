@@ -156,13 +156,13 @@
 
 .listContainer {
     display: flex;
-    justify-content: space-between;
 }
 
-.listContainer span {
-  width: 50%;
-  padding: 0 20px;
-}
+// .listContainer span {
+//   width: 50%;
+//   display: flex;
+//   padding: 0 20px;
+// }
 
 .listContainer:hover {
     background-color: #F5A528;
