@@ -27,7 +27,7 @@
 
 
         </table>
-        <button @click="loadTest()">see statistics</button>
+        <button @click="loadStat()">see statistics</button>
 
         <table>
             <tr>
@@ -86,14 +86,16 @@
             }
         },
 
-        created: function(){
-            this.chosenMetrics.push()
+        created(){
+            //this.loadTest();
+            //this.fill()
         },
 
         watch: {
             surveyId: function () {
                 //this.loadStat();
                 this.loadTest();
+                //this.fill();
             }
         },
 
@@ -108,28 +110,47 @@
             //         });
             // },
 
-            test(){
-                this.chosenMetrics.push(3);
+            // loadStat() {
+            //     this.warning("loading...")
+            //     this.$http.get('statistics/' + this.surveyId)
+            //         .then(response => {
+            //             this.statistic = response.body;
+            //             this.success("Successfuly loaded survey no. " + this.statistic.surveyId + ": " + this.statistic.surveyDescription);
+            //         })
+            //         .catch(response => {
+            //             this.failure('Error ' + response.status + ' while loading the survey statistics. No such survey ID.');
+            //         })
+            // },
+
+            loadTest() {
+                //
+                this.warning("loading...");
+                //this.fill();
+                //this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => this.response = response.body);
+                this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {this.statistic = response.body;
+                this.fill(); this.loadStat()});
+                //this.fill();
             },
 
             loadStat() {
-                this.warning("loading...")
-                this.$http.get('statistics/' + this.surveyId)
-                    .then(response => {
-                        this.statistic = response.body;
-                        this.success("Successfuly loaded survey no. " + this.statistic.surveyId + ": " + this.statistic.surveyDescription);
-                    })
-                    .catch(response => {
-                        this.failure('Error ' + response.status + ' while loading the survey statistics. No such survey ID.');
-                    })
-            },
-
-            loadTest() {
-                this.warning("loading...")
+                //
+                this.warning("loading...");
+                //this.fill();
                 //this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => this.response = response.body);
-                this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => this.statistic = response.body);
+                this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {this.statistic = response.body;
+                    });
+                //this.fill();
             },
 
+            fill() {
+                //this.text = this.metrics.metricsStats[0].metricAnswerStats[0].potentialMetricsAnswer.id
+                for(var i in this.statistic.survey.metrics){
+                    for(var j in this.statistic.survey.metrics[i].potentialMetricAnswers){
+                        this.chosenMetrics.push(this.statistic.survey.metrics[i].potentialMetricAnswers[j].id);
+                    }
+                }
+
+            },
 
             // getStat2(Qid, QAid) {
             //     this.$http.get('statistics/' + Qid + '/' + QAid)
@@ -161,9 +182,19 @@
         },
 
         mounted() {
-            //this.loadStat();
-            this.loadTest();
+            //this.fill();
+            this.loadTest()
+
         },
+
+        computed() {
+            this.fill();
+
+
+
+
+        },
+
 
 
     };
