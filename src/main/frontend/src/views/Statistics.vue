@@ -2,69 +2,95 @@
     <div id="statistics">
         <br>
         <h4>Total number of voters: <b>{{statistic.numberOfAnswers}}</b></h4>
-    <div class="surveyCreatorComponent" >
-        <p class="mainNames">Survey statistics</p>
+        <div class="surveyCreatorComponent">
+            <p class="mainNames">Survey statistics</p>
 
-        <h1>
-            {{chosenMetrics}}
-        </h1>
+<!--            <h1>-->
+<!--                {{chosenMetrics}} {{dupa}}-->
+<!--            </h1>-->
 
-        <table style="width:100%;table-layout:fixed;">
-            <tr>
-                <td style="font-weight: bold" align="center">Question:</td>
-                <td style="font-weight: bold" align="center">Metrics:</td>
-            </tr>
+            <table class="d">
+                <caption>Metric filter:</caption>
+                <tr>
+                    <td class="wide">Metric Question:</td>
+                    <td>Metrics Filter:</td>
 
-            <tr v-for="metric in statistic.survey.metrics" :key="metric.id" >
-                <td>{{ metric.metricText }}</td>
-                <td v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">
-                    {{potentialMetricAnswer.text}}
-                    <div ></div>
-                    <input type="checkbox" v-model="chosenMetrics" :value="potentialMetricAnswer.id"  >
-
-                </td>
-            </tr>
-
-
-        </table>
-        <button @click="loadStat()">see statistics</button>
-
-        <table>
-            <tr>
-                <td style="font-weight: bold" align="center">Question:</td>
-                <td style="font-weight: bold" align="center">Answers:</td>
-            </tr>
-            <tbody>
-
-            <tr v-for="question in statistic.questionStats" :key="question.id">
-                <td>{{question.questionText}}</td>
-                <td>
-                    <table>
-                        <thead>
-                        <td>Possible answer:</td>
-                        <td align="center">Percentage:</td>
-                        <td align="center">No. of quotes:</td>
-                        </thead>
-                        <tbody>
-                        <tr v-for="potentialQuestionAnswer in question.answerStats" :key="potentialQuestionAnswer.id">
-
-                            <td>{{potentialQuestionAnswer.potentialQuestionAnswer.text}}</td>
-                            <td align="center">{{Math.round(((potentialQuestionAnswer.numberOfAnswers / question.numberOfMetricAnswers) + Number.EPSILON) *10000)/100}} %</td>
-                            <td align="center">{{potentialQuestionAnswer.numberOfAnswers}}</td>
-
-                        </tr>
-                        </tbody>
-
-                    </table>
-
-                </td>
-
-            </tr>
+                </tr>
+                <tr v-for="metric in statistic.survey.metrics" :key="metric.id">
+                    <td>{{ metric.metricText }}</td>
+                    <td>
+                        <table class="e">
+                            <tbody>
+                            <td v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">
+                                {{potentialMetricAnswer.text}}
+                                <input type="checkbox" v-model="chosenMetrics" :value="potentialMetricAnswer.id">
+                            </td>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
 
 
-            </tbody>
-        </table>
-    </div>
+            <!--            <table class="d">-->
+            <!--                <caption>Metric filter:</caption>-->
+            <!--                <tr>-->
+            <!--                    <td class="wide">Metric Question:</td>-->
+            <!--                    <td>Metrics Filter:</td>-->
+            <!--                </tr>-->
+            <!--                <tr v-for="metric in statistic.survey.metrics" :key="metric.id">-->
+            <!--                    <td>{{ metric.metricText }}</td>-->
+            <!--                    <td>-->
+            <!--                        <table class="e">-->
+            <!--                            <tbody>-->
+            <!--                            <td v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">-->
+            <!--                                {{potentialMetricAnswer.text}}-->
+            <!--                                <input type="checkbox" v-model="chosenMetrics" :value="potentialMetricAnswer.id">-->
+            <!--                            </td>-->
+            <!--                            </tbody>-->
+            <!--                        </table>-->
+            <!--                    </td>-->
+
+
+            <!--            </table>-->
+
+
+<!--            <button @click="loadStat()">see statistics</button>-->
+
+            <table class="d">
+                <caption>Question statistics:</caption>
+                <thead>
+                <tr>
+                    <td class="wide">Question:</td>
+                    <td>Question Statistics:</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="question in statistic.questionStats" :key="question.id">
+                    <td>{{question.questionText}}</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <th>Possible answer:</th>
+                                <th class="innerTableWidth">%</th>
+                                <th class="innerTableWidth">Votes:</th>
+                            </tr>
+                            <tbody>
+                            <tr v-for="potentialQuestionAnswer in question.answerStats"
+                                :key="potentialQuestionAnswer.id">
+                                <td>{{potentialQuestionAnswer.potentialQuestionAnswer.text}}</td>
+                                <td align="center">{{Math.round(((potentialQuestionAnswer.numberOfAnswers /
+                                    question.numberOfMetricAnswers) + Number.EPSILON) *10000)/100}} %
+                                </td>
+                                <td align="center">{{potentialQuestionAnswer.numberOfAnswers}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -80,13 +106,14 @@
                 statistic: "",
                 chosenMetrics: [],
                 response: [],
+                dupa: [],
                 // questionId: "1",
                 // questionAnswerId: "2",
                 // prcResult: ""
             }
         },
 
-        created(){
+        created() {
             //this.loadTest();
             //this.fill()
         },
@@ -96,7 +123,13 @@
                 //this.loadStat();
                 this.loadTest();
                 //this.fill();
+            },
+
+            chosenMetrics: function(){
+                //this.test()
+                this.loadStat();
             }
+
         },
 
         methods: {
@@ -127,8 +160,11 @@
                 this.warning("loading...");
                 //this.fill();
                 //this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => this.response = response.body);
-                this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {this.statistic = response.body;
-                this.fill(); this.loadStat()});
+                this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {
+                    this.statistic = response.body;
+                    this.fill();
+                    this.loadStat()
+                });
                 //this.fill();
             },
 
@@ -137,19 +173,24 @@
                 this.warning("loading...");
                 //this.fill();
                 //this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => this.response = response.body);
-                this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {this.statistic = response.body;
-                    });
+                this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {
+                    this.statistic = response.body;
+                });
                 //this.fill();
             },
 
             fill() {
                 //this.text = this.metrics.metricsStats[0].metricAnswerStats[0].potentialMetricsAnswer.id
-                for(var i in this.statistic.survey.metrics){
-                    for(var j in this.statistic.survey.metrics[i].potentialMetricAnswers){
+                for (var i in this.statistic.survey.metrics) {
+                    for (var j in this.statistic.survey.metrics[i].potentialMetricAnswers) {
                         this.chosenMetrics.push(this.statistic.survey.metrics[i].potentialMetricAnswers[j].id);
                     }
                 }
 
+            },
+
+            test(){
+                this.dupa += 1
             },
 
             // getStat2(Qid, QAid) {
@@ -191,10 +232,7 @@
             this.fill();
 
 
-
-
         },
-
 
 
     };
@@ -232,6 +270,40 @@
                 cursor: pointer;
             }
         }
+    }
+
+    table, th, td {
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    th, td {
+        padding: 5px;
+    }
+
+
+    table.d {
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 95%;
+    }
+
+    table.e {
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        padding: 0;
+    }
+
+    .wide {
+        width: 25%;
+    }
+
+    .innerTableWidth {
+        width: 12%;
+        min-width: 100px;
     }
 
 
