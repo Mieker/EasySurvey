@@ -12,15 +12,15 @@
                     <td align="center" >Metrics Filter:</td>
                 </tr>
                 <tr v-for="metric in statistic.survey.metrics" :key="metric.id">
-                    <td>{{ metric.metricText }}</td>
+                    <td class="odpowiedziText">{{ metric.metricText }}</td>
                     <td>
                         <table class="noMargin">
                             <tbody class="d">
-                            <td class="odpowiedziMetrics" v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">
+                            <tr class="odpowiedziMetrics" v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">
+
+                                <input type="checkbox" style="margin: 0px 0px 0px 0px" v-model="chosenMetrics" :value="potentialMetricAnswer.id">
                                 {{potentialMetricAnswer.text}}
-                                <input type="checkbox" style="margin: 0px 0px 0px 0px" v-model="chosenMetrics"
-                                       :value="potentialMetricAnswer.id">
-                            </td>
+                            </tr>
                             </tbody>
                         </table>
                     </td>
@@ -36,7 +36,7 @@
                     <td align="center">Question Statistics:</td>
                 </tr>
                 <tr v-for="question in statistic.questionStats" :key="question.id">
-                    <td>{{question.questionText}}</td>
+                    <td class="odpowiedziText">{{question.questionText}}</td>
                     <td>
                         <table class="noMargin">
                             <tr class="a">
@@ -273,6 +273,7 @@
         border-right: 0;
         border-bottom: 0;
 
+
     }
 
     .topOdpowiedzi {
@@ -285,6 +286,17 @@
         border-bottom: 0;
         border-top: 0;
         text-align: center;
+
+    }
+
+    .odpowiedziText{
+        //font-max-size:16px;
+        font-size:16px;
+        //width: max(20vw, 400px)
+        @media screen and (max-width: 500px) {
+            font-size:3vw;
+
+        }
     }
 
     .odpowiedziMetrics {
@@ -296,6 +308,7 @@
         border-right: 0;
         border-bottom: 0;
         border-top: 0;
+
     }
 
 
@@ -340,7 +353,7 @@
 
 
     .wide {
-        width: 20%;
+        width: 30%;
     }
 
     .innerTableWidth {
