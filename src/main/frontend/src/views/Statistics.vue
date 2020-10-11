@@ -30,40 +30,6 @@
 
         <div class="surveyCreatorComponent">
             <p class="mainNames">Survey statistics</p>
-
-            <table class="d">
-                <tr>
-                    <td class="wide">Question:</td>
-                    <td align="center">Question Statistics:</td>
-                </tr>
-                <tr v-for="question in statistic.questionStats" :key="question.id">
-                    <td class="odpowiedziText">{{question.questionText}}</td>
-                    <td>
-                        <table class="noMargin">
-                            <tr class="a">
-                                <th class="topOdpowiedzi1">Answer:</th>
-                                <th class="topOdpowiedzi">%</th>
-                                <th class="topOdpowiedzi">Votes:</th>
-                            </tr>
-                            <tbody>
-                            <tr  v-for="potentialQuestionAnswer in question.answerStats"
-                                 :key="potentialQuestionAnswer.id">
-                                <td class="odpowiedzi"  >{{potentialQuestionAnswer.potentialQuestionAnswer.text}}</td>
-                                <td class="innerTableWidth">{{Math.round(((potentialQuestionAnswer.numberOfAnswers /
-                                    question.numberOfMetricAnswers) + Number.EPSILON) *10000)/100}} %
-                                </td>
-                                <td class="innerTableWidth2">{{potentialQuestionAnswer.numberOfAnswers}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-
-            </table>
-
-
-
-
             <table class="d">
                 <tr>
                     <td class="wide">Question:</td>
