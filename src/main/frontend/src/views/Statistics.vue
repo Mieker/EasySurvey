@@ -30,6 +30,40 @@
 
         <div class="surveyCreatorComponent">
             <p class="mainNames">Survey statistics</p>
+
+            <table class="d">
+                <tr>
+                    <td class="wide">Question:</td>
+                    <td align="center">Question Statistics:</td>
+                </tr>
+                <tr v-for="question in statistic.questionStats" :key="question.id">
+                    <td class="odpowiedziText">{{question.questionText}}</td>
+                    <td>
+                        <table class="noMargin">
+                            <tr class="a">
+                                <th class="topOdpowiedzi1">Answer:</th>
+                                <th class="topOdpowiedzi">%</th>
+                                <th class="topOdpowiedzi">Votes:</th>
+                            </tr>
+                            <tbody>
+                            <tr  v-for="potentialQuestionAnswer in question.answerStats"
+                                 :key="potentialQuestionAnswer.id">
+                                <td class="odpowiedzi"  >{{potentialQuestionAnswer.potentialQuestionAnswer.text}}</td>
+                                <td class="innerTableWidth">{{Math.round(((potentialQuestionAnswer.numberOfAnswers /
+                                    question.numberOfMetricAnswers) + Number.EPSILON) *10000)/100}} %
+                                </td>
+                                <td class="innerTableWidth2">{{potentialQuestionAnswer.numberOfAnswers}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+
+
+
+
             <table class="d">
                 <tr>
                     <td class="wide">Question:</td>
@@ -143,10 +177,10 @@
 
             loadStat() {
 
-                this.warning("updating according marked filters...");
+                this.warning("LOADING ...");
                 this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {
                     this.statistic = response.body;
-                    this.success("Successfully updated survey no. " + this.statistic.surveyId  + ' according to ' + this.chosenMetrics.length + ' chosen filters');
+                    this.success("Updated survey no. " + this.statistic.surveyId  + ' according to ' + this.chosenMetrics.length + ' chosen filters');
                 })
                     .catch(response => {
                         this.failure('Error ' + response.status + ' while loading the survey statistics. No such survey ID.');
@@ -227,6 +261,12 @@
         padding: 10px;
         margin-bottom: 10px;
         border: 3px solid black;
+        position: center;
+        left: 50%;
+        top: 50%;
+        margin-left: 10%;
+        margin-top: 10%;
+
     }
 
     .questions {
