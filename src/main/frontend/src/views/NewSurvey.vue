@@ -7,6 +7,7 @@
     <br>
     <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" @failure="failure($event)" />
     <br>
+    <vue-recaptcha sitekey="6LcsB9YZAAAAAP8R-Xq0Ff0BkZv2LKfz6cS2OhZv"></vue-recaptcha>
     <button class="button-yellow" id="createSurveyButton" @click="callForSurveyElements">Create the survey</button>
 </div>
 </template>
@@ -18,12 +19,14 @@ import DescriptionPanel from './NewSurvey/DescriptionPanel';
 import {
     dataBus
 } from '../main';
+// import VueRecaptcha from 'vue-recaptcha';
 
 export default {
     components: {
         CreateMetric,
         CreateSurvey,
-        DescriptionPanel
+        DescriptionPanel,
+        'vue-recaptcha': VueRecaptcha,
     },
     props: ['surveyID'],
     data() {
