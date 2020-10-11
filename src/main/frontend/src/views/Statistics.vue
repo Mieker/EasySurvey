@@ -1,94 +1,63 @@
 <template>
     <div id="statistics">
         <br>
+
         <h4>Total number of voters: <b>{{statistic.numberOfAnswers}}</b></h4>
+
         <div class="surveyCreatorComponent">
-            <p class="mainNames">Survey statistics</p>
-
-<!--            <h1>-->
-<!--                {{chosenMetrics}} {{dupa}}-->
-<!--            </h1>-->
-
+            <p class="mainNames">Metric filter</p>
             <table class="d">
-                <caption>Metric filter:</caption>
                 <tr>
                     <td class="wide">Metric Question:</td>
-                    <td>Metrics Filter:</td>
-
+                    <td align="center" >Metrics Filter:</td>
                 </tr>
                 <tr v-for="metric in statistic.survey.metrics" :key="metric.id">
                     <td>{{ metric.metricText }}</td>
                     <td>
-                        <table class="e">
-                            <tbody>
-                            <td v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">
+                        <table class="noMargin">
+                            <tbody class="d">
+                            <td class="odpowiedziMetrics" v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">
                                 {{potentialMetricAnswer.text}}
-                                <input type="checkbox" v-model="chosenMetrics" :value="potentialMetricAnswer.id">
+                                <input type="checkbox" style="margin: 0px 0px 0px 0px" v-model="chosenMetrics"
+                                       :value="potentialMetricAnswer.id">
                             </td>
                             </tbody>
                         </table>
                     </td>
                 </tr>
             </table>
+        </div>
 
-
-            <!--            <table class="d">-->
-            <!--                <caption>Metric filter:</caption>-->
-            <!--                <tr>-->
-            <!--                    <td class="wide">Metric Question:</td>-->
-            <!--                    <td>Metrics Filter:</td>-->
-            <!--                </tr>-->
-            <!--                <tr v-for="metric in statistic.survey.metrics" :key="metric.id">-->
-            <!--                    <td>{{ metric.metricText }}</td>-->
-            <!--                    <td>-->
-            <!--                        <table class="e">-->
-            <!--                            <tbody>-->
-            <!--                            <td v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">-->
-            <!--                                {{potentialMetricAnswer.text}}-->
-            <!--                                <input type="checkbox" v-model="chosenMetrics" :value="potentialMetricAnswer.id">-->
-            <!--                            </td>-->
-            <!--                            </tbody>-->
-            <!--                        </table>-->
-            <!--                    </td>-->
-
-
-            <!--            </table>-->
-
-
-<!--            <button @click="loadStat()">see statistics</button>-->
-
+        <div class="surveyCreatorComponent">
+            <p class="mainNames">Survey statistics</p>
             <table class="d">
-                <caption>Question statistics:</caption>
-                <thead>
                 <tr>
                     <td class="wide">Question:</td>
-                    <td>Question Statistics:</td>
+                    <td align="center">Question Statistics:</td>
                 </tr>
-                </thead>
-                <tbody>
                 <tr v-for="question in statistic.questionStats" :key="question.id">
                     <td>{{question.questionText}}</td>
                     <td>
-                        <table>
-                            <tr>
-                                <th>Possible answer:</th>
-                                <th class="innerTableWidth">%</th>
-                                <th class="innerTableWidth">Votes:</th>
+                        <table class="noMargin">
+                            <tr class="a">
+                                <th class="topOdpowiedzi1">Answer:</th>
+                                <th class="topOdpowiedzi">%</th>
+                                <th class="topOdpowiedzi">Votes:</th>
                             </tr>
                             <tbody>
-                            <tr v-for="potentialQuestionAnswer in question.answerStats"
+                            <tr  v-for="potentialQuestionAnswer in question.answerStats"
                                 :key="potentialQuestionAnswer.id">
-                                <td>{{potentialQuestionAnswer.potentialQuestionAnswer.text}}</td>
-                                <td align="center">{{Math.round(((potentialQuestionAnswer.numberOfAnswers /
+                                <td class="odpowiedzi"  >{{potentialQuestionAnswer.potentialQuestionAnswer.text}}</td>
+                                <td class="innerTableWidth">{{Math.round(((potentialQuestionAnswer.numberOfAnswers /
                                     question.numberOfMetricAnswers) + Number.EPSILON) *10000)/100}} %
                                 </td>
-                                <td align="center">{{potentialQuestionAnswer.numberOfAnswers}}</td>
+                                <td class="innerTableWidth2">{{potentialQuestionAnswer.numberOfAnswers}}</td>
                             </tr>
                             </tbody>
                         </table>
                     </td>
                 </tr>
-                </tbody>
+
             </table>
         </div>
     </div>
@@ -121,11 +90,12 @@
         watch: {
             surveyId: function () {
                 //this.loadStat();
+                this.empty();
                 this.loadTest();
                 //this.fill();
             },
 
-            chosenMetrics: function(){
+            chosenMetrics: function () {
                 //this.test()
                 this.loadStat();
             }
@@ -162,21 +132,26 @@
                 //this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => this.response = response.body);
                 this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {
                     this.statistic = response.body;
+                    this.success("Successfully loaded survey no. " + this.statistic.surveyId + ": " + this.statistic.surveyDescription);
                     this.fill();
                     this.loadStat()
-                });
-                //this.fill();
+                })
+                    .catch(response => {
+                        this.failure('Error ' + response.status + ' while loading the survey statistics. No such survey ID.');
+                    })
             },
 
             loadStat() {
-                //
-                this.warning("loading...");
-                //this.fill();
-                //this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => this.response = response.body);
+
+                this.warning("updating according marked filters...");
                 this.$http.post('statistics/' + this.surveyId + '/metrics', this.chosenMetrics).then(response => {
                     this.statistic = response.body;
-                });
-                //this.fill();
+                    this.success("Successfully updated survey no. " + this.statistic.surveyId  + ' according to ' + this.chosenMetrics.length + ' chosen filters');
+                })
+                    .catch(response => {
+                        this.failure('Error ' + response.status + ' while loading the survey statistics. No such survey ID.');
+                    })
+
             },
 
             fill() {
@@ -189,7 +164,11 @@
 
             },
 
-            test(){
+            empty() {
+              this.chosenMetrics = [];
+            },
+
+            test() {
                 this.dupa += 1
             },
 
@@ -272,14 +251,66 @@
         }
     }
 
-    table, th, td {
-        border-collapse: collapse;
+    .topOdpowiedzi1{
+        padding-top: 5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #e1e1e1;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-top: 0;
+        text-align: left;
+    }
+
+    .odpowiedzi {
+
+        padding: 0;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #e1e1e1;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+
+    }
+
+    .topOdpowiedzi {
+        padding-top: 5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #e1e1e1;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-top: 0;
         text-align: center;
     }
 
-    th, td {
-        padding: 5px;
+    .odpowiedziMetrics {
+        padding: 0;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #e1e1e1;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-top: 0;
     }
+
+
+    th, td {
+        //padding: 5px;
+        padding: 1px 5px;
+    }
+
+
+
+    .a {
+        font-size: 12px;
+    }
+
+
 
 
     table.d {
@@ -294,16 +325,48 @@
         margin-left: auto;
         margin-right: auto;
         width: 100%;
-        padding: 0;
     }
 
+    .noMargin {
+        margin-top: 1px;
+        margin-bottom: 1px;
+    }
+
+    .f {
+        text-align: center;
+        vertical-align: bottom;
+
+    }
+
+
     .wide {
-        width: 25%;
+        width: 20%;
     }
 
     .innerTableWidth {
-        width: 12%;
-        min-width: 100px;
+        padding: 0;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #e1e1e1;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        width: 6%;
+        min-width: 70px;
+        text-align: center;
+    }
+
+    .innerTableWidth2 {
+        padding: 0;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #e1e1e1;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        width: 6%;
+        min-width: 50px;
+        text-align: center;
     }
 
 
