@@ -32,7 +32,8 @@
         </div>
 
         <br>
-        <button v-if="!submitted" class = "button-yellow" @click="submitAnswer()"  >submit your survey</button>  
+        <vue-recaptcha sitekey="6LcsB9YZAAAAAP8R-Xq0Ff0BkZv2LKfz6cS2OhZv"></vue-recaptcha>
+        <button v-if="!submitted" class = "button-yellow" @click="verifyRecaptchaThanSubmitAnswers()"  >submit your survey</button>  
       
       </div>
     </transition>
@@ -44,7 +45,11 @@
     import FillSurveyMetricQuestion from "./FillSurveyMetricQuestion";
     
     export default {
-      components: {FillSurveyQuestion, FillSurveyMetricQuestion},
+      components: {
+          FillSurveyQuestion,
+          FillSurveyMetricQuestion,
+          'vue-recaptcha': VueRecaptcha,
+      },
       props: ["surveyId"],
       
       data() {
@@ -193,6 +198,25 @@
         },
         warning(message) {
           this.$emit("warning", message);
+        },
+        verifyRecaptchaThanSubmitAnswers() {
+            var recaptchaToken = grecaptcha.getResponse();
+            if (recaptchaToken != '') {
+                this.$http.post('recaptcha/' + recaptchaToken)
+                    .then(response => {
+                        var isSuccess = response.body;
+                        if (isSuccess) {
+                            this.submitAnswer();
+                        } else {
+                            this.failure('reCAPTCHA verification failure! You are a robot!');
+                        }
+                    })
+                    .catch(response => {
+                        //TODO
+                    });
+            } else {
+                this.failure("'I am not a robot' reCAPTCHA unselected!'");
+            }
         }
 
       },

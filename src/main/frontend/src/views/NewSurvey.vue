@@ -7,7 +7,8 @@
     <br>
     <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" @failure="failure($event)" />
     <br>
-    <button class="button-yellow" id="createSurveyButton" @click="callForSurveyElements">Create the survey</button>
+    <vue-recaptcha sitekey="6LcsB9YZAAAAAP8R-Xq0Ff0BkZv2LKfz6cS2OhZv"></vue-recaptcha>
+    <button class="button-yellow" id="createSurveyButton" @click="submitSurvey">Create the survey</button>
 </div>
 </template>
 
@@ -23,7 +24,8 @@ export default {
     components: {
         CreateMetric,
         CreateSurvey,
-        DescriptionPanel
+        DescriptionPanel,
+        'vue-recaptcha': VueRecaptcha,
     },
     props: ['surveyID'],
     data() {
@@ -52,11 +54,13 @@ export default {
 
             var isSurveyComplet = true;
             if (this.survey.title.trim() === '' || this.survey.description.trim() === '') {
-             isSurveyComplet = false;
-            } if (this.survey.questions.length <= 0) {
-             isSurveyComplet = false;
-            } if (this.survey.metrics.length <= 0) {
-             isSurveyComplet = false;
+                isSurveyComplet = false;
+            }
+            if (this.survey.questions.length <= 0) {
+                isSurveyComplet = false;
+            }
+            if (this.survey.metrics.length <= 0) {
+                isSurveyComplet = false;
             }
 
             if (isSurveyComplet) {
@@ -81,13 +85,33 @@ export default {
         success(message) {
             this.$emit("success", message);
         },
-
         failure(message) {
             this.$emit("error", message);
         },
-
         warning(message) {
             this.$emit("warning", message);
+        },
+        submitSurvey() {
+            this.verifyRecaptcha();
+        },
+        verifyRecaptcha() {
+            var recaptchaToken = grecaptcha.getResponse();
+            if (recaptchaToken != '') {
+                this.$http.post('recaptcha/' + recaptchaToken)
+                    .then(response => {
+                        var isSuccess = response.body;
+                        if (isSuccess) {
+                            this.callForSurveyElements();
+                        } else {
+                            this.failure('reCAPTCHA verification failure! You are a robot!');
+                        }
+                    })
+                    .catch(response => {
+                        //TODO
+                    });
+            } else {
+                this.failure("'I am not a robot' reCAPTCHA unselected!'");
+            }
         }
     }
 };
