@@ -8,7 +8,7 @@
     <CreateSurvey @getSurveyQuestions="getSurveyQuestionsFromChild($event)" @failure="failure($event)" />
     <br>
     <vue-recaptcha sitekey="6LcsB9YZAAAAAP8R-Xq0Ff0BkZv2LKfz6cS2OhZv"></vue-recaptcha>
-    <button class="button-yellow" id="createSurveyButton" @click="callForSurveyElements">Create the survey</button>
+    <button class="button-yellow" id="createSurveyButton" @click="submitSurvey">Create the survey</button>
 </div>
 </template>
 
@@ -19,7 +19,6 @@ import DescriptionPanel from './NewSurvey/DescriptionPanel';
 import {
     dataBus
 } from '../main';
-// import VueRecaptcha from 'vue-recaptcha';
 
 export default {
     components: {
@@ -55,11 +54,13 @@ export default {
 
             var isSurveyComplet = true;
             if (this.survey.title.trim() === '' || this.survey.description.trim() === '') {
-             isSurveyComplet = false;
-            } if (this.survey.questions.length <= 0) {
-             isSurveyComplet = false;
-            } if (this.survey.metrics.length <= 0) {
-             isSurveyComplet = false;
+                isSurveyComplet = false;
+            }
+            if (this.survey.questions.length <= 0) {
+                isSurveyComplet = false;
+            }
+            if (this.survey.metrics.length <= 0) {
+                isSurveyComplet = false;
             }
 
             if (isSurveyComplet) {
@@ -84,13 +85,32 @@ export default {
         success(message) {
             this.$emit("success", message);
         },
-
         failure(message) {
             this.$emit("error", message);
         },
-
         warning(message) {
             this.$emit("warning", message);
+        },
+        submitSurvey() {
+            //TODO
+            alert('submitSurvey() runs');
+            this.verifyRecaptcha();
+            this.callForSurveyElements();
+        },
+        verifyRecaptcha() {
+            //TODO
+            var recaptchaToken = grecaptcha.getResponse();
+            // alert('verifyRecaptcha() runs: ' + recaptchaToken);
+            this.$http.post('recaptcha/' + recaptchaToken)
+                .then(response => {
+                   alert(response.body);
+                   
+                })
+                .catch(response => {
+                   
+                   
+                });
+
         }
     }
 };
