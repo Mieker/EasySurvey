@@ -92,25 +92,26 @@ export default {
             this.$emit("warning", message);
         },
         submitSurvey() {
-            //TODO
-            alert('submitSurvey() runs');
             this.verifyRecaptcha();
-            this.callForSurveyElements();
         },
         verifyRecaptcha() {
-            //TODO
             var recaptchaToken = grecaptcha.getResponse();
-            // alert('verifyRecaptcha() runs: ' + recaptchaToken);
-            this.$http.post('recaptcha/' + recaptchaToken)
-                .then(response => {
-                   alert(response.body);
-                   
-                })
-                .catch(response => {
-                   
-                   
-                });
-
+            if (recaptchaToken != '') {
+                this.$http.post('recaptcha/' + recaptchaToken)
+                    .then(response => {
+                        var isSuccess = response.body;
+                        if (isSuccess) {
+                            this.callForSurveyElements();
+                        } else {
+                            this.failure('reCAPTCHA verification failure! You are a robot!');
+                        }
+                    })
+                    .catch(response => {
+                        //TODO
+                    });
+            } else {
+                this.failure("'I am not a robot' reCAPTCHA unselected!'");
+            }
         }
     }
 };
