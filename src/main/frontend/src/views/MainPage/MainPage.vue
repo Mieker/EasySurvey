@@ -1,5 +1,6 @@
 <template>
 <div>
+    <br>
     <find-survey class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)" @goToStatistics="goToStatistics($event)"></find-survey>
     <br>
     <most-popular-surveys class="surveyCreatorComponent" @sendSurveyIdToSurveyPage="sendSurveyIdToSurveyPage($event)" @goToStatistics="goToStatistics($event)"></most-popular-surveys>
