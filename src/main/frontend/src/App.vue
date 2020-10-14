@@ -256,6 +256,28 @@ input[type=text]:focus {
   border: 0.1rem solid #F5A528;
 }
 
+input[type="checkbox"] {
+  /* remove standard background appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* create custom checkbox appearance */
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  /* background-color only for content */
+  background-clip:content-box;
+  border: 2px solid #203C4A;
+  background-color: #FFFFFF;
+  border-radius: 0%;
+}
+
+/* appearance for checked radiobutton */
+input[type="checkbox"]:checked {
+  background-color: #F5A528;
+}
+
 input[type="radio"] {
   /* remove standard background appearance */
   -webkit-appearance: none;

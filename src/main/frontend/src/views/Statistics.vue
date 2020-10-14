@@ -16,7 +16,7 @@
                     <td>
                         <table class="noMargin">
                             <tbody class="d">
-                            <tr class="odpowiedziMetrics" v-for="potentialMetricAnswer in metric.potentialMetricAnswers" :key="metric.id">
+                            <tr class="odpowiedziMetrics" v-for="potentialMetricAnswer in metric.potentialMetricAnswers" v-bind:key="metric.id">
 
                                 <input type="checkbox" style="margin: 0px 0px 0px 0px" v-model="chosenMetrics" :value="potentialMetricAnswer.id">
                                 {{potentialMetricAnswer.text}}
@@ -28,6 +28,7 @@
             </table>
         </div>
 
+        <br>
         <div class="surveyCreatorComponent">
             <p class="mainNames">Survey statistics</p>
             <table class="d">
