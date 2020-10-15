@@ -3,7 +3,7 @@
     <p class="mainNames">Description panel</p>
     <p>Survey title:</p>
     <input class="inputQuestionBar" type="text" v-model="descriptionPanel.title">
-    <p>Surve description:</p>
+    <p>Survey description:</p>
     <textarea name="" id="" cols="30" rows="10" v-model="descriptionPanel.description"></textarea>
 </div>
 </template>
@@ -22,6 +22,16 @@ export default {
             }
         }
     },
+
+    watch: { 
+        'descriptionPanel.title': function() {
+          this.pushDescriptionToParentComponent();
+        },
+        'descriptionPanel.description': function() {
+          this.pushDescriptionToParentComponent();
+        }
+      },
+    
     methods: {
         pushDescriptionToParentComponent() {
             this.$emit('getSurveyDescription', this.descriptionPanel);
