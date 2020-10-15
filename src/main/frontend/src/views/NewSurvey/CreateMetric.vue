@@ -25,6 +25,12 @@ export default {
             
         }
     },
+
+    watch: { 
+        'questions': function() {
+          this.pushQuestionsToParentComponent();
+        }
+      },
     methods: {
         pullQuestion() {
             dataBus.$emit('pullMetricQuestion');

@@ -9,6 +9,9 @@
     <br>
     <vue-recaptcha sitekey="6LcsB9YZAAAAAP8R-Xq0Ff0BkZv2LKfz6cS2OhZv"></vue-recaptcha>
     <button class="button-yellow" id="createSurveyButton" @click="submitSurvey">Create the survey</button>
+    <br><br><br>
+    <h4><b>SURVEY PREVIEW</b></h4>
+    <SurveyPreview :survey="survey"></SurveyPreview>
 </div>
 </template>
 
@@ -16,6 +19,7 @@
 import CreateMetric from './NewSurvey/CreateMetric';
 import CreateSurvey from './NewSurvey/CreateSurvey';
 import DescriptionPanel from './NewSurvey/DescriptionPanel';
+import SurveyPreview from './SurveyPreview';
 import {
     dataBus
 } from '../main';
@@ -25,6 +29,7 @@ export default {
         CreateMetric,
         CreateSurvey,
         DescriptionPanel,
+        SurveyPreview,
         'vue-recaptcha': VueRecaptcha,
     },
     props: ['surveyID'],
