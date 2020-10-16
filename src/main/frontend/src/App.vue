@@ -154,14 +154,7 @@
 //     background-color: gray;
 // }
 
-.listContainer {
-    display: flex;
-}
 
-.listContainer:hover {
-    background-color: #F5A528;
-    color: #203C4A;
-}
 
 .mainButtonsPanel button {
     min-width: 180px;
@@ -331,14 +324,6 @@ font-awesome-icon {
 
 .fasDiv:hover {
     color: white;
-}
-
-.innerListContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 .idSpan {
