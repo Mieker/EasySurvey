@@ -48,27 +48,3 @@ export default {
 }
 </script>
 
-<style scoped>
-    .findSurveyBar {
-        width: 70%;
-        margin-right: 10px;
-    }
-
-    .listContainer {
-        display: flex;
-    }
-
-    .listContainer:hover {
-        background-color: #F5A528;
-        color: #203C4A;
-    }
-
-    .innerListContainer {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-</style>
