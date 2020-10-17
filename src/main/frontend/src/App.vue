@@ -143,19 +143,6 @@
     border-radius: 5px;
 }
 
-// #createSurveyButton {
-//     float: right;
-//     margin-right: 5px;
-//     margin-top: 5px;
-//     background-color: coral;
-// }
-
-// #createSurveyButton:hover {
-//     background-color: gray;
-// }
-
-
-
 .mainButtonsPanel button {
     min-width: 180px;
 }
@@ -308,7 +295,6 @@ textarea{
   box-sizing: inherit;
   height: 3.8rem;
   padding: .6rem 1.0rem .7rem;
-  //width: 100%;
 }
 textarea:focus{
   border: 0.1rem solid #F5A528;
@@ -352,6 +338,16 @@ font-awesome-icon {
     justify-content: space-between;
     padding-left: 10px;
     padding-right: 10px;
+}
+.button-small {
+  font-size: 1rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  padding: 0 1.5rem;
+  background-color: #F5A528;
+}
+.button-small:hover {
+    background-color: gray;
 }
 
 </style>

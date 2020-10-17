@@ -27,25 +27,12 @@ ul {
     text-align: left;
     margin: 0 15% 0 15%;
     font-weight: bold;
-    color: cornflowerblue;
 }
 
 li {
     margin: 0 80px;
     font-weight: normal;
     font-style: italic;
-}
-
-.button-small {
-  font-size: 1rem;
-  height: 2.8rem;
-  line-height: 2.8rem;
-  padding: 0 1.5rem;
-  background-color: coral;
-}
-
-.button-small:hover {
-    background-color: gray;
 }
 
 </style>

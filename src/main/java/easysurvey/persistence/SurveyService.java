@@ -255,5 +255,12 @@ public class SurveyService {
         List<Survey> foundedSurveys = query.list();
         return foundedSurveys;
     }
+    
+    public Collection<Survey> getSurveyByTitle(String title) {
+        String hqlQuery = "FROM Survey S WHERE LOWER(S.title) = '" + title.toLowerCase() + "'";
+        Query query = session.createQuery(hqlQuery);
+        List<Survey> foundedSurveys = query.list();
+        return foundedSurveys;
+    }
 }
 
