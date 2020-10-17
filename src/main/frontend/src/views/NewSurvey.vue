@@ -11,10 +11,10 @@
     <br>
     <div class="row">
         <div class="column"><button class="button-blue" id="previewSurveyButton" style="float:left" @click="previewSurvey">{{previewButtonText}}</button></div>
-        <div class="column"><button class="button-yellow" id="createSurveyButton" @click="submitSurvey">Create the survey</button> </div>   
+        <div class="column"><button class="button-yellow" id="createSurveyButton" @click="submitSurvey">Create the survey</button> </div>
     </div>
     <br>
-    
+
     <SurveyPreview v-if="preview" :survey="survey"></SurveyPreview>
 </div>
 </template>
@@ -54,15 +54,15 @@ export default {
             this.survey.title = description.title;
             this.survey.description = description.description;
         },
-        
+
         getMetricQuestionsFromChild(questions) {
             this.survey.metrics = questions;
         },
-        
+
         getSurveyQuestionsFromChild(questions) {
             this.survey.questions = questions;
         },
-        
+
         callForSurveyElements() {
             dataBus.$emit('callForSurveyElements');
 
@@ -78,12 +78,30 @@ export default {
             }
 
             if (isSurveyComplet) {
-                this.createSurvey();
+                this.isDbContainsTitle(this.survey.title);
             } else {
                 this.failure('To create new survey you need to fulfill all the inputs!')
             }
         },
-        
+
+        isDbContainsTitle(title) {
+            this.warning('Please wait...');
+            var titlesFromDb;
+            var url = "survey/findbytitle/" + title;
+            this.$http.get(url)
+                .then(response => {
+                    titlesFromDb = response.body;
+                    if (titlesFromDb.length > 0) {
+                        this.failure("A survey with that title already exists!");
+                    } else {
+                        this.createSurvey();
+                    }
+                })
+                .catch(response => {
+                    //TODO
+                });
+        },
+
         createSurvey() {
             this.warning("creating the survey...")
             this.$http.post('survey', this.survey)
@@ -98,10 +116,10 @@ export default {
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
                 });
         },
-        
-        previewSurvey(){
+
+        previewSurvey() {
             this.preview = !this.preview;
-            if (this.preview){
+            if (this.preview) {
                 this.previewButtonText = "hide preview"
             } else {
                 this.previewButtonText = "preview"
@@ -111,19 +129,19 @@ export default {
         success(message) {
             this.$emit("success", message);
         },
-        
+
         failure(message) {
             this.$emit("error", message);
         },
-        
+
         warning(message) {
             this.$emit("warning", message);
         },
-        
+
         submitSurvey() {
             this.verifyRecaptcha();
         },
-        
+
         verifyRecaptcha() {
             var recaptchaToken = grecaptcha.getResponse();
             if (recaptchaToken != '') {
