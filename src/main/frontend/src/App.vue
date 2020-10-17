@@ -353,6 +353,16 @@ font-awesome-icon {
     padding-left: 10px;
     padding-right: 10px;
 }
+.button-small {
+  font-size: 1rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  padding: 0 1.5rem;
+  background-color: coral;
+}
+.button-small:hover {
+    background-color: gray;
+}
 
 </style>
 
