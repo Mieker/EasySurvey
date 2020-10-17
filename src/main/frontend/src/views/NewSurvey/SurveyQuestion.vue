@@ -61,11 +61,12 @@ export default {
 ul {
     list-style: none;
     text-align: left;
-    margin: 0 5% 0 5%;
+    margin: 0 15% 0 15%;
 }
 
 li {
     margin: 0;
+    font-style: italic;
 }
 
 p {

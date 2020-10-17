@@ -27,7 +27,6 @@ ul {
     text-align: left;
     margin: 0 15% 0 15%;
     font-weight: bold;
-    color: cornflowerblue;
 }
 
 li {

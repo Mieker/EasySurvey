@@ -8,9 +8,9 @@
         <property name="format_sql">true</property>
         
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-247-103-43.eu-west-1.compute.amazonaws.com:5432/d7a35pbl23jqac</property>
-        <property name="hibernate.connection.username">huojlqrmvizkwn</property>
-        <property name="hibernate.connection.password">183f43b7901660b93c6cc9aced492b1d8a0c3b01c47ee742869af2323692ecab</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-247-169-129.eu-west-1.compute.amazonaws.com:5432/d2ei0dlthkookt</property>
+        <property name="hibernate.connection.username">ptkdnyisiiddau</property>
+        <property name="hibernate.connection.password">55778b312af0511f1088640ad9af8696c4b513b1483db08392ec6567eec0866e</property>
   
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>

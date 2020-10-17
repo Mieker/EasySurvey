@@ -61,11 +61,12 @@ export default {
 ul {
     list-style: none;
     text-align: left;
-    margin: 0 5% 0 5%;
+    margin: 0 15% 0 15%;
 }
 
 li {
     margin: 0;
+    font-style: italic;
 }
 
 p {
@@ -85,7 +86,7 @@ p {
     height: 2.8rem;
     line-height: 2.8rem;
     padding: 0 1.5rem;
-    background-color: coral;
+    background-color: #F5A528;
 }
 
 .button-small:hover {
