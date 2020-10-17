@@ -71,4 +71,13 @@ public class SurveyRestController {
         Collection<Survey> searchingForSurveyResults = surveyService.findSurveyByKeyWord(keyWord);
         return new ResponseEntity<Collection<Survey>>(searchingForSurveyResults, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/findbytitle/{title}", method = RequestMethod.GET)
+    public ResponseEntity<?> getSurveyByTitle(@PathVariable("title") String title) {
+        Collection<Survey> foundedSurveys = surveyService.getSurveyByTitle(title);
+        if (foundedSurveys == null) {
+            return new ResponseEntity<Collection<Survey>>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Collection<Survey>>(foundedSurveys, HttpStatus.OK);
+    }
 }
