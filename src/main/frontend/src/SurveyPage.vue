@@ -32,7 +32,8 @@
     <new-survey v-if="mode==='new_survey'" :survey-id="surveyID" 
         @error="failure($event)" 
         @success="success($event)" 
-        @warning="warning($event)">
+        @warning="warning($event)"
+        @goToFillSurvey="sendSurveyIdToSurveyPage($event)">
     </new-survey>
     
     <fill-survey v-if="mode==='fill_survey'" :survey-id="surveyID" 

@@ -91,6 +91,7 @@ export default {
                     this.surveyID = response.body.id;
                     this.success("Congratulations! New survey created. You can try it with ID: " + this.surveyID);
                     document.body.scrollTop = document.documentElement.scrollTop = 0;
+                    this.$emit('goToFillSurvey', this.surveyID);
                 })
                 .catch(response => {
                     this.failure("Something went wrong. The survey couldn't be created.");
