@@ -28,7 +28,7 @@ public class FaviconConfiguration {
         ResourceHttpRequestHandler requestHandler
           = new ResourceHttpRequestHandler();
         ClassPathResource classPathResource 
-          = new ClassPathResource("com/baeldung/images/");
+          = new ClassPathResource("/");
         List<Resource> locations = Arrays.asList(classPathResource);
         requestHandler.setLocations(locations);
         return requestHandler;
